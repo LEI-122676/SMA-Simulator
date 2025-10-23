@@ -2,14 +2,17 @@ import string
 import time
 
 from Agent import Agent
-from World import World
+from Map import Map
+from Sensor import Sensor
 
 
 class Simulator:
 
-    def __init__(self, worldSize, numAgents):
-        self.world = World(worldSize)
-        self.agents = [Agent(n) for n in numAgents]
+    def __init__(self, worldWidth, worldHeight, numAgents, timeLimit):
+        self.stop = False                                                   # Phase 1
+        self.map = Map(worldWidth, worldHeight)                             # Phase 2
+        self.agents = [Agent(n).install(Sensor()) for n in numAgents]       # Phase 3
+        self.timeLimit = timeLimit
 
     def create(self, fileNameArgs):
         if not isinstance(fileNameArgs, string):
@@ -22,18 +25,27 @@ class Simulator:
     def execute(self):
         pass
 
+    def saveResults(self):
+        pass
+
+
 if __name__ == "__main__":
 
-    map = World()
+    simulator = Simulator(5, 5, 1)
 
-    while not map.stop:
-        map.update()
+    while not simulator.stop:
+        simulator.map.update()                                              # Phase 4
 
-        x, y = map.get_action()
-        obj = map.get_object_here(x, y)
+        for a in simulator.agents:
+            a.act()                                                         # Phase 5
 
-        map.agentx = x
-        map.agenty = y
 
+        simulator.map.act()
+
+        if simulator.map.solved or simulator.timeLimit == 0:
+            break
+        
+        simulator.timeLimit -= 1
         time.sleep(0.5)
 
+    simulator.saveResults()
