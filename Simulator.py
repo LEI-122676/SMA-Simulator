@@ -8,9 +8,9 @@ from Sensor import Sensor
 
 class Simulator:
 
-    def __init__(self, worldWidth, worldHeight, numAgents, timeLimit):
+    def __init__(self, mapWidth, mapHeight, numAgents, timeLimit):
         self.stop = False                                                   # Phase 1
-        self.map = Map(worldWidth, worldHeight)                             # Phase 2
+        self.map = Map(mapWidth, mapHeight)                             # Phase 2
         self.agents = [Agent(n).install(Sensor()) for n in numAgents]       # Phase 3
         self.timeLimit = timeLimit
 
