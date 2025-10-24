@@ -1,11 +1,18 @@
+from Observation import Observation
+
+
 class Map:
 
     def __init__(self, width, height):
         self.map = [["" for _ in range(width)] for _ in range(height)]
         self.solved = False
 
-    def observerFor(self, agent):
-        pass #return Observer
+    def observationFor(self, agent):                        # Phase 5.2
+        obs = Observation()
+
+        # TODO
+
+        return obs
 
     def update(self):
         pass

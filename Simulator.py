@@ -1,3 +1,4 @@
+import concurrent.futures
 import string
 import time
 
@@ -33,18 +34,20 @@ if __name__ == "__main__":
 
     simulator = Simulator(5, 5, 1)
 
-    while not simulator.stop:
-        simulator.map.update()                                                      # Phase 4
+    while not simulator.stop or simulator.timeLimit == 0:
+        simulator.map.update()  # Phase 4 [cite: 56]
 
-        for a in simulator.agents:
-            a.act()                                                                 # Phase 5
+                                                                                    # Phase 5
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = [executor.submit(a.act) for a in simulator.agents]            # runs all agent "act()" methods in parallel
 
+            concurrent.futures.wait(futures)                                        # waits for all threads before continuing
 
         simulator.map.act()
 
-        if simulator.map.solved or simulator.timeLimit == 0:
-            break
-        
+        if simulator.map.solved:
+            simulator.stop = True
+
         simulator.timeLimit -= 1
         time.sleep(0.5)
 
