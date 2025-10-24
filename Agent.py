@@ -3,6 +3,9 @@ class Agent:   # Threads
     def __init__(self, id):
         self.id = id
 
+    def toString(self):
+        return f"A{self.id}"
+
     def create(self, fileNameArgs):
         pass
 
