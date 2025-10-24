@@ -14,7 +14,7 @@ class Agent:   # Threads
         pass
 
     def act(self):
-        currentState = self.sensor.getCurrentState(self)
+        currentState = self.sensor.getCurrentState(self)            # Phase 5.1
         pass
 
     def evaluateCurrentState(self, reward):

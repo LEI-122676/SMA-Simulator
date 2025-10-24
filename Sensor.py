@@ -8,5 +8,5 @@ class Sensor:
         self.agent = Agent(id)
         self.map = Map(mapWidth, mapHeight)
 
-    def getCurrentState(self, agent):
+    def getCurrentState(self, agent):                       # Phase 5.1
         return self.map.observationFor(agent)
