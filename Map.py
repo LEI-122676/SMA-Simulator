@@ -4,8 +4,8 @@ class Map:
         self.map = [["" for _ in range(width)] for _ in range(height)]
         self.solved = False
 
-    def observerFor(self, agent):
-        pass #return Observer
+    def observationFor(self, agent):
+        pass
 
     def update(self):
         pass

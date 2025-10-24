@@ -7,27 +7,21 @@ class Agent:   # Threads
         self.id = id
         self.sensor = Sensor()
 
-    def toString(self):
-        return f"A{self.id}"
-
-    def toString(self):
-        return f"A{self.id}"
-
     def create(self, fileNameArgs):
         pass
 
-    def observe(self, observer):
+    def observation(self, observation):
         pass
 
     def act(self):
-        currentState = self.evaluateCurrentState(1)
+        currentState = self.sensor.getCurrentState(self)
         pass
 
     def evaluateCurrentState(self, reward):
         pass
 
     def install(self, sensor):
-        pass
+        self.sensor = sensor
 
     def communicate(self, message, fromAgent):
         pass
