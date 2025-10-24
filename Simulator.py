@@ -8,10 +8,10 @@ from Sensor import Sensor
 
 class Simulator:
 
-    def __init__(self, mapWidth, mapHeight, numAgents, timeLimit):
-        self.stop = False                                                   # Phase 1
-        self.map = Map(mapWidth, mapHeight)                             # Phase 2
-        self.agents = [Agent(n).install(Sensor()) for n in numAgents]       # Phase 3
+    def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
+        self.stop = False                                                           # Phase 1
+        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
+        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3
         self.timeLimit = timeLimit
 
     def create(self, fileNameArgs):
@@ -34,10 +34,10 @@ if __name__ == "__main__":
     simulator = Simulator(5, 5, 1)
 
     while not simulator.stop:
-        simulator.map.update()                                              # Phase 4
+        simulator.map.update()                                                      # Phase 4
 
         for a in simulator.agents:
-            a.act()                                                         # Phase 5
+            a.act()                                                                 # Phase 5
 
 
         simulator.map.act()
