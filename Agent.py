@@ -10,6 +10,9 @@ class Agent:   # Threads
     def toString(self):
         return f"A{self.id}"
 
+    def toString(self):
+        return f"A{self.id}"
+
     def create(self, fileNameArgs):
         pass
 
