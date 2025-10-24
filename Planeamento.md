@@ -1,6 +1,9 @@
+
 ```mermaid
+
+%% estou a usar shd101wyy.markdown-preview-enhanced para passar mermaid para pdf
+
 flowchart LR
-  %% Nós ontológicos (mais simples que UML). Labels em português.
   Motor((MotorDeSimulacao))
   Aval((Avaliacao))
   Agente((Agente))
