@@ -1,15 +1,19 @@
+import concurrent.futures
 import string
 import time
 
 from Agent import Agent
-from World import World
+from Map import Map
+from Sensor import Sensor
 
 
 class Simulator:
 
-    def __init__(self, worldSize, numAgents):
-        self.world = World(worldSize)
-        self.agents = [Agent(n) for n in numAgents]
+    def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
+        self.stop = False                                                           # Phase 1
+        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
+        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3
+        self.timeLimit = timeLimit
 
     def create(self, fileNameArgs):
         if not isinstance(fileNameArgs, string):
@@ -22,18 +26,29 @@ class Simulator:
     def execute(self):
         pass
 
+    def saveResults(self):
+        pass
+
+
 if __name__ == "__main__":
 
-    map = World()
+    simulator = Simulator(5, 5, 1)
 
-    while not map.stop:
-        map.update()
+    while not simulator.stop or simulator.timeLimit == 0:
+        simulator.map.update()  # Phase 4 [cite: 56]
 
-        x, y = map.get_action()
-        obj = map.get_object_here(x, y)
+                                                                                    # Phase 5
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            futures = [executor.submit(a.act) for a in simulator.agents]            # runs all agent "act()" methods in parallel
 
-        map.agentx = x
-        map.agenty = y
+            concurrent.futures.wait(futures)                                        # waits for all threads before continuing
 
+        simulator.map.act()
+
+        if simulator.map.solved:
+            simulator.stop = True
+
+        simulator.timeLimit -= 1
         time.sleep(0.5)
 
+    simulator.saveResults()

@@ -1,22 +1,27 @@
+from Sensor import Sensor
+
+
 class Agent:   # Threads
 
     def __init__(self, id):
         self.id = id
+        self.sensor = Sensor()
 
     def create(self, fileNameArgs):
         pass
 
-    def observe(self, observer):
+    def observation(self, observation):
         pass
 
     def act(self):
+        currentState = self.sensor.getCurrentState(self)            # Phase 5.1
         pass
 
     def evaluateCurrentState(self, reward):
         pass
 
     def install(self, sensor):
-        pass
+        self.sensor = sensor
 
     def communicate(self, message, fromAgent):
         pass
