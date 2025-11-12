@@ -18,9 +18,7 @@ class Agent:   # Threads
         currentState = self.sensor.getCurrentState(self)            # Phase 5.1
         pass
 
-    def evaluateCurrentState(self, reward):
-        if not isinstance(reward, double):
-            raise TypeError("'reward' should be of type double")
+    def evaluateCurrentState(self, reward: float):
         pass
 
     def install(self, sensor):
