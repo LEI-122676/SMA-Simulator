@@ -7,11 +7,15 @@ from abc import ABC, abstractmethod
 class Agent(threading.Thread, ABC):   # Threads
     #classe abstrata threaded para os agentes
 
+    INITIAL_STEPS = 5000
+
     def __init__(self, id, genotype=None):
         super().__init__()
         self.id = id
+        self.x = 0
+        self.y = 0
         self.actions = [(0, 1),(0, -1),(-1,0),(1,0)] # N, S, W, E -> possible movements
-        self.steps = 5000 # num max the steps num simulation run
+        self.steps = self.INITIAL_STEPS # num max the steps num simulation run
 
         self.sensor = Sensor()
 
@@ -26,6 +30,9 @@ class Agent(threading.Thread, ABC):   # Threads
 
         self.stopEvent = threading.Event() #control flag
 
+    def getSteps(self):
+        return self.INITIAL_STEPS - self.steps
+
     def create(self, fileNameArgs):
         pass
 
@@ -33,6 +40,8 @@ class Agent(threading.Thread, ABC):   # Threads
         pass
 
     def act(self):
+        self.steps -= 1
+
         currentState = self.sensor.getCurrentState(self)            # Phase 5.1
         pass
 
