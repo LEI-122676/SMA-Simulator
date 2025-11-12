@@ -12,6 +12,7 @@ class Agent(threading.Thread, ABC):   # Threads
         self.id = id
         self.actions = [(0, 1),(0, -1),(-1,0),(1,0)] # N, S, W, E -> possible movements
         self.steps = 5000 # num max the steps num simulation run
+
         self.sensor = Sensor()
 
         #genotype -> the sequence of actions the agent will take.
@@ -35,7 +36,7 @@ class Agent(threading.Thread, ABC):   # Threads
         currentState = self.sensor.getCurrentState(self)            # Phase 5.1
         pass
 
-    def evaluateCurrentState(self, reward):
+    def evaluateCurrentState(self, reward: float):
         pass
 
     def install(self, sensor):
