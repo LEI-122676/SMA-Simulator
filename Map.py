@@ -8,14 +8,10 @@ class Map:
         self.solved = False
 
     def observationFor(self, agent):                        # Phase 5.2
-        obs = Observation()
-
-        # TODO
-
-        return obs
+        return agent.observation()
 
     def update(self):
         pass
 
-    def act(self, action, agent):
+    def act(self, action, agent):  # TODO - synchronized
         pass
