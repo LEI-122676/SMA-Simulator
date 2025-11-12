@@ -43,8 +43,6 @@ if __name__ == "__main__":
 
             concurrent.futures.wait(futures)                                        # waits for all threads before continuing
 
-        # TODO - need action and agent
-
         simulator.map.act()
 
         if simulator.map.solved:
