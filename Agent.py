@@ -3,8 +3,9 @@ from Sensor import Sensor
 
 class Agent:   # Threads
 
-    def __init__(self, id):
-        self.id = id
+    def __init__(self):
+        self.actions_list = [(0, 1), (0, -1), (-1, 0), (1, 0)]  # N, S, W, E
+        self.num_steps = 0
         self.sensor = Sensor()
 
     def create(self, fileNameArgs):
@@ -18,6 +19,8 @@ class Agent:   # Threads
         pass
 
     def evaluateCurrentState(self, reward):
+        if not isinstance(reward, double):
+            raise TypeError("'reward' should be of type double")
         pass
 
     def install(self, sensor):
