@@ -12,7 +12,7 @@ class Simulator:
     def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
         self.stop = False                                                           # Phase 1
         self.map = Map(mapWidth, mapHeight)                                         # Phase 2
-        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3
+        self.agents = [Agent().install(Sensor()) for n in range(numAgents)]         # Phase 3
         self.timeLimit = timeLimit
 
     def create(self, fileNameArgs):
@@ -21,10 +21,27 @@ class Simulator:
         pass #return Simulator
 
     def listAgents(self):
-        pass #return Agents
+        return self.agents
 
     def execute(self):
-        pass
+        while not self.stop or self.timeLimit == 0:
+            self.map.update()  # Phase 4 [cite: 56]
+
+            # Phase 5
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                futures = [executor.submit(a.act) for a in self.agents]  # runs all agent "act()" methods in parallel
+
+                concurrent.futures.wait(futures)                         # waits for all threads before continuing
+
+            # TODO - verificar se ha conflitos com as açoes futuras (ex: 2 agentes ou mais a tentarem ir para o mesmo bloco)
+
+            if self.map.solved:
+                self.stop = True
+
+            self.timeLimit -= 1
+            time.sleep(0.5)
+
+        self.saveResults()
 
     def saveResults(self):
         pass
@@ -32,23 +49,9 @@ class Simulator:
 
 if __name__ == "__main__":
 
-    simulator = Simulator(5, 5, 1)
+    simulator = Simulator(5, 5, 1).create()
 
-    while not simulator.stop or simulator.timeLimit == 0:
-        simulator.map.update()  # Phase 4 [cite: 56]
+    print("Simulator created!")
 
-                                                                                    # Phase 5
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = [executor.submit(a.act) for a in simulator.agents]            # runs all agent "act()" methods in parallel
+    simulator.execute()
 
-            concurrent.futures.wait(futures)                                        # waits for all threads before continuing
-
-        simulator.map.act()
-
-        if simulator.map.solved:
-            simulator.stop = True
-
-        simulator.timeLimit -= 1
-        time.sleep(0.5)
-
-    simulator.saveResults()

@@ -4,9 +4,9 @@ from Map import Map
 
 class Sensor:
 
-    def __init__(self, id, mapWidth, mapHeight):
-        self.agent = Agent(id)
-        self.map = Map(mapWidth, mapHeight)
+    def __init__(self):
+        self.agent = Agent()
 
     def getCurrentState(self, agent):                       # Phase 5.1
-        return self.map.observationFor(agent)
+        #return self.map.observationFor(agent)
+        pass
