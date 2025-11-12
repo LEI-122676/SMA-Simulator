@@ -1,6 +1,8 @@
 import concurrent.futures
 import string
+import threading
 import time
+from collections import defaultdict
 
 from Agent import Agent
 from Map import Map
@@ -11,44 +13,51 @@ class Simulator:
 
     def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
         self.stop = False                                                           # Phase 1
-        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
-        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3
         self.timeLimit = timeLimit
 
-    def create(self, fileNameArgs):
-        if not isinstance(fileNameArgs, string):
-            raise TypeError("'fileNameArgs' should be of type string")
+        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
+        self.agents = [Agent().install(Sensor()) for _ in range(numAgents)]         # Phase 3
+        self.service_to_agents = defaultdict(set)
+        self.lock = threading.Lock()
+
+
+    def create(self, fileNameArgs: str):
         pass #return Simulator
 
     def listAgents(self):
-        pass #return Agents
+        for a in self.agents:
+            print(a)
 
     def execute(self):
-        pass
+        while not simulator.stop or simulator.timeLimit == 0:
+            simulator.map.update()  # Phase 4
+
+            # Phase 5
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                futures = [executor.submit(a.act) for a in
+                           simulator.agents]      # runs all agent "act()" methods in parallel
+                # TODO - cada alteracao a self.map é feita com "synchronized"
+                concurrent.futures.wait(futures)  # waits for all threads before continuing
+
+            simulator.map.act(futures, self.agents)
+
+            if simulator.map.solved:
+                simulator.stop = True
+
+            simulator.timeLimit -= 1
+            time.sleep(0.5)
 
     def saveResults(self):
         pass
 
 
+
+
 if __name__ == "__main__":
 
-    simulator = Simulator(5, 5, 1)
+    simulator = Simulator(100, 100, 1)
+    simulator.create("______") # TODO falta texto aq
 
-    while not simulator.stop or simulator.timeLimit == 0:
-        simulator.map.update()  # Phase 4 [cite: 56]
-
-                                                                                    # Phase 5
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = [executor.submit(a.act) for a in simulator.agents]            # runs all agent "act()" methods in parallel
-
-            concurrent.futures.wait(futures)                                        # waits for all threads before continuing
-
-        simulator.map.act()
-
-        if simulator.map.solved:
-            simulator.stop = True
-
-        simulator.timeLimit -= 1
-        time.sleep(0.5)
+    simulator.execute()
 
     simulator.saveResults()

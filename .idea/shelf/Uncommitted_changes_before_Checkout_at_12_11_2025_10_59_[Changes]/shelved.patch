@@ -1,0 +1,181 @@
+Index: Simulator.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import concurrent.futures\nimport string\nimport time\n\nfrom Agent import Agent\nfrom Map import Map\nfrom Sensor import Sensor\n\n\nclass Simulator:\n\n    def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):\n        self.stop = False                                                           # Phase 1\n        self.map = Map(mapWidth, mapHeight)                                         # Phase 2\n        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3\n        self.timeLimit = timeLimit\n\n    def create(self, fileNameArgs):\n        if not isinstance(fileNameArgs, string):\n            raise TypeError(\"'fileNameArgs' should be of type string\")\n        pass #return Simulator\n\n    def listAgents(self):\n        pass #return Agents\n\n    def execute(self):\n        pass\n\n    def saveResults(self):\n        pass\n\n\nif __name__ == \"__main__\":\n\n    simulator = Simulator(5, 5, 1)\n\n    while not simulator.stop or simulator.timeLimit == 0:\n        simulator.map.update()  # Phase 4 [cite: 56]\n\n                                                                                    # Phase 5\n        with concurrent.futures.ThreadPoolExecutor() as executor:\n            futures = [executor.submit(a.act) for a in simulator.agents]            # runs all agent \"act()\" methods in parallel\n\n            concurrent.futures.wait(futures)                                        # waits for all threads before continuing\n\n        # TODO - need action and agent\n\n        simulator.map.act()\n\n        if simulator.map.solved:\n            simulator.stop = True\n\n        simulator.timeLimit -= 1\n        time.sleep(0.5)\n\n    simulator.saveResults()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Simulator.py b/Simulator.py
+--- a/Simulator.py	(revision d8ba187b1865c5407d634891f740071d6421e581)
++++ b/Simulator.py	(date 1762945078490)
+@@ -1,6 +1,8 @@
+ import concurrent.futures
+ import string
++import threading
+ import time
++from collections import defaultdict
+ 
+ from Agent import Agent
+ from Map import Map
+@@ -11,10 +13,14 @@
+ 
+     def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
+         self.stop = False                                                           # Phase 1
+-        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
+-        self.agents = [Agent(n).install(Sensor()) for n in range(numAgents)]        # Phase 3
+         self.timeLimit = timeLimit
+ 
++        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
++        self.agents = [Agent().install(Sensor()) for _ in range(numAgents)]         # Phase 3
++        self.service_to_agents = defaultdict(set)
++        self.lock = threading.Lock()
++
++
+     def create(self, fileNameArgs):
+         if not isinstance(fileNameArgs, string):
+             raise TypeError("'fileNameArgs' should be of type string")
+@@ -32,10 +38,10 @@
+ 
+ if __name__ == "__main__":
+ 
+-    simulator = Simulator(5, 5, 1)
++    simulator = Simulator(100, 100, 1)
+ 
+     while not simulator.stop or simulator.timeLimit == 0:
+-        simulator.map.update()  # Phase 4 [cite: 56]
++        simulator.map.update()  # Phase 4
+ 
+                                                                                     # Phase 5
+         with concurrent.futures.ThreadPoolExecutor() as executor:
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"b2d978a5-766a-435b-bf0a-1265139b4014\" name=\"Changes\" comment=\"some Sensor logic\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_36_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_37_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_38_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_39_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_47_[Changes]/shelved.patch\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Simulator.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Simulator.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"tigago\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;history&quot;: [\n    {\n      &quot;state&quot;: &quot;OPEN&quot;\n    }\n  ],\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,\n    &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;\n  },\n  &quot;recentNewPullRequestHead&quot;: {\n    &quot;server&quot;: {\n      &quot;useHttp&quot;: false,\n      &quot;host&quot;: &quot;github.com&quot;,\n      &quot;port&quot;: null,\n      &quot;suffix&quot;: null\n    },\n    &quot;owner&quot;: &quot;LEI-122676&quot;,\n    &quot;repository&quot;: &quot;SMA-Simulator&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 1\n}</component>\n  <component name=\"ProjectId\" id=\"34TV0wQjjaM4sFJivoOeAKlVk3n\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,\n    &quot;Python.main.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"PythonProject\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.main\" />\n        <item itemvalue=\"Python.main\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"b2d978a5-766a-435b-bf0a-1265139b4014\" name=\"Changes\" comment=\"\" />\n      <created>1761237330068</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1761237330068</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761237356837</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761237356837</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"base classes added\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761239253454</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761239253454</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"base classes added\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761239266315</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761239266315</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"removed a class\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761240076457</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761240076457</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"some Sensor logic\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761342442027</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761342442027</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"some Sensor logic\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1761342636361</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1761342636361</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"base classes added\" />\n    <MESSAGE value=\"removed a class\" />\n    <MESSAGE value=\"some Sensor logic\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"some Sensor logic\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d8ba187b1865c5407d634891f740071d6421e581)
++++ b/.idea/workspace.xml	(date 1762945135112)
+@@ -4,13 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="some Sensor logic">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_36_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_37_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_38_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_39_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_2025_21_47_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="removed a class">
++      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Map.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sensor.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -28,35 +25,25 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="tigago" />
++        <entry key="$PROJECT_DIR$" value="mermaid" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory">{
+-  &quot;history&quot;: [
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "history": [
+     {
+-      &quot;state&quot;: &quot;OPEN&quot;
++      "state": "OPEN"
+     }
+   ],
+-  &quot;lastFilter&quot;: {
+-    &quot;state&quot;: &quot;OPEN&quot;
++  "lastFilter": {
++    "state": "OPEN"
+   }
+-}</component>
++}]]></component>
+   <component name="GithubPullRequestsUISettings">{
+   &quot;selectedUrlAndAccountId&quot;: {
+     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
+     &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;
+-  },
+-  &quot;recentNewPullRequestHead&quot;: {
+-    &quot;server&quot;: {
+-      &quot;useHttp&quot;: false,
+-      &quot;host&quot;: &quot;github.com&quot;,
+-      &quot;port&quot;: null,
+-      &quot;suffix&quot;: null
+-    },
+-    &quot;owner&quot;: &quot;LEI-122676&quot;,
+-    &quot;repository&quot;: &quot;SMA-Simulator&quot;
+   }
+ }</component>
+   <component name="ProjectColorInfo">{
+@@ -69,16 +56,16 @@
+   <component name="ProjectViewState">
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ModuleVcsDetector.initialDetectionPerformed": "true",
++    "Python.main.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "git-widget-placeholder": "#2 on tigago",
++    "settings.editor.selected.configurable": "preferences.pluginManager"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="PythonProject" />
+@@ -156,23 +143,7 @@
+       <option name="project" value="LOCAL" />
+       <updated>1761240076457</updated>
+     </task>
+-    <task id="LOCAL-00005" summary="some Sensor logic">
+-      <option name="closed" value="true" />
+-      <created>1761342442027</created>
+-      <option name="number" value="00005" />
+-      <option name="presentableId" value="LOCAL-00005" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1761342442027</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="some Sensor logic">
+-      <option name="closed" value="true" />
+-      <created>1761342636361</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1761342636361</updated>
+-    </task>
+-    <option name="localTasksCounter" value="7" />
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -190,7 +161,6 @@
+     <MESSAGE value="first commit" />
+     <MESSAGE value="base classes added" />
+     <MESSAGE value="removed a class" />
+-    <MESSAGE value="some Sensor logic" />
+-    <option name="LAST_COMMIT_MESSAGE" value="some Sensor logic" />
++    <option name="LAST_COMMIT_MESSAGE" value="removed a class" />
+   </component>
+ </project>
+\ No newline at end of file
