@@ -1,11 +1,12 @@
 import random
 import threading
+
+from Item import Item
 from Sensor import Sensor
 from abc import ABC, abstractmethod
 
 
-class Agent(threading.Thread, ABC):   # Threads
-    #classe abstrata threaded para os agentes
+class Agent(threading.Thread, ABC):
 
     INITIAL_STEPS = 5000
 
@@ -16,8 +17,6 @@ class Agent(threading.Thread, ABC):   # Threads
         self.y = 0
         self.actions = [(0, 1),(0, -1),(-1,0),(1,0)] # N, S, W, E -> possible movements
         self.steps = self.INITIAL_STEPS # num max the steps num simulation run
-
-        self.sensor = Sensor()
 
         #genotype -> the sequence of actions the agent will take.
         self.genotype = genotype or [random.choice(self.actions) for _ in range(self.steps)]
@@ -32,6 +31,9 @@ class Agent(threading.Thread, ABC):   # Threads
 
     def getSteps(self):
         return self.INITIAL_STEPS - self.steps
+
+    def pickUp(self, item: Item):
+        pass
 
     def create(self, fileNameArgs):
         pass

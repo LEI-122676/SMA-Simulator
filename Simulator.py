@@ -5,6 +5,7 @@ import time
 from collections import defaultdict
 
 from Agent import Agent
+from Chicken import Chicken
 from Map import Map
 from Sensor import Sensor
 
@@ -12,11 +13,12 @@ from Sensor import Sensor
 class Simulator:
 
     def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
-        self.stop = False                                                           # Phase 1
+        self.stop = False                                                                       # Phase 1
         self.timeLimit = timeLimit
 
-        self.map = Map(mapWidth, mapHeight)                                         # Phase 2
-        self.agents = [Agent().install(Sensor()) for _ in range(numAgents)]         # Phase 3
+        self.map = Map(mapWidth, mapHeight, numAgents)                                                     # Phase 2
+
+
         self.service_to_agents = defaultdict(set)
         self.lock = threading.Lock()
 
@@ -25,7 +27,7 @@ class Simulator:
         pass #return Simulator
 
     def listAgents(self):
-        for a in self.agents:
+        for a in self.chickens:
             print(a)
 
     def execute(self):

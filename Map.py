@@ -1,14 +1,21 @@
 from threading import Lock
 
-
+from Chicken import Chicken
+from Sensor import Sensor
 
 
 class Map:
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, numAgents=1):
         self.map = [["" for _ in range(width)] for _ in range(height)]
         self.lock = Lock()
         self.solved = False
+
+        self.chickens = [Chicken(f"C{n}") for n in range(numAgents)]  # Phase 3
+        self.sensors = []
+        for c in self.chickens:
+            sensor = Sensor(c, self.map)
+            c.install()
 
     def observationFor(self, agent):                        # Phase 5.2
         # TODO - usar Sensor?
