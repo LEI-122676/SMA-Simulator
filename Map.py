@@ -1,32 +1,44 @@
-# Map.py
-from Observation import Observation
+from threading import Lock
+
+from Chicken import Chicken
+from Sensor import Sensor
 
 
 class Map:
 
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-
+    def __init__(self, width, height, numAgents=1):
         self.map = [["" for _ in range(width)] for _ in range(height)]
+        self.lock = Lock()
         self.solved = False
 
-        # store positions of agents: {agent_id: (x,y)}
-        self.positions = {}
+        self.chickens = [Chicken(f"C{n}") for n in range(numAgents)]  # Phase 3
+        self.sensors = []
+        for c in self.chickens:
+            sensor = Sensor(c, self.map)
+            c.install()
 
-    def observationFor(self, agent):      # Phase 5.2
-        pos = self.positions[agent.id]
-        return Observation(pos)
+    def observationFor(self, agent):                        # Phase 5.2
+        # TODO - usar Sensor?
+        return agent.observation()
 
     def update(self):
         pass
 
     def act(self, action, agent):
-        x, y = self.positions[agent.id]
-        dx, dy = action
+        with self.lock:
+            # Calculates future position
+            future = (agent.x + action[0], agent.y + action[1])
 
-        # apply movement with boundary limits
-        new_x = max(0, min(self.width - 1, x + dx))
-        new_y = max(0, min(self.height - 1, y + dy))
+            # Check if future position is within map bounds
+            if self.isActionValid(future):
+                agent.act(action)
 
-        self.positions[agent.id] = (new_x, new_y)
+    def isActionValid(self, future):
+        x, y = future
+        if x < 0 or x >= len(self.map[0]) or y < 0 or y >= len(self.map):
+            return False
+
+        if self.map[y][x] != " ":           # F = Fence
+            return False
+
+        return True

@@ -1,6 +1,12 @@
+from Chicken import Chicken
 from Map import Map
 
 
 class Sensor:
-    def getCurrentState(self, agent):                       # Phase 5.1
-        return agent.env.observationFor(agent)
+
+    def __init__(self, chicken: Chicken, map: Map):
+        self.chicken = chicken
+        self.map = map
+
+    def getCurrentState(self):                       # Phase 5.1
+        return self.map.observationFor(self.chicken)
