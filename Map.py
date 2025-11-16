@@ -1,37 +1,32 @@
-from threading import Lock
-
-
+# Map.py
+from Observation import Observation
 
 
 class Map:
 
     def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
         self.map = [["" for _ in range(width)] for _ in range(height)]
-        self.lock = Lock()
         self.solved = False
 
-    def observationFor(self, agent):                        # Phase 5.2
-        # TODO - usar Sensor?
-        return agent.observation()
+        # store positions of agents: {agent_id: (x,y)}
+        self.positions = {}
+
+    def observationFor(self, agent):      # Phase 5.2
+        pos = self.positions[agent.id]
+        return Observation(pos)
 
     def update(self):
         pass
 
     def act(self, action, agent):
-        with self.lock:
-            # Calculates future position
-            future = (agent.x + action[0], agent.y + action[1])
+        x, y = self.positions[agent.id]
+        dx, dy = action
 
-            # Check if future position is within map bounds
-            if self.isActionValid(future):
-                agent.act(action)
+        # apply movement with boundary limits
+        new_x = max(0, min(self.width - 1, x + dx))
+        new_y = max(0, min(self.height - 1, y + dy))
 
-    def isActionValid(self, future):
-        x, y = future
-        if x < 0 or x >= len(self.map[0]) or y < 0 or y >= len(self.map):
-            return False
-
-        if self.map[y][x] != " ":           # F = Fence
-            return False
-
-        return True
+        self.positions[agent.id] = (new_x, new_y)

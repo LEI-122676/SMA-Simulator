@@ -1,1 +1,15 @@
-Enunciado Projeto_ Simulador de SMA.pdf
+# Ignore everything by default
+*
+
+# But do not ignore Python source files anywhere
+!*/
+!*.py
+
+# Keep gitignore itself
+!.gitignore
+
+# Typical bytecode and caches should remain ignored (they are matched by '*',
+# but we explicitly exclude common ones in case something else changes):
+# (these remain ignored because they are not .py files)
+# __pycache__/
+# *.py[cod]
