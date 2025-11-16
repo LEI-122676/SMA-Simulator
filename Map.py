@@ -1,25 +1,31 @@
 from threading import Lock
 
+from ExplorerAgent import ExplorerAgent
 from Chicken import Chicken
+from Observation import Observation
 from Sensor import Sensor
+
+
+
 
 
 class Map:
 
-    def __init__(self, width, height, numAgents=1):
+    def __init__(self, width, height):
         self.map = [["" for _ in range(width)] for _ in range(height)]
+        self.sensors = self.setUpSensors()
+        self.items = self.createItems()
+        
         self.lock = Lock()
         self.solved = False
+      
 
-        self.chickens = [Chicken(f"C{n}") for n in range(numAgents)]  # Phase 3
-        self.sensors = []
-        for c in self.chickens:
-            sensor = Sensor(c, self.map)
-            c.install()
-
-    def observationFor(self, agent):                        # Phase 5.2
+    def observationFor(self, explorer: ExplorerAgent):                        # Phase 5.2
+        obs = Observation()
+        
         # TODO - usar Sensor?
-        return agent.observation()
+        
+        return explorer.observation(obs)
 
     def update(self):
         pass
@@ -42,3 +48,9 @@ class Map:
             return False
 
         return True
+
+    def setUpSensors(self):
+        pass
+
+    def createItems(self):
+        pass

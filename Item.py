@@ -10,3 +10,6 @@ class Item(ABC):
 
     def pickUp(self):
         print(self.name, "was picked up!")
+
+    def __str__(self):
+        return "Item: " + self.name + " at (" + str(self.x) + ", " + str(self.y) + ")"

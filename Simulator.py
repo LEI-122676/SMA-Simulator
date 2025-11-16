@@ -54,16 +54,14 @@ def select_parent(population, tournament_size):
 
 class Simulator:
 
-    def __init__(self, mapWidth=5, mapHeight=5, numAgents=1, timeLimit=60):
-        self.stop = False                                                                       # Phase 1
+    def __init__(self, mapWidth=100, mapHeight=100, numAgents=1, timeLimit=60):
+        self.running = True                                                             # Phase 1
+        self.map = Map(mapWidth, mapHeight)                                             # Phase 2
+        self.chickens = [Chicken(f"C{n}") for n in range(numAgents)]                    # Phase 3
+
         self.timeLimit = timeLimit
-
-        self.map = Map(mapWidth, mapHeight, numAgents)                                                     # Phase 2
-
-
         self.service_to_agents = defaultdict(set)
         self.lock = threading.Lock()
-
 
     def create(self, fileNameArgs: str):
         pass #return Simulator
@@ -73,20 +71,21 @@ class Simulator:
             print(a)
 
     def execute(self):
-        while not simulator.stop or simulator.timeLimit == 0:
+        while simulator.running or simulator.timeLimit == 0:
             simulator.map.update()  # Phase 4
 
             # Phase 5
             with concurrent.futures.ThreadPoolExecutor() as executor:
-                futures = [executor.submit(a.act) for a in
-                           simulator.agents]      # runs all agent "act()" methods in parallel
+                futures = [executor.submit(a.act) for a in simulator.agents]      # runs all agent "act()" methods in parallel
+
                 # TODO - cada alteracao a self.map é feita com "synchronized"
+
                 concurrent.futures.wait(futures)  # waits for all threads before continuing
 
             simulator.map.act(futures, self.agents)
 
             if simulator.map.solved:
-                simulator.stop = True
+                simulator.running = False
 
             simulator.timeLimit -= 1
             time.sleep(0.5)
