@@ -7,3 +7,6 @@ class Item(ABC):
         self.x = x
         self.y = y
         self.name = name
+
+    def pickUp(self):
+        print(self.name, "was picked up!")

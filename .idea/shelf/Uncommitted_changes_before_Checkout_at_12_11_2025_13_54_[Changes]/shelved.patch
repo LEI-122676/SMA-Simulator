@@ -1,0 +1,18 @@
+Index: Agent.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from Sensor import Sensor\n\n\nclass Agent:   # Threads\n\n    def __init__(self):\n        self.actions_list = [(0, 1), (0, -1), (-1, 0), (1, 0)]  # N, S, W, E\n        self.num_steps = 0\n        self.sensor = Sensor()\n\n    def create(self, fileNameArgs):\n        pass\n\n    def observation(self, observation):\n        pass\n\n    def act(self):\n        currentState = self.sensor.getCurrentState(self)            # Phase 5.1\n        pass\n\n    def evaluateCurrentState(self, reward: float):\n        pass\n\n    def install(self, sensor):\n        self.sensor = sensor\n\n    def communicate(self, message, fromAgent):\n        pass
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Agent.py b/Agent.py
+--- a/Agent.py	(revision 55774e854c193aa0a816cb11428538b7c2e2d50b)
++++ b/Agent.py	(date 1762954519064)
+@@ -8,6 +8,7 @@
+         self.num_steps = 0
+         self.sensor = Sensor()
+ 
++
+     def create(self, fileNameArgs):
+         pass
+ 
