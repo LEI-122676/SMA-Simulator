@@ -10,6 +10,9 @@ from Observation import Observation
 class Map:
 
     def __init__(self, width=100, height=100):
+        self.width = width
+        self.height = height
+
         self.map = [["" for _ in range(width)] for _ in range(height)]
 
         self.chickens = []                                                      # Phase 3
@@ -21,12 +24,21 @@ class Map:
         self.solved = False
 
     def addToMap(self, numEggs, numNests, numChickens):
+        # TODO - corrigir isto, pq podem acontecer sobreposicoes de elementos com os randoms nao verificados
+
         for n in range(numEggs):
             # Random position
             x = random.randint(0, len(self.map[0]) - 1)
             y = random.randint(0, len(self.map) - 1)
 
             self.eggs.append(Egg(n, x, y))
+
+        for _ in range(numNests):
+            # Random position
+            x = random.randint(0, len(self.map[0]) - 1)
+            y = random.randint(0, len(self.map) - 1)
+
+            self.nests.append((x, y))
 
         for n in range(numChickens):
             self.chickens.append(Chicken(n, 0, n))
