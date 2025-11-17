@@ -3,13 +3,19 @@ from abc import ABC
 
 class Item(ABC):
 
-    def __init__(self, x: int, y: int, name: str):
+    def __init__(self, id, x: int, y: int):
+        self.id = id
         self.x = x
         self.y = y
-        self.name = name
+        self.picked_up = False
 
     def pickUp(self):
-        print(self.name, "was picked up!")
+        self.picked_up = True
+        return f"Location: ({self.x}, {self.y})."
+
+    def drop(self):
+        self.picked_up = False
+        return f"Location: ({self.x}, {self.y})."
 
     def __str__(self):
-        return "Item: " + self.name + " at (" + str(self.x) + ", " + str(self.y) + ")"
+        return f"Item:{self.id}. Location: ({self.x}, {self.y}). Picked up: {self.picked_up}."

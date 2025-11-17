@@ -1,26 +1,37 @@
+import random
 from threading import Lock
 
+from Egg import Egg
 from ExplorerAgent import ExplorerAgent
 from Chicken import Chicken
 from Observation import Observation
-from Sensor import Sensor
-
-
-
 
 
 class Map:
 
-    def __init__(self, width, height):
+    def __init__(self, width=100, height=100):
         self.map = [["" for _ in range(width)] for _ in range(height)]
-        self.sensors = self.setUpSensors()
-        self.items = self.createItems()
-        
+
+        self.chickens = []                                                      # Phase 3
+        self.eggs = []
+        self.nests = []
+        self.stones = []
+
         self.lock = Lock()
         self.solved = False
-      
 
-    def observationFor(self, explorer: ExplorerAgent):                        # Phase 5.2
+    def addToMap(self, numEggs, numNests, numChickens):
+        for n in range(numEggs):
+            # Random position
+            x = random.randint(0, len(self.map[0]) - 1)
+            y = random.randint(0, len(self.map) - 1)
+
+            self.eggs.append(Egg(n, x, y))
+
+        for n in range(numChickens):
+            self.chickens.append(Chicken(n, 0, n))
+
+    def observationFor(self, explorer: ExplorerAgent):                          # Phase 5.2
         obs = Observation()
         
         # TODO - usar Sensor?
@@ -49,8 +60,3 @@ class Map:
 
         return True
 
-    def setUpSensors(self):
-        pass
-
-    def createItems(self):
-        pass
