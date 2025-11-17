@@ -41,9 +41,7 @@ class ExplorerAgent(Agent):
 
         self.deliberate()                               # Phase 6
 
-        self.behavior.add(self.position)
-        self.path.append(self.position)
-
+        # TODO - mudar estas cenas, decidir se corre tudo de uma vez ou todos os agentes em paralelo
         for _ in range(len(self.genotype)):
             if self.stopEvent.is_set():
                 break
@@ -66,18 +64,19 @@ class ExplorerAgent(Agent):
             if x < 0 or x >= mapWidth or y < 0 or y >= mapHeight:
                 continue
 
+            # TODO
             # 3. Check object at new location
-            obj = env.get_object_here(newx, newy)
+            #obj = env.get_object_here(newx, newy)
 
             # 4. Update agent/env state
-            if isinstance(obj, Ground):
+            #if isinstance(obj, Ground):
                 env.agentx, env.agenty = newx, newy
-            elif isinstance(obj, Key):
+            #elif isinstance(obj, Key):
                 env.keys.remove(obj)
                 local_found_keys.append(obj)
                 self.keys_found.append(obj)
                 env.agentx, env.agenty = newx, newy
-            elif isinstance(obj, Treasure):
+            #elif isinstance(obj, Treasure):
                 for key in local_found_keys:
                     if key.treasure == obj.name:
                         obj.opened = True
@@ -86,8 +85,8 @@ class ExplorerAgent(Agent):
                         env.agentx, env.agenty = newx, newy
 
             # 5. Record behavior
-            self.behavior.add((env.agentx, env.agenty))
-            self.path.append((env.agentx, env.agenty))        pass
+            #self.behavior.add((env.agentx, env.agenty))
+            #self.path.append((env.agentx, env.agenty))
 
     # Convenience wrappers expected by Simulator
     def run_simulation(self):
