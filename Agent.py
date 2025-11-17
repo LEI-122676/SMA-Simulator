@@ -16,8 +16,8 @@ class Agent(threading.Thread, ABC):   # Threads
         self.learner = learner
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
-
-        self.observed = None
+        self.combined_fitness = 0.0
+        self.observed = set()
         self.sensor = None
 
     def create(self, fileNameArgs):
@@ -30,8 +30,7 @@ class Agent(threading.Thread, ABC):   # Threads
         return self.__init__(id, learner)
 
     def observation(self, observation):
-        # receive an Observation object (not used in MVP)
-        return None
+        self.observed.add(obs for obs in observation)
 
     def act(self):
         """Execute a single step from the genotype. Returns the new position or None if finished."""

@@ -9,12 +9,13 @@ from Map import Map
 
 class Simulator:
 
-    def __init__(self, timeLimit=60):
+    def __init__(self, timeLimit=60, timePerStep=0.5):
         self.running = None
         self.map = None
         self.timeLimit = timeLimit
         self.service_to_agents = defaultdict(set)
         self.lock = threading.Lock()
+        self.timePerStep = timePerStep
 
     def create(self, fileNameArgs: str):
         numEggs = 10  # Default number of eggs
@@ -37,30 +38,29 @@ class Simulator:
         self.running = True                                                             # Phase 1
         self.map = Map()                                                                # Phase 2 & 3
 
-        while simulator.running or simulator.timeLimit == 0:
-            simulator.map.update()                                                      # Phase 4
+        while self.running:
+            self.map.update()                                                      # Phase 4
 
             # Phase 5
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                futures = [executor.submit(c.act) for c in self.map.chickens]      # runs all agent "act()" methods in parallel
-
-                # TODO - cada alteracao a self.map é feita com "synchronized"
-
-                concurrent.futures.wait(futures)  # waits for all threads before continuing
+            for chicken in self.map.chickens:
+                chicken.execute()
 
             self.map.act(futures, self.agents)
 
-            if self.map.solved:
+            if self.map.solved or self.timeLimit == 0:
                 self.running = False
 
-            self.timeLimit -= 1
-            time.sleep(0.5)
+            self.timeLimit -= self.timePerStep
+            time.sleep(self.timePerStep)
 
+        self.shutDownSimulation()
         self.saveResults("simulation_results.txt")
+
+    def shutDownSimulation(self):
+        pass
 
     def saveResults(self, fileName="simulation_results.txt"):
         pass
-
 
 if __name__ == "__main__":
 

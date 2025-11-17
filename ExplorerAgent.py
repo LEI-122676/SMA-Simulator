@@ -1,5 +1,6 @@
 import random
 import threading
+import time
 
 from Action import Action
 from Agent import Agent
@@ -29,16 +30,16 @@ class ExplorerAgent(Agent):
 
     def pickUp(self, item):
         self.inventory.append(item)
+        item.pickUp()
         print(f"ExplorerAgent:{self.id} picked up {item}")
 
-
     def run(self):
-        """Run the full genotype until completion or stop event."""
-        # reset
-        self.position = (0, 0)
-        self.step_index = 0
-        self.behavior = set()
-        self.path = []
+        # Runs the sequence of actions and requests that the Agent is responsible for
+
+        perception = self.sensor.getCurrentState()      # Phase 5.1
+        self.observation(perception)                    # Phase 5.2
+
+        self.deliberate()                               # Phase 6
 
         self.behavior.add(self.position)
         self.path.append(self.position)
@@ -49,6 +50,44 @@ class ExplorerAgent(Agent):
             self.act()
             # small sleep to avoid burning CPU in threaded runs (keeps logs readable)
             time.sleep(0)
+
+    def deliberate(self):
+        x = self.x
+        y = self.y
+        mapWidth = len(self.sensor.map[0])
+        mapHeight = len(self.sensor.map)
+
+        for action in self.genotype:
+            # 1. Get new proposed position
+            newx = x + action[0]
+            newy = y + action[1]
+
+            # 2. Check boundaries
+            if x < 0 or x >= mapWidth or y < 0 or y >= mapHeight:
+                continue
+
+            # 3. Check object at new location
+            obj = env.get_object_here(newx, newy)
+
+            # 4. Update agent/env state
+            if isinstance(obj, Ground):
+                env.agentx, env.agenty = newx, newy
+            elif isinstance(obj, Key):
+                env.keys.remove(obj)
+                local_found_keys.append(obj)
+                self.keys_found.append(obj)
+                env.agentx, env.agenty = newx, newy
+            elif isinstance(obj, Treasure):
+                for key in local_found_keys:
+                    if key.treasure == obj.name:
+                        obj.opened = True
+                        env.treasures.remove(obj)
+                        self.treasures_opened.append(obj)
+                        env.agentx, env.agenty = newx, newy
+
+            # 5. Record behavior
+            self.behavior.add((env.agentx, env.agenty))
+            self.path.append((env.agentx, env.agenty))        pass
 
     # Convenience wrappers expected by Simulator
     def run_simulation(self):
