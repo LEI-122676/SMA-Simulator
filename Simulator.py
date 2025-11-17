@@ -56,7 +56,9 @@ class Simulator:
             self.timeLimit -= 1
             time.sleep(0.5)
 
-    def saveResults(self):
+        self.saveResults("simulation_results.txt")
+
+    def saveResults(self, fileName="simulation_results.txt"):
         pass
 
 

@@ -7,12 +7,7 @@
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+ExplorerAgent">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chicken.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Egg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/Item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Observation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,6 +106,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
@@ -216,11 +212,50 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="date">
+                    <value>
+                      <list>
+                        <option value="1763286986807" />
+                        <option value="" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
