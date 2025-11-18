@@ -1,12 +1,13 @@
 from ExplorerAgent import ExplorerAgent
-from Map import Map
+from Terrain import Terrain
 
 
 class Sensor:
 
-    def __init__(self, explorer: ExplorerAgent, map: Map):
+    def __init__(self, explorer: ExplorerAgent, terrain: Terrain, radius=3):
         self.explorer = explorer
-        self.map = map
+        self.terrain = terrain
+        self.radius = radius
 
     def getCurrentState(self):                       # Phase 5.1
-        return self.map.observationFor(self.explorer)
+        return self.terrain.observationFor(self.explorer)
