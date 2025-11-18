@@ -6,3 +6,7 @@ class Observation:
 
     def addData(self, data):
         self.data.append(data)
+
+    def getData(self):
+        for d in self.data:
+            yield d

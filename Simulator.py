@@ -3,13 +3,16 @@ from abc import ABC, abstractmethod
 class Simulator(ABC):
     
     @abstractmethod
-    def cria(self, fileNameArgs: str):
+    def create(self, fileNameArgs: str):
+        """Returns Simulator"""
         pass
 
     @abstractmethod
-    def listaAgentes(self):
+    def listAgents(self):
+        """Returns Agent[]"""
         pass
     
     @abstractmethod
-    def executa(self):
+    def execute(self):
+        """Executes the simulation"""
         pass

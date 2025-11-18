@@ -4,7 +4,6 @@ import time
 from collections import defaultdict
 
 from Agent import Agent
-from Map import Map
 from abc import ABC, abstractmethod
 from Simulator import Simulator
 
