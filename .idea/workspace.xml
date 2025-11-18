@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Action" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Phases 5-&gt;6">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Observation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,19 +71,19 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.demo.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "tigago",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonProject" />
@@ -220,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763377045449</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Phases 5-&gt;6">
+      <option name="closed" value="true" />
+      <created>1763403728316</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1763403728316</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,7 +297,8 @@
     <MESSAGE value="Added Chicken" />
     <MESSAGE value="+ExplorerAgent" />
     <MESSAGE value="+Action" />
-    <option name="LAST_COMMIT_MESSAGE" value="+Action" />
+    <MESSAGE value="Phases 5-&gt;6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phases 5-&gt;6" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
