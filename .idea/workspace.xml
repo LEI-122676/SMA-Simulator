@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Polishing SimulatorMotor.execute">
-      <change beforePath="$PROJECT_DIR$/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Chicken.py" afterDir="false" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Phases 5-&gt;6">
+      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,25 +30,25 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
     {
-      &quot;state&quot;: &quot;OPEN&quot;
+      "state": "OPEN"
     }
   ],
-  &quot;lastFilter&quot;: {}
-}</component>
-  <component name="GitHubPullRequestState">{
-  &quot;prStates&quot;: [
+  "lastFilter": {}
+}]]></component>
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOQH7ibc60HsRD&quot;,
-        &quot;number&quot;: 22
+      "id": {
+        "id": "PR_kwDOQH7ibc60HsRD",
+        "number": 22
       },
-      &quot;lastSeen&quot;: 1763473835881
+      "lastSeen": 1763473835881
     }
   ]
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
@@ -84,8 +84,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "preferences.keymap"
+    "git-widget-placeholder": "#23 on tigago",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RunManager">
@@ -113,7 +113,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
@@ -240,31 +239,7 @@
       <option name="project" value="LOCAL" />
       <updated>1763403728316</updated>
     </task>
-    <task id="LOCAL-00014" summary="+Raycasting-&gt;Sensor">
-      <option name="closed" value="true" />
-      <created>1763548157615</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1763548157615</updated>
-    </task>
-    <task id="LOCAL-00015" summary="More robust interfaces">
-      <option name="closed" value="true" />
-      <created>1763549106505</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1763549106505</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Polishing SimulatorMotor.execute">
-      <option name="closed" value="true" />
-      <created>1763549959298</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1763549959298</updated>
-    </task>
-    <option name="localTasksCounter" value="17" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -327,10 +302,7 @@
     <MESSAGE value="+ExplorerAgent" />
     <MESSAGE value="+Action" />
     <MESSAGE value="Phases 5-&gt;6" />
-    <MESSAGE value="+Raycasting-&gt;Sensor" />
-    <MESSAGE value="More robust interfaces" />
-    <MESSAGE value="Polishing SimulatorMotor.execute" />
-    <option name="LAST_COMMIT_MESSAGE" value="Polishing SimulatorMotor.execute" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phases 5-&gt;6" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
