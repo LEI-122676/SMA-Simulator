@@ -4,7 +4,7 @@ import time
 from collections import defaultdict
 
 from Agent import Agent
-from Map import Map
+from Environment import Map
 
 
 class Simulator:
@@ -22,7 +22,7 @@ class Simulator:
         numNests = 2  # Default number of nests
         numChickens = 1  # Default number of chickens
 
-        self.map.addToMap(numEggs, numNests, numChickens)
+        self.map.initializeMap(numEggs, numNests, numChickens)
 
         pass #return Simulator
 

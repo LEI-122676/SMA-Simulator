@@ -1,6 +1,6 @@
 # demo.py
 from Agent import Agent
-from Map import Map
+from Environment import Map
 from Observation import Observation
 
 
