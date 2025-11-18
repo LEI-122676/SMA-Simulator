@@ -19,7 +19,6 @@ class Agent(ABC): #classe abstrata para os agentes
         self.learner = learner
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
         self.combined_fitness = 0.0
-        self.observed = set()
 
     @abstractmethod
     def create(self, fileNameArgs):
