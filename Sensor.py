@@ -2,6 +2,7 @@ import numpy as np
 
 from Action import Action
 from Terrain import Terrain
+from Wall import Wall
 
 
 class Sensor:
@@ -34,7 +35,7 @@ class Sensor:
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if self.grid[current_y][current_x] == "W":  # TODO - Assuming "W" is a wall (it would be faster for the computer to use numbers)
+            if isinstance(self.grid[current_y][current_x], Wall):  # TODO - seria mais optimal usar numeros
                 return dist
 
             dist += 1

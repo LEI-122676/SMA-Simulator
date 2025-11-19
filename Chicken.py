@@ -7,4 +7,4 @@ class Chicken(ExplorerAgent):
         super().__init__(id, x ,y)
 
     def __str__(self):
-        return "Chicken:", str(self.id), " at (", str(self.x), ",", str(self.y), ")"
+        return f"C:{id}"
