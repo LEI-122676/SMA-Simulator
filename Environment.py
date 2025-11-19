@@ -1,14 +1,16 @@
 from abc import ABC, abstractmethod
+
+from Action import Action
+from Agent import Agent
 from ExplorerAgent import ExplorerAgent
+from Observation import Observation
+
 
 class Environment(ABC):
 
+    @staticmethod
     @abstractmethod
-    def __init__(self, width, height):
-        pass
-
-    @abstractmethod
-    def observationFor(self, explorer: ExplorerAgent):         # Phase 5.2
+    def observationFor(self, explorer: ExplorerAgent) -> Observation:
         pass
 
     @abstractmethod
@@ -16,7 +18,7 @@ class Environment(ABC):
         pass
 
     @abstractmethod
-    def act(self, action, agent):
+    def act(self, action: Action, agent: Agent):
         pass
 
 

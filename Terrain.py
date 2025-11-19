@@ -14,7 +14,7 @@ class Terrain(Environment):
         self.height = height
         self.solved = False
 
-        self.map = [["" for _ in range(width)] for _ in range(height)]
+        self.map = [[None for _ in range(width)] for _ in range(height)]
         self.chickens = []  # Phase 3
         self.eggs = []
         self.nests = []

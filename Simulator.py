@@ -1,15 +1,20 @@
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
+from Agent import Agent
+
+
 class Simulator(ABC):
-    
+
+    @staticmethod
     @abstractmethod
-    def cria(self, fileNameArgs: str):
+    def create(file_name_args: str) -> Simulator:
         pass
 
     @abstractmethod
-    def listaAgentes(self):
+    def listAgents(self) -> list[Agent]:
         pass
-    
+
     @abstractmethod
-    def executa(self):
+    def execute(self):
         pass
