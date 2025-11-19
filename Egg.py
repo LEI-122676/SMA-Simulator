@@ -1,15 +1,7 @@
-from pydoc import describe
-
-from Item import Item
+from Pickable import Pickable
 
 
-class Egg(Item):
+class Egg(Pickable):
 
-    def __init__(self, id, x: int, y: int):
-        super().__init__(id, x, y)
-
-    def pickUp(self):
-        print(f"Egg:{self.id}. ", super().pickUp())
-
-    def drop(self):
-        print(f"Egg:{self.id}. ", super().drop())
+    def __init__(self, name: str, id: int, x: int, y: int):
+        super().__init__(name, id, x, y)

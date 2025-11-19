@@ -6,7 +6,6 @@ from Terrain import Terrain
 
 class SimulatorMotor(Simulator):
 
-
     def __init__(self, time_limit=500, time_per_step=0.1):
         self.time_limit = time_limit
         self.time_per_step = time_per_step
