@@ -1,6 +1,4 @@
-import threading
 import time
-from collections import defaultdict
 
 from Simulator import Simulator
 from Terrain import Terrain
@@ -8,18 +6,18 @@ from Terrain import Terrain
 
 class SimulatorMotor(Simulator):
 
-    def __init__(self, time_limit=60, time_per_step=0.5):
+
+    def __init__(self, time_limit=500, time_per_step=0.1):
+        self.time_limit = time_limit
+        self.time_per_step = time_per_step
+
         self.running = None
         self.terrain = None
-        self.time_limit = time_limit
-        self.service_to_agents = defaultdict(set)
-        self.lock = threading.Lock()
-        self.time_per_step = time_per_step
 
     def create(self, file_name_args):
         
         #TODO : Generaliar a leitura do ficheiro de configuracao
-        
+
         try:
             with open(file_name_args, 'r') as f: content = f.read()
             
@@ -46,9 +44,8 @@ class SimulatorMotor(Simulator):
             elif key == 'numchickens':
                 numChickens = value
 
-        #self.terrain.addToMap(numEggs, numNests, numChickens)
 
-        return Simulator
+        return SimulatorMotor()
 
     def listAgents(self):
         if not self.running:
@@ -58,24 +55,25 @@ class SimulatorMotor(Simulator):
         return [a for a in self.terrain.chickens]
 
     def execute(self):
-        self.running = True                                                             # Phase 1
-        self.terrain = Terrain()                                                        # Phase 2 & 3
+        self.running = True                                                 # Phase 1
+        self.terrain = Terrain()                                            # Phase 2 & 3
 
-        while self.running:
-            self.terrain.update()                                                      # Phase 4
+        while self.running:                                                 # -- loop --
+            self.terrain.update()                                           # Phase 4
 
-            # Phase 5
-            for chicken in self.terrain.chickens:
+            for chicken in self.terrain.chickens:                           # Phase 5
                 chicken.execute()
 
-            if self.terrain.solved or self.time_limit == 0:
+            # Check termination conditions
+            if self.terrain.solved or self.time_limit == 0:                 # Phase 9
                 self.running = False
 
+            # Manage time
             self.time_limit -= self.time_per_step
             time.sleep(self.time_per_step)
 
-        self.shutDownSimulation()
-        self.saveResults("simulation_results.txt")
+        self.shutDownSimulation()                                           # Phase 10
+        self.saveResults("simulation_results.txt")                          # Phase 11
 
     def shutDownSimulation(self):
         pass
