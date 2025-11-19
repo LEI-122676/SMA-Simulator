@@ -3,6 +3,6 @@ from Pickable import Pickable
 
 class Stone(Pickable):
 
-    def __init__(self, id, x: int, y: int, name: str):
-        super().__init__(id, x, y)
+    def __init__(self, id, x, y, name):
+        super().__init__("S", id, x, y)
         self.name = name
