@@ -1,0 +1,157 @@
+@startuml
+
+!pragma layout smetana
+!define JAVA_STYLE
+
+abstract class Simulator {
+  + {abstract} create(fileNameArgs: String): Simulator
+  + {abstract} listAgents(): List
+  + {abstract} execute(): void
+}
+
+class SimulatorMotor{
+  - running:
+  - map:
+  - timeLimit: int
+  - service_to_agents:
+  - lock: Lock
+  - timePerStep: double
+  + shutDownSimulation():
+  + saveResults(fileName: String)
+  'nomes errados no proj
+}
+
+abstract class Agent {
+  # id: int
+  # learner: boolean
+  # steps: int
+  # genotype: List<Action>
+  + {abstract} create(fileName: String):
+  + {abstract} observation(observation: Observation): void
+  + {abstract} act(): void
+  + {abstract} evaluateCurrentState(reward: double):
+  + {abstract} install(sensor: Sensor): void
+}
+
+class ExplorerAgent {
+  - position: tuple
+  - sensor: Sensor
+  - observed: set
+  - behavior: set
+  - path: List
+  - inventory: List
+  - noveltyScore: double
+  - combinedFitness: double
+  - step_index: int
+  + communicate(msg: String, fromAgent: int):
+  + pickUp(item: Item): void
+  + run(): void
+  + deliberate(): void
+  + run_simulation(): void
+  + calculate_objective_fitness(): int
+  + mutate(rate: double): void
+}
+
+enum Action {
+  MOVE_NORTH = (0, 1)
+  MOVE_SOUTH = (0, -1)
+  MOVE_WEST = (-1, 0)
+  MOVE_EAST = (1, 0)
+  ---
+  + random_action(): tuple
+}
+
+abstract class Environment {
+  # width: int
+  # height: int
+  + {abstract} observationFor(explorer: ExplorerAgent): Observation
+  + {abstract} update(): void
+  + {abstract} act(action: Action, agent: Agente): void
+}
+
+class World{
+  - solved: boolean
+  - map: List[List]
+  - chickens: List
+  - eggs: List
+  - nests: List
+  - stones: List
+  + observationFor(explorer: ExplorerAgent): Observation
+  + update(): void
+  + act(action: Action, agent: Agente): void
+  + initializeMap(numEggs: int, numNests: int, numChickens: int): void
+  + isActionValid(self, future: ): boolean
+}
+
+class Observation {
+  - agent_id: int
+  - data: List
+  + addData(data: Object): void
+  + getData(): Iterator
+}
+
+abstract class Item {
+  # id: int
+  # x: int
+  # y: int
+  # picked_up: boolean
+  + {abstract} pickUp(): String
+  + {abstract} drop(): String
+}
+
+class Nest {
+  - name: String
+  + putEgg(numEggs: int): boolean
+}
+
+class Egg {
+}
+
+class Stone {
+  - name: String
+}
+
+class Sensor {
+  - explorer: ExplorerAgent
+  - terrain: Terrain
+  - radius: int
+  + pickUp(): String
+  + drop(): String
+}
+
+class Chicken {
+  - id: int
+  - x: int
+  - y: int
+}
+
+
+
+' Relationships
+' MotorDeSimulacao --> Avaliacao : registra
+'MotorDeSimulacao *-- AgenteAprendizagem : contém
+'MotorDeSimulacao *-- AgentePoliticaFixa : contém
+'MotorDeSimulacao --> Ambiente : gerencia
+
+'Agent --> Action : gera
+'Agent --> Ambiente : consome
+'Agent <-- Observacao : recebe
+
+'Ambiente --> Observacao : produz
+
+Simulator <|-- SimulatorMotor : extends
+
+Environment <|-- World : extends
+World <-- Action
+
+Agent <|-- ExplorerAgent : extends
+ExplorerAgent <-- Chicken
+ExplorerAgent <-- Sensor
+ExplorerAgent <-- Observation
+
+Item <|-- Nest : extends
+Item <|-- Stone : extends
+Item <|-- Egg : extends
+
+
+@enduml
