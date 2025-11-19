@@ -5,7 +5,7 @@ from Terrain import Terrain
 from Wall import Wall
 
 
-class Sensor:
+class Sensor: # uses raycasting to detect distances to obstacles
 
     def __init__(self, terrain: Terrain, max_range:int = 10):
         self.grid = terrain.map
