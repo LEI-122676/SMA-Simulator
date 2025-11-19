@@ -129,3 +129,7 @@ def run_evolution(self):
         population = new_population
 
     print("Evolution complete.")
+
+    # Convenience wrappers expected by Simulator
+    def run_simulation(self):
+        self.run()
