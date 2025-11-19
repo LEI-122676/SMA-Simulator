@@ -3,6 +3,8 @@
 
 # But do not ignore Python source files anywhere
 !*/
+!*.py
+!*.puml
 
 # Keep gitignore itself
 !.gitignore
