@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class Simulator(ABC):
     
     @abstractmethod
-    def create(self, fileNameArgs: str):
+    def create(self, file_name_args: str):
         """Returns Simulator"""
         pass
 

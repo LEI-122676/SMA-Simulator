@@ -8,12 +8,12 @@ from Agent import Agent
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, id, x, y, learnMode=True, steps=5000, genotype=None):
-        super().__init__(id, True, steps, genotype)
+    def __init__(self, id, x, y, learn_mode=True, steps=5000, genotype=None):
+        #super().__init__(id, True, steps, genotype)
 
         self.id = id
         self.position = (x, y)
-        self.learnMode = learnMode
+        self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
 
@@ -32,9 +32,12 @@ class ExplorerAgent(Agent):
         # TODO - something like this
         fileNameArgs = fileNameArgs.split(',')
         id = fileNameArgs[0]
-        learner = fileNameArgs[1].lower() == 'true'
+        x = int(fileNameArgs[1])
+        y = int(fileNameArgs[2])
+        learn_mode = fileNameArgs[3].lower() == 'true'
+        steps = int(fileNameArgs[4])
 
-        return self.__init__(id, learner)
+        return self.__init__(id, x, y, learn_mode, steps)
 
     def observation(self, observation):
         self.observed.add(observation.getData())
@@ -87,8 +90,8 @@ class ExplorerAgent(Agent):
             time.sleep(0)
 
     def deliberate(self):
-        x = self.x
-        y = self.y
+        x = self.position[0]
+        y = self.position[1]
         mapWidth = len(self.sensor.map[0])
         mapHeight = len(self.sensor.map)
 
