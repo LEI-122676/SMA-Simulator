@@ -1,19 +1,15 @@
-from Observation import Observation
-from Sensor import Sensor
+from __future__ import annotations
 from abc import ABC, abstractmethod
 
+from Action import Action
+from Observation import Observation
+from Sensor import Sensor
 
-class Agent(ABC): #classe abstrata para os agentes
-
-
-    #@abstractmethod
-    #def __init__(self, id, learner, steps, genotype):
-    #    pass
+class Agent(ABC):
 
     @staticmethod
     @abstractmethod
-    def create(self, fileNameArgs: str):
-        """Returns Agent"""
+    def create(fileNameArgs: str) -> Agent:
         pass
 
     @abstractmethod
@@ -21,7 +17,7 @@ class Agent(ABC): #classe abstrata para os agentes
         pass
 
     @abstractmethod
-    def act(self):
+    def act(self) -> Action:
         pass
 
     @abstractmethod

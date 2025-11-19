@@ -53,10 +53,9 @@ class SimulatorMotor(Simulator):
     def listAgents(self):
         if not self.running:
             print("Simulator not running. No agents to list.")
-            return
+            return None
 
-        for a in self.terrain.chickens:
-            yield a
+        return [a for a in self.terrain.chickens]
 
     def execute(self):
         self.running = True                                                             # Phase 1

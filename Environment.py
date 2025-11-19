@@ -3,21 +3,18 @@ from abc import ABC, abstractmethod
 from Action import Action
 from Agent import Agent
 from ExplorerAgent import ExplorerAgent
+from Observation import Observation
+
 
 class Environment(ABC):
 
-    #@abstractmethod
-    #def __init__(self, width, height):
-    #    pass
-
+    @staticmethod
     @abstractmethod
-    def observationFor(self, explorer: ExplorerAgent):
-        """Returns Observation"""
+    def observationFor(self, explorer: ExplorerAgent) -> Observation:
         pass
 
     @abstractmethod
     def update(self):
-        """Updates the environment state"""
         pass
 
     @abstractmethod

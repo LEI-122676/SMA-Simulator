@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Enviroment">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_11_2025_14_09_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_11_2025_14_09__Changes_.xml" beforeDir="false" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Raycasting-&gt;Sensor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimulatorMotor.py" afterDir="false" />
     </list>
@@ -246,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763403728316</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="+Raycasting-&gt;Sensor">
+      <option name="closed" value="true" />
+      <created>1763548157615</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1763548157615</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -309,7 +315,8 @@
     <MESSAGE value="+ExplorerAgent" />
     <MESSAGE value="+Action" />
     <MESSAGE value="Phases 5-&gt;6" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phases 5-&gt;6" />
+    <MESSAGE value="+Raycasting-&gt;Sensor" />
+    <option name="LAST_COMMIT_MESSAGE" value="+Raycasting-&gt;Sensor" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
