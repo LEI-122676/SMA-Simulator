@@ -1,13 +1,18 @@
 import random
 
+from Action import Action
+from Agent import Agent
 from Chicken import Chicken
 from Egg import Egg
 from Environment import Environment
 from ExplorerAgent import ExplorerAgent
+from Item import Item
 from Observation import Observation
+from Obstacle import Obstacle
+from Wall import Wall
 
 
-class Terrain(Environment):
+class World(Environment):
 
     def __init__(self, width=100, height=100):
         self.width = width
@@ -15,14 +20,15 @@ class Terrain(Environment):
         self.solved = False
 
         self.map = [[None for _ in range(width)] for _ in range(height)]
-        self.chickens = []  # Phase 3
+        self.chickens = []                              # Phase 3
         self.eggs = []
         self.nests = []
         self.stones = []
 
 
     def observationFor(self, explorer: ExplorerAgent):  # Phase 5.2
-        obs = Observation()
+        obs = Observation(explorer.id)
+        sensor = explorer.sensor
 
         # TODO - usar Sensor?
 
@@ -32,7 +38,18 @@ class Terrain(Environment):
         pass
 
     def act(self, action, agent):
-        pass
+        future_pos = self.is_valid_action(action, agent.position)
+        if not future_pos:
+            return
+        agent.position = future_pos
+
+        # TODO - interagir com o objeto na posicao futura
+        fx, fy = future_pos
+        obj = self.map[fy][fx]
+        if (isinstance(obj, Item)):
+            pass
+
+
 
     def initializeMap(self, numEggs, numNests, numChickens):
         # TODO - corrigir isto, pq podem acontecer sobreposicoes de elementos com os randoms nao verificados
@@ -41,6 +58,7 @@ class Terrain(Environment):
             # Random position
             x = random.randint(0, len(self.map[0]) - 1)
             y = random.randint(0, len(self.map) - 1)
+
 
             self.eggs.append(Egg(n, x, y))
 
@@ -54,12 +72,27 @@ class Terrain(Environment):
         for n in range(numChickens):
             self.chickens.append(Chicken(n, 0, n))
 
-    def isActionValid(self, future):
-        x, y = future
+    def is_valid_action(self, action_to_validate: Action, explorer: ExplorerAgent):
+        """
+        Validate if the action is possible for the explorer in the current world state.
+        Returns the new position (x, y) if valid, otherwise returns False.
+        """
+
+        if action_to_validate is None or explorer is None:
+            return False
+
+        dx, dy = action_to_validate
+        px, py = explorer.position
+
+        x = px + dx
+        y = py + dy
+
+        # Within bounds
         if x < 0 or x >= len(self.map[0]) or y < 0 or y >= len(self.map):
             return False
 
-        if self.map[y][x] != " ":           # F = Fence
+        # Check for wall at destination
+        if isinstance(self.map[y][x], Obstacle):
             return False
 
-        return True
+        return (x, y)

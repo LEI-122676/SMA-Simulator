@@ -1,7 +1,7 @@
 import time
 
 from Simulator import Simulator
-from Terrain import Terrain
+from World import Terrain
 
 
 class SimulatorMotor(Simulator):
