@@ -1,5 +1,3 @@
-import numpy as np
-
 from Action import Action
 from Direction import Direction
 from Wall import Wall
