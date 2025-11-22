@@ -28,4 +28,8 @@ class Agent(ABC):
     def install(self, sensor: Sensor):
         pass
 
+    @abstractmethod
+    def execute(self):
+        pass
+
     # "communicate" já não é preciso!
