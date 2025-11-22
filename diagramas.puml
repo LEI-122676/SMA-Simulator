@@ -4,36 +4,36 @@
 !define JAVA_STYLE
 
 abstract class Simulator {
-  + {abstract} create(fileNameArgs: String): Simulator
+  + {abstract} create(file_name_args: String): Simulator
   + {abstract} listAgents(): List
   + {abstract} execute(): void
 }
 
-class SimulatorMotor{
-  - running:
-  - map:
-  - timeLimit: int
-  - service_to_agents:
-  - lock: Lock
-  - timePerStep: double
-  + shutDownSimulation():
-  + saveResults(fileName: String)
-  'nomes errados no proj
+class SimulatorMotor {
+  - time_limit: int
+  - time_per_step: double
+  - running: bool
+  - terrain: Terrain
+  + create(file_name_args: String): SimulatorMotor
+  + listAgents(): List
+  + execute(): void
+  + shutDownSimulation(): void
+  + saveResults(fileName: String): void
 }
 
 abstract class Agent {
-  # id: int
-  # learner: boolean
+  # id
   # steps: int
   # genotype: List<Action>
-  + {abstract} create(fileName: String):
+  + {abstract} create(fileNameArgs: String)
   + {abstract} observation(observation: Observation): void
   + {abstract} act(): void
-  + {abstract} evaluateCurrentState(reward: double):
+  + {abstract} evaluateCurrentState(reward: double)
   + {abstract} install(sensor: Sensor): void
 }
 
 class ExplorerAgent {
+  - id
   - position: tuple
   - sensor: Sensor
   - observed: set
@@ -43,7 +43,11 @@ class ExplorerAgent {
   - noveltyScore: double
   - combinedFitness: double
   - step_index: int
-  + communicate(msg: String, fromAgent: int):
+  + create(fileNameArgs: String)
+  + observation(observation: Observation): void
+  + act(): void
+  + evaluateCurrentState(reward: double): void
+  + install(sensor: Sensor): void
   + pickUp(item: Item): void
   + run(): void
   + deliberate(): void
@@ -69,18 +73,20 @@ abstract class Environment {
   + {abstract} act(action: Action, agent: Agente): void
 }
 
-class World{
+class Terrain {
+  - width: int
+  - height: int
   - solved: boolean
   - map: List[List]
-  - chickens: List
-  - eggs: List
-  - nests: List
-  - stones: List
+  - chickens: List[Chicken]
+  - eggs: List[Egg]
+  - nests: List[Nest]
+  - stones: List[Stone]
   + observationFor(explorer: ExplorerAgent): Observation
   + update(): void
-  + act(action: Action, agent: Agente): void
+  + act(action: Action, agent: Agent): void
   + initializeMap(numEggs: int, numNests: int, numChickens: int): void
-  + isActionValid(self, future: ): boolean
+  + isActionValid(future): boolean
 }
 
 class Observation {
@@ -90,17 +96,22 @@ class Observation {
   + getData(): Iterator
 }
 
-abstract class Item {
+class Item {
+  # name: String
   # id: int
-  # x: int
-  # y: int
+  # position: tuple
   # picked_up: boolean
-  + {abstract} pickUp(): String
-  + {abstract} drop(): String
+  + __str__(): String
+}
+
+class Pickable {
+  + pickUp(): void
+  + drop(): void
 }
 
 class Nest {
-  - name: String
+  - limit: int
+  - eggs: int
   + putEgg(numEggs: int): boolean
 }
 
@@ -108,15 +119,15 @@ class Egg {
 }
 
 class Stone {
-  - name: String
 }
 
 class Sensor {
-  - explorer: ExplorerAgent
-  - terrain: Terrain
-  - radius: int
-  + pickUp(): String
-  + drop(): String
+  - grid
+  - width: int
+  - height: int
+  - max_range: int
+  + get_readings(agent_pos): Map
+  + normalize_readings(readings): Map
 }
 
 class Chicken {
@@ -139,19 +150,19 @@ class Chicken {
 
 'Ambiente --> Observacao : produz
 
+
 Simulator <|-- SimulatorMotor : extends
 
-Environment <|-- World : extends
-World <-- Action
+Environment <|-- Terrain : extends
+Terrain <-- Action
 
 Agent <|-- ExplorerAgent : extends
-ExplorerAgent <-- Chicken
-ExplorerAgent <-- Sensor
-ExplorerAgent <-- Observation
+ExplorerAgent <|-- Chicken
 
-Item <|-- Nest : extends
-Item <|-- Stone : extends
-Item <|-- Egg : extends
+Item <|-- Pickable : extends
+Pickable <|-- Egg
+Pickable <|-- Stone
+Item <|-- Nest
 
 
 @enduml
