@@ -64,7 +64,7 @@ class ExplorerAgent(Agent):
     def install(self, sensor):
         self.sensor = sensor
 
-    def communicate(self, message, fromAgent):
+    def execute(self):
         pass
 
     def pickUp(self, item):

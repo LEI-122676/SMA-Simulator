@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+ChickenCoop" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+ChickenCoop">
+      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExplorerAgent.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,17 +39,24 @@
   ],
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GitHubPullRequestState">{
-  &quot;prStates&quot;: [
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOQH7ibc60HsRD&quot;,
-        &quot;number&quot;: 22
+      "id": {
+        "id": "PR_kwDOQH7ibc60HsRD",
+        "number": 22
       },
-      &quot;lastSeen&quot;: 1763473835881
+      "lastSeen": 1763473835881
+    },
+    {
+      "id": {
+        "id": "PR_kwDOQH7ibc60-pHQ",
+        "number": 39
+      },
+      "lastSeen": 1763811259130
     }
   ]
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
@@ -275,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763810622935</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="+ChickenCoop">
+      <option name="closed" value="true" />
+      <created>1763810961781</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1763810961781</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
