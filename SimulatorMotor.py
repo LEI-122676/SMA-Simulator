@@ -1,7 +1,7 @@
 import time
 
 from Simulator import Simulator
-from Terrain import Terrain
+from World import Terrain, World
 
 
 class SimulatorMotor(Simulator):
@@ -11,7 +11,7 @@ class SimulatorMotor(Simulator):
         self.time_per_step = time_per_step
 
         self.running = None
-        self.terrain = None
+        self.world = None
 
     def create(self, file_name_args):
         
@@ -55,16 +55,16 @@ class SimulatorMotor(Simulator):
 
     def execute(self):
         self.running = True                                                 # Phase 1
-        self.terrain = Terrain()                                            # Phase 2 & 3
+        self.world = World()                                                # Phase 2 & 3
 
         while self.running:                                                 # -- loop --
-            self.terrain.update()                                           # Phase 4
+            self.world.update()                                             # Phase 4
 
-            for chicken in self.terrain.chickens:                           # Phase 5
-                chicken.execute()
+            for agent in self.world.agents:                                 # Phase 5
+                agent.execute()
 
             # Check termination conditions
-            if self.terrain.solved or self.time_limit == 0:                 # Phase 9
+            if self.world.solved or self.time_limit == 0:                   # Phase 9
                 self.running = False
 
             # Manage time
