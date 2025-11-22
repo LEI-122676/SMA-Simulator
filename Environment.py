@@ -20,6 +20,3 @@ class Environment(ABC):
     @abstractmethod
     def act(self, action: Action, agent: Agent):
         pass
-
-
-
