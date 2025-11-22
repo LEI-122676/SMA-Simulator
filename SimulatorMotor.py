@@ -1,7 +1,7 @@
 import time
 
 from Simulator import Simulator
-from World import Terrain, World
+from World import World
 
 
 class SimulatorMotor(Simulator):
@@ -51,7 +51,7 @@ class SimulatorMotor(Simulator):
             print("Simulator not running. No agents to list.")
             return None
 
-        return [a for a in self.terrain.chickens]
+        return [a for a in self.world.chickens]
 
     def execute(self):
         self.running = True                                                 # Phase 1

@@ -9,7 +9,6 @@ from ExplorerAgent import ExplorerAgent
 from Item import Item
 from Observation import Observation
 from Obstacle import Obstacle
-from Wall import Wall
 
 
 class World(Environment):
