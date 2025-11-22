@@ -1,7 +1,7 @@
 import numpy as np
 
 from Action import Action
-from Terrain import Terrain
+from World import Terrain
 from Wall import Wall
 
 
