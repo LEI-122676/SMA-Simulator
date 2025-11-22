@@ -3,9 +3,9 @@ from Item import Item
 
 class Nest(Item):
 
-    def __init__(self, id, x, y, limit: int):
+    def __init__(self, id, x, y, capacity: int):
         super().__init__("N", id, x, y)
-        self.limit = limit
+        self.capacity = capacity
         self.eggs = 0
 
     # Returns True when egg is put in the Nest

@@ -1,13 +1,11 @@
-import numpy as np
-
 from Action import Action
-from World import Terrain
+from World import World
 from Wall import Wall
 
 
 class Sensor: # uses raycasting to detect distances to obstacles
 
-    def __init__(self, terrain: Terrain, max_range:int = 10):
+    def __init__(self, terrain: World, max_range:int = 10):
         self.grid = terrain.map
         self.height = len(self.grid)
         self.width = len(self.grid[0])
