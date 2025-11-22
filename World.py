@@ -20,7 +20,7 @@ class World(Environment):
         self.solved = False
 
         self.map = [[None for _ in range(width)] for _ in range(height)]
-        self.chickens = []                              # Phase 3
+        self.agents = []                              # Phase 3
         self.eggs = []
         self.nests = []
         self.stones = []
@@ -38,7 +38,7 @@ class World(Environment):
         pass
 
     def act(self, action, agent):
-        future_pos = self.is_valid_action(action, agent.position)
+        future_pos = self.is_valid_action(action, agent)
         if not future_pos:
             return
         agent.position = future_pos
@@ -48,8 +48,6 @@ class World(Environment):
         obj = self.map[fy][fx]
         if (isinstance(obj, Item)):
             pass
-
-
 
     def initializeMap(self, numEggs, numNests, numChickens):
         # TODO - corrigir isto, pq podem acontecer sobreposicoes de elementos com os randoms nao verificados
@@ -72,6 +70,7 @@ class World(Environment):
         for n in range(numChickens):
             self.chickens.append(Chicken(n, 0, n))
 
+    # Phase 7.1
     def is_valid_action(self, action_to_validate: Action, explorer: ExplorerAgent):
         """
         Validate if the action is possible for the explorer in the current world state.
