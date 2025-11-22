@@ -1,22 +1,23 @@
 import numpy as np
 
 from Action import Action
-from World import Terrain
+from Direction import Direction
 from Wall import Wall
+from World import World
 
 
 class Sensor: # uses raycasting to detect distances to obstacles
 
-    def __init__(self, terrain: Terrain, max_range:int = 10):
-        self.grid = terrain.map
+    def __init__(self, world: World, max_range:int = 10):
+        self.grid = world.map
         self.height = len(self.grid)
         self.width = len(self.grid[0])
         self.max_range = max_range
 
-    def get_readings(self, agent_pos):
+    def get_perception(self, agent_pos):
         readings = {}
 
-        for direction in Action:                                        # ex: NORTH (0, 1)
+        for direction in Direction:                                        # ex: NORTH (0, 1)
             distance = self._cast_ray(agent_pos, direction.value)
             readings[direction] = distance
 
@@ -35,15 +36,9 @@ class Sensor: # uses raycasting to detect distances to obstacles
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if isinstance(self.grid[current_y][current_x], Wall):  # TODO - seria mais optimal usar numeros
+            if isinstance(self.grid[current_y][current_x], Wall):
                 return dist
 
             dist += 1
 
         return dist
-
-    def normalize_readings(self, readings):
-        normalized = {}
-        for direction, dist in readings.items():
-            normalized[direction] = dist / self.max_range
-        return normalized

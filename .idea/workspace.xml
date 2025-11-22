@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+ChickenCoop">
-      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Action.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="tigago" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,24 +43,17 @@
   ],
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GitHubPullRequestState"><![CDATA[{
-  "prStates": [
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
     {
-      "id": {
-        "id": "PR_kwDOQH7ibc60HsRD",
-        "number": 22
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc60HsRD&quot;,
+        &quot;number&quot;: 22
       },
-      "lastSeen": 1763473835881
-    },
-    {
-      "id": {
-        "id": "PR_kwDOQH7ibc60-pHQ",
-        "number": 39
-      },
-      "lastSeen": 1763811259130
+      &quot;lastSeen&quot;: 1763473835881
     }
   ]
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
@@ -83,20 +80,20 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.demo.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#39 on tigago",
-    "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -127,9 +124,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -253,47 +247,7 @@
       <option name="project" value="LOCAL" />
       <updated>1763403728316</updated>
     </task>
-    <task id="LOCAL-00014" summary="+Pickable">
-      <option name="closed" value="true" />
-      <created>1763562499565</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1763562499565</updated>
-    </task>
-    <task id="LOCAL-00015" summary="+Pickable">
-      <option name="closed" value="true" />
-      <created>1763562505231</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1763562505231</updated>
-    </task>
-    <task id="LOCAL-00016" summary="+ChickenCoop">
-      <option name="closed" value="true" />
-      <created>1763810124922</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1763810124922</updated>
-    </task>
-    <task id="LOCAL-00017" summary="+ChickenCoop">
-      <option name="closed" value="true" />
-      <created>1763810622935</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1763810622935</updated>
-    </task>
-    <task id="LOCAL-00018" summary="+ChickenCoop">
-      <option name="closed" value="true" />
-      <created>1763810961781</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1763810961781</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -356,9 +310,7 @@
     <MESSAGE value="+ExplorerAgent" />
     <MESSAGE value="+Action" />
     <MESSAGE value="Phases 5-&gt;6" />
-    <MESSAGE value="+Pickable" />
-    <MESSAGE value="+ChickenCoop" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ChickenCoop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phases 5-&gt;6" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
