@@ -13,7 +13,7 @@ from Obstacle import Obstacle
 
 class World(Environment):
 
-    def __init__(self, width=100, height=100):
+    def __init__(self, width=30, height=30):
         self.width = width
         self.height = height
         self.solved = False
@@ -37,7 +37,7 @@ class World(Environment):
         pass
 
     def act(self, action, agent):
-        future_pos = self.is_valid_action(action, agent)
+        future_pos = self.is_valid_action(action, agent.position)  # TODO - acho q n é preciso checkar a validade aq pq vai sempre receber uma acao valida right?
         if not future_pos:
             return
         agent.position = future_pos
@@ -70,17 +70,17 @@ class World(Environment):
             self.chickens.append(Chicken(n, 0, n))
 
     # Phase 7.1
-    def is_valid_action(self, action_to_validate: Action, explorer: ExplorerAgent):
+    def is_valid_action(self, action_to_validate: Action, explorer_pos):
         """
         Validate if the action is possible for the explorer in the current world state.
         Returns the new position (x, y) if valid, otherwise returns False.
         """
 
-        if action_to_validate is None or explorer is None:
+        if action_to_validate is None:
             return False
 
         dx, dy = action_to_validate
-        px, py = explorer.position
+        px, py = explorer_pos
 
         x = px + dx
         y = py + dy
@@ -93,4 +93,4 @@ class World(Environment):
         if isinstance(self.map[y][x], Obstacle):
             return False
 
-        return (x, y)
+        return x, y

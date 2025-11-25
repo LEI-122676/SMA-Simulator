@@ -3,19 +3,19 @@ import time
 
 from Action import Action
 from Agent import Agent
+from Move import Move
+from Observation import Observation
 
 
 class ExplorerAgent(Agent):
 
     def __init__(self, id, x, y, world, learn_mode=True, steps=5000, genotype=None):
-        #super().__init__(id, True, steps, genotype)
-
         self.id = id
         self.position = (x, y)
         self.world = world
         self.learn_mode = learn_mode
         self.steps = steps
-        self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
+        self.genotype = genotype or [Move.random_action() for _ in range(self.steps)]  # TODO - o genótipo sao apenas moves? ou deviam ser Actions?
 
         self.sensor = None
         self.observation = None
@@ -39,8 +39,8 @@ class ExplorerAgent(Agent):
 
         return self.__init__(id, x, y, learn_mode, steps)
 
-    def observation(self, observation):
-        """Update the agent's observation based on the environment's observation."""
+    def observation(self, observation):                            # Phase 5.2 TODO - isto n esta a ser usado...
+        """Set the agent's observation to its current environment POV."""
         self.observation = observation
         return observation
 
@@ -72,15 +72,20 @@ class ExplorerAgent(Agent):
         self.sensor = sensor
 
     def execute(self):
-        """Runs the sequence of actions and requests that the Agent is responsible for"""
-        # This loop shouldn't run too many times
-        while self.world.solved:                                   # Phase 7.1
-            perception = self.sensor.get_perception()               # Phase 5.1
-            action_to_take = self.deliberate(perception)            # Phase 5.2 & 6
+        while not self.world.solved and self.step_index < len(self.genotype):
+            perception = self.sensor.get_observation(self)                          # Phase 5.1 & 5.2
+            action_to_take = self.deliberate(perception)                            # Phase 6
 
-            reward = self.world.act(action_to_take, self)           # Phase 7.1
+            # deliberate may return None to indicate an invalid/no-op gene that was consumed
+            if action_to_take is None:
+                continue
 
-            if reward is not None:                                 # Phase 7
+            reward = self.world.act(action_to_take, self)                           # Phase 7.1
+
+            # consume the gene after attempting the action
+            self.step_index += 1
+
+            if reward is not None:                                                  # Phase 7.3
                 self.evaluateCurrentState(reward)
                 break
 
@@ -90,44 +95,20 @@ class ExplorerAgent(Agent):
         print(f"ExplorerAgent:{self.id} picked up {item}")
 
     def deliberate(self, perception):
-        x = self.position[0]
-        y = self.position[1]
+        if self.step_index >= len(self.genotype) or perception is None:
+            return None
+
+        x, y = self.position
         mapWidth = len(self.sensor.map[0])
         mapHeight = len(self.sensor.map)
 
-        action = self.genotype[self.step_index]
+        gene = self.genotype[self.step_index]
 
-        # 1. Get new proposed position
-        newx = x + action[0]
-        newy = y + action[1]
+        # TODO - aqui entra a rede neuronal? para escolher a acao a partir de 'perception'?
 
-        # 2. Check boundaries
-        if x < 0 or x >= mapWidth or y < 0 or y >= mapHeight:
-            continue
-
-        # TODO
-        # 3. Check object at new location
-        obj = env.get_object_here(newx, newy)
-
-        # 4. Update agent/env state
-        if isinstance(obj, Ground):
-            env.agentx, env.agenty = newx, newy
-        elif isinstance(obj, Key):
-            env.keys.remove(obj)
-            local_found_keys.append(obj)
-            self.keys_found.append(obj)
-            env.agentx, env.agenty = newx, newy
-        elif isinstance(obj, Treasure):
-            for key in local_found_keys:
-                if key.treasure == obj.name:
-                    obj.opened = True
-                    env.treasures.remove(obj)
-                    self.treasures_opened.append(obj)
-                    env.agentx, env.agenty = newx, newy
-
-        # 5. Record behavior
-        self.behavior.add((env.agentx, env.agenty))
-        self.path.append((env.agentx, env.agenty))
+        return gene
+        #self.behavior.add((env.agentx, env.agenty))
+        #self.path.append((env.agentx, env.agenty))
 
 
     def calculate_objective_fitness(self):
