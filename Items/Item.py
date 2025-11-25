@@ -7,7 +7,6 @@ class Item(ABC):
         self.name = name
         self.id = id
         self.position = (x, y)
-        self.picked_up = False
 
     def __str__(self):
         return f"{self.name}{self.id}"

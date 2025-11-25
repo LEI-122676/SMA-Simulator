@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+8 directions">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Fixed folders">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Chicken.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Farol.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Pickable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Pickable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,38 +49,38 @@
   ],
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GitHubPullRequestState"><![CDATA[{
-  "prStates": [
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
     {
-      "id": {
-        "id": "PR_kwDOQH7ibc60HsRD",
-        "number": 22
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc60HsRD&quot;,
+        &quot;number&quot;: 22
       },
-      "lastSeen": 1763473835881
+      &quot;lastSeen&quot;: 1763473835881
     },
     {
-      "id": {
-        "id": "PR_kwDOQH7ibc60-_0u",
-        "number": 46
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc60-_0u&quot;,
+        &quot;number&quot;: 46
       },
-      "lastSeen": 1763817834295
+      &quot;lastSeen&quot;: 1763817834295
     },
     {
-      "id": {
-        "id": "PR_kwDOQH7ibc61blMC",
-        "number": 53
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc61blMC&quot;,
+        &quot;number&quot;: 53
       },
-      "lastSeen": 1764081456515
+      &quot;lastSeen&quot;: 1764081456515
     },
     {
-      "id": {
-        "id": "PR_kwDOQH7ibc61bV_6",
-        "number": 51
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc61bV_6&quot;,
+        &quot;number&quot;: 51
       },
-      "lastSeen": 1764081479842
+      &quot;lastSeen&quot;: 1764081479842
     }
   ]
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
@@ -97,20 +107,20 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.demo.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

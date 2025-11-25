@@ -12,10 +12,10 @@ class Nest(Item):
     def putEgg(self, numEggs):
         future = self.eggs + numEggs
 
-        if future < self.limit:
+        if future < self.capacity:
             self.eggs = future
             print(f"[{self}] - Has {self.eggs} eggs.")
             return True
         else:
-            print(f"[{self}] - Cannot put {numEggs} eggs. Limit is {self.limit}.")
+            print(f"[{self}] - Cannot put {numEggs} eggs. Capacity is currently at {self.eggs}/{self.capacity}.")
             return False

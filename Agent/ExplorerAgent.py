@@ -1,6 +1,6 @@
 import random
 
-from Action import Action
+from Actions.Action import Action
 from Agent import Agent
 
 
