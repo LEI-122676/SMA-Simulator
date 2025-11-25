@@ -1,6 +1,7 @@
 import random
 
 from Agent import Agent
+from ExplorerAgent import ExplorerAgent
 
 
 def jaccard_distance(set1, set2):
@@ -25,7 +26,7 @@ def crossover(parent1, parent2):
     point = random.randint(1, len(parent1.genotype) - 1)
     child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
     child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
-    return Agent(child1_geno), Agent(child2_geno)
+    return ExplorerAgent(child1_geno), ExplorerAgent(child2_geno)
 
 def multi_point_crossover(parent1, parent2):
     points = sorted(random.sample(range(1, len(parent1.genotype) - 1), 2))

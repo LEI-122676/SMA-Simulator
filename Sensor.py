@@ -1,8 +1,7 @@
-import numpy as np
-
-from Action import Action
 from Direction import Direction
-from Wall import Wall
+from ExplorerAgent import ExplorerAgent
+from Observation import Observation
+from Obstacle import Obstacle
 from World import World
 
 
@@ -14,14 +13,14 @@ class Sensor: # uses raycasting to detect distances to obstacles
         self.width = len(self.grid[0])
         self.max_range = max_range
 
-    def get_observation(self, agent_pos):
-        readings = {}
+    def get_observation(self, explorer: ExplorerAgent) -> Observation:
+        observation = Observation(explorer.id)
 
         for direction in Direction:                                        # ex: NORTH (0, 1)
-            distance = self._cast_ray(agent_pos, direction.value)
-            readings[direction] = distance
+            distance = self._cast_ray(explorer.position, direction.value)
+            observation.possible_actions[direction] = distance
 
-        return readings
+        return observation
 
     def _cast_ray(self, start_pos, step_vector):
         current_x, current_y = start_pos
@@ -36,7 +35,7 @@ class Sensor: # uses raycasting to detect distances to obstacles
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if isinstance(self.grid[current_y][current_x], Wall):
+            if isinstance(self.grid[current_y][current_x], Obstacle):
                 return dist
 
             dist += 1
