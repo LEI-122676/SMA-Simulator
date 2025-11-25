@@ -3,11 +3,11 @@ import random
 from Actions.Action import Action
 from Agent.Chicken import Chicken
 from Items.Egg import Egg
-from World.Environment import Environment
 from Agent.ExplorerAgent import ExplorerAgent
 from Items.Item import Item
 from Actions.Observation import Observation
 from Obstacle import Obstacle
+from World.Environment import Environment
 
 
 class World(Environment):
@@ -44,7 +44,7 @@ class World(Environment):
         # TODO - interagir com o objeto na posicao futura
         fx, fy = future_pos
         obj = self.map[fy][fx]
-        if (isinstance(obj, Item)):
+        if isinstance(obj, Item):
             pass
 
     def initializeMap(self, numEggs, numNests, numChickens):

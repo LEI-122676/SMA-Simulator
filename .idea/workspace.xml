@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Move,Collect,Deposit&#10;+Phase5-7">
       <change beforePath="$PROJECT_DIR$/Actions/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Actions/Collect.py" beforeDir="false" />
@@ -33,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="tigago" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,7 +69,14 @@
         &quot;id&quot;: &quot;PR_kwDOQH7ibc61blMC&quot;,
         &quot;number&quot;: 53
       },
-      &quot;lastSeen&quot;: 1764082261155
+      &quot;lastSeen&quot;: 1764081456515
+    },
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOQH7ibc61bV_6&quot;,
+        &quot;number&quot;: 51
+      },
+      &quot;lastSeen&quot;: 1764081479842
     }
   ]
 }</component>
@@ -107,6 +115,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
@@ -292,7 +301,23 @@
       <option name="project" value="LOCAL" />
       <updated>1763817837563</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="+8 directions">
+      <option name="closed" value="true" />
+      <created>1764080691700</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764080691700</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Item attributes tweaks">
+      <option name="closed" value="true" />
+      <created>1764100181217</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764100181217</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -363,7 +388,9 @@
     <MESSAGE value="+Action" />
     <MESSAGE value="Phases 5-&gt;6" />
     <MESSAGE value="+Move,Collect,Deposit&#10;+Phase5-7" />
-    <option name="LAST_COMMIT_MESSAGE" value="+Move,Collect,Deposit&#10;+Phase5-7" />
+    <MESSAGE value="+8 directions" />
+    <MESSAGE value="Item attributes tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Item attributes tweaks" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

@@ -4,6 +4,12 @@ from Simulator.Simulator import Simulator
 from World.World import World
 
 
+
+
+
+
+
+
 class SimulatorMotor(Simulator):
 
     def __init__(self, time_limit=500, time_per_step=0.1):
@@ -87,7 +93,6 @@ class SimulatorMotor(Simulator):
     def saveState(self):
         # save the metrics: tempo e nr de passos, valores de novelty e fitness
         pass
-
 
 if __name__ == "__main__":
     simulator = SimulatorMotor()
