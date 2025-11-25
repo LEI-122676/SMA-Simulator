@@ -139,19 +139,20 @@ def get_farol_vector(farol, agente):
     agente_position = agente.position
     
     distance = ((farol_position[0] - agente_position[0]), (farol_position[1] - agente_position[1]))
-    
-    for i in distance:
-        if i > 0:
-            distance[i] = 1
-        elif i < 0:
-            distance[i] = -1
+    vector = [0,0]
+    if farol_position[0] < agente_position[0]:
+        vector = (-1, 0)  # West
+    elif farol_position[0] > agente_position[0]:
+        vector = (1, 0)   # East
+    else:
+        if farol_position[1] > agente_position[1]:
+            vector = (0, 1)  # South
+        elif farol_position[1] < agente_position[1]:
+            vector = (0, -1)  # North
         else:
-            distance[i] = 0
+            vector = (0, 0)  # Same position
     
-    direction = D(distance)
-    
-    return direction
-
+    return vector
 # test
 # def main():
 #     print (get_farol_vector((9, 5),(10,4)))
