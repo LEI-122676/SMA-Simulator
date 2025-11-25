@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Fixed folders">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Item attributes tweaks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Chicken.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Farol.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Pickable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Pickable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +303,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764080691700</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Item attributes tweaks">
+      <option name="closed" value="true" />
+      <created>1764100181217</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764100181217</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -381,7 +383,8 @@
     <MESSAGE value="Phases 5-&gt;6" />
     <MESSAGE value="+Move,Collect,Deposit&#10;+Phase5-7" />
     <MESSAGE value="+8 directions" />
-    <option name="LAST_COMMIT_MESSAGE" value="+8 directions" />
+    <MESSAGE value="Item attributes tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Item attributes tweaks" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

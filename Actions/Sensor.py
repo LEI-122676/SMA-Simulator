@@ -1,16 +1,16 @@
-from Direction import Direction
+from Actions.Direction import Direction
 from Agent.ExplorerAgent import ExplorerAgent
 from Observation import Observation
-from Obstacle import Obstacle
+from Obstacle.Obstacle import Obstacle
 from World.World import World
 
 
 class Sensor: # uses raycasting to detect distances to obstacles
 
     def __init__(self, world: World, max_range:int = 10):
-        self.grid = world.map
-        self.height = len(self.grid)
-        self.width = len(self.grid[0])
+        self.world = world
+        self.height = len(self.world.map)
+        self.width = len(self.world.map[0])
         self.max_range = max_range
 
     def get_observation(self, explorer: ExplorerAgent) -> Observation:
@@ -35,7 +35,7 @@ class Sensor: # uses raycasting to detect distances to obstacles
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if isinstance(self.grid[current_y][current_x], Obstacle):
+            if isinstance(self.world.map[current_y][current_x], Obstacle):
                 return dist
 
             dist += 1

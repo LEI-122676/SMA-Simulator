@@ -44,7 +44,7 @@ class World(Environment):
         # TODO - interagir com o objeto na posicao futura
         fx, fy = future_pos
         obj = self.map[fy][fx]
-        if (isinstance(obj, Item)):
+        if isinstance(obj, Item):
             pass
 
     def initializeMap(self, numEggs, numNests, numChickens):
