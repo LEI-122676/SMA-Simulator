@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-from Agent import Agent
+from Agent.Agent import Agent
 
 
 class Simulator(ABC):

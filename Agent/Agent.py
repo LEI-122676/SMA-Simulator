@@ -1,9 +1,9 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-from Action import Action
-from Observation import Observation
-from Sensor import Sensor
+from Actions.Action import Action
+from Actions.Observation import Observation
+from Actions.Sensor import Sensor
 
 class Agent(ABC):
 

@@ -1,13 +1,12 @@
 import random
 
-from Action import Action
-from Agent import Agent
-from Chicken import Chicken
-from Egg import Egg
-from Environment import Environment
-from ExplorerAgent import ExplorerAgent
-from Item import Item
-from Observation import Observation
+from Actions.Action import Action
+from Agent.Chicken import Chicken
+from Items.Egg import Egg
+from World.Environment import Environment
+from Agent.ExplorerAgent import ExplorerAgent
+from Items.Item import Item
+from Actions.Observation import Observation
 from Obstacle import Obstacle
 
 

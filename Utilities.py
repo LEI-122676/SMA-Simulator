@@ -1,7 +1,7 @@
 import random
 
-from Agent import Agent
-from ExplorerAgent import ExplorerAgent
+from Agent.Agent import Agent
+from Agent.ExplorerAgent import ExplorerAgent
 
 
 def jaccard_distance(set1, set2):

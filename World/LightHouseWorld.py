@@ -1,8 +1,7 @@
 from World import World
-import random
 
-from Action import Action
-from ExplorerAgent import ExplorerAgent
+from Actions.Action import Action
+from Agent.ExplorerAgent import ExplorerAgent
 
 class LightHouseWorld(World):
     """A simple lighthouse world: the agent must reach the lighthouse position to solve the world.

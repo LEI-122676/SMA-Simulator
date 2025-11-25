@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Tuple
-from Action import Action
+from Actions.Action import Action
 
 @dataclass
 class Deposit(Action):

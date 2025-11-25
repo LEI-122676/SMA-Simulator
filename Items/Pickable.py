@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-from Item import Item
+from Items.Item import Item
 
 
 class Pickable(Item):

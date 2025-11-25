@@ -1,7 +1,7 @@
 import time
 
-from Simulator import Simulator
-from World import World
+from Simulator.Simulator import Simulator
+from World.World import World
 
 
 class SimulatorMotor(Simulator):
