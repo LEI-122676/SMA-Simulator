@@ -1,7 +1,7 @@
 from enum import Enum
 import random
 from typing import Tuple
-from Action import Action
+from Actions.Action import Action
 
 
 class Move(Action, Enum):

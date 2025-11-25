@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
-from Action import Action
-from Agent import Agent
-from ExplorerAgent import ExplorerAgent
-from Observation import Observation
+from Actions.Action import Action
+from Agent.Agent import Agent
+from Agent.ExplorerAgent import ExplorerAgent
+from Actions.Observation import Observation
 
 
 class Environment(ABC):

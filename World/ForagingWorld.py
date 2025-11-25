@@ -1,11 +1,10 @@
 from World import World
 import random
 
-from Action import Action
-from ExplorerAgent import ExplorerAgent
-from Egg import Egg
-from Nest import Nest
-from Item import Item
+from Actions.Action import Action
+from Agent.ExplorerAgent import ExplorerAgent
+from Items.Egg import Egg
+from Items.Nest import Nest
 
 
 class ForagingWorld(World):
