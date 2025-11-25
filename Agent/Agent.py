@@ -13,7 +13,7 @@ class Agent(ABC):
         pass
 
     @abstractmethod
-    def observation(self, observation: Observation):
+    def observe(self, observation: Observation):
         pass
 
     @abstractmethod
