@@ -5,32 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Move,Collect,Deposit&#10;+Phase5-7">
-      <change beforePath="$PROJECT_DIR$/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Chicken.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Collect.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Collect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Deposit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Deposit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Direction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Direction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/Environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farol.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Farol.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LightHouseWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/LightHouseWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Move.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Move.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Obstacle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Obstacle/Obstacle.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pickable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Pickable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/Simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Collect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Deposit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Direction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Direction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Move.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wall.py" beforeDir="false" afterPath="$PROJECT_DIR$/Obstacle/Wall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,24 +47,31 @@
   ],
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GitHubPullRequestState">{
-  &quot;prStates&quot;: [
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOQH7ibc60HsRD&quot;,
-        &quot;number&quot;: 22
+      "id": {
+        "id": "PR_kwDOQH7ibc60HsRD",
+        "number": 22
       },
-      &quot;lastSeen&quot;: 1763473835881
+      "lastSeen": 1763473835881
     },
     {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOQH7ibc60-_0u&quot;,
-        &quot;number&quot;: 46
+      "id": {
+        "id": "PR_kwDOQH7ibc60-_0u",
+        "number": 46
       },
-      &quot;lastSeen&quot;: 1763817834295
+      "lastSeen": 1763817834295
+    },
+    {
+      "id": {
+        "id": "PR_kwDOQH7ibc61blMC",
+        "number": 53
+      },
+      "lastSeen": 1764082261155
     }
   ]
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
@@ -117,7 +107,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "yaa",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }

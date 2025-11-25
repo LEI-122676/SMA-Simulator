@@ -16,7 +16,7 @@ class Sensor:
     def get_observation(self, explorer: ExplorerAgent) -> Observation:
         observation = Observation(explorer.id)
 
-        for direction in Direction:                                        # ex: NORTH (0, 1)
+        for direction in Direction:
             distance = self._cast_ray(explorer.position, direction.value)
             observation.possible_actions[direction] = distance
 

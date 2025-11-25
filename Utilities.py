@@ -140,7 +140,7 @@ def get_farol_vector(farol, agente):
     
     distance = ((farol_position[0] - agente_position[0]), (farol_position[1] - agente_position[1]))
     
-    for i in distance:
+    for i in distance:    # (1, -1)
         if i > 0:
             distance[i] = 1
         elif i < 0:
