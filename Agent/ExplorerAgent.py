@@ -1,10 +1,8 @@
 import random
-import time
 
-from Action import Action
-from Agent import Agent
-from Move import Move
-from Observation import Observation
+from Actions.Action import Action
+from Agent.Agent import Agent
+from Actions.Move import Move
 
 
 class ExplorerAgent(Agent):

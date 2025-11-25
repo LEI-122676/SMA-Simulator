@@ -1,8 +1,8 @@
 from Direction import Direction
-from ExplorerAgent import ExplorerAgent
+from Agent.ExplorerAgent import ExplorerAgent
 from Observation import Observation
 from Obstacle import Obstacle
-from World import World
+from World.World import World
 
 
 class Sensor: # uses raycasting to detect distances to obstacles
