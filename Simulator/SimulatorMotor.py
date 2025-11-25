@@ -4,6 +4,9 @@ from Simulator.Simulator import Simulator
 from World.World import World
 
 
+
+
+
 class SimulatorMotor(Simulator):
 
     def __init__(self, time_limit=500, time_per_step=0.1):
@@ -12,6 +15,8 @@ class SimulatorMotor(Simulator):
 
         self.running = None
         self.world = None
+
+        self.states = []
 
     def create(self, file_name_args):
         
@@ -63,6 +68,8 @@ class SimulatorMotor(Simulator):
             for agent in self.world.agents:                                 # Phase 5
                 agent.execute()
 
+            self.saveState()
+
             # Check termination conditions
             if self.world.solved or self.time_limit == 0:                   # Phase 9
                 self.running = False
@@ -78,6 +85,10 @@ class SimulatorMotor(Simulator):
         pass
 
     def saveResults(self, fileName="simulation_results.txt"):
+        pass
+
+    def saveState(self):
+        # save the metrics: tempo e nr de passos, valores de novelty e fitness
         pass
 
 if __name__ == "__main__":

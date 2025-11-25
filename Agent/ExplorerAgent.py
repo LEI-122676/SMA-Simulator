@@ -1,8 +1,7 @@
 import random
 
-from Actions.Action import Action
-from Agent.Agent import Agent
-from Actions.Move import Move
+from Action import Action
+from Agent import Agent
 
 
 class ExplorerAgent(Agent):
@@ -13,12 +12,13 @@ class ExplorerAgent(Agent):
         self.world = world
         self.learn_mode = learn_mode
         self.steps = steps
-        self.genotype = genotype or [Move.random_action() for _ in range(self.steps)]  # TODO - o genótipo sao apenas moves? ou deviam ser Actions?
+        self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]  # TODO - o genótipo sao apenas moves? ou deviam ser Actions?
 
         self.sensor = None
         self.observation = None
-        self.behavior = set()   # store unique coordinates visited by the agent during a simulation, used to measure exploration
-        self.path = []          # store the sequence of coordinates visited by the agent during a simulation, preserving the order
+
+        self.behavior = set()
+        self.path = []
         self.inventory = []
 
         self.noveltyScore = 0.0
@@ -26,7 +26,6 @@ class ExplorerAgent(Agent):
         self.step_index = 0
 
     def create(self, fileNameArgs):
-        """Optional factory method placeholder (not used in MVP)."""
         # TODO - something like this
         fileNameArgs = fileNameArgs.split(',')
         id = fileNameArgs[0]
@@ -38,62 +37,10 @@ class ExplorerAgent(Agent):
         return self.__init__(id, x, y, learn_mode, steps)
 
     def observation(self, observation):                            # Phase 5.2 TODO - isto n esta a ser usado...
-        """Set the agent's observation to its current environment POV."""
         self.observation = observation
-        return observation
-
-    """    def act(self):
-        # Execute a single step from the genotype. Returns the new position or None if finished.
-        if self.step_index >= len(self.genotype):
-            return None
-
-        dx, dy = self.genotype[self.step_index]
-        x, y = self.position
-        new_pos = (x + dx, y + dy)
-
-        self.deliberate()               # TODO - check if move is valid
-
-        # update state
-        self.position = new_pos
-        self.path.append(new_pos)
-        self.behavior.add(new_pos)
-        self.step_index += 1
-    """
 
     def act(self):
-        pass
-
-    def evaluateCurrentState(self, reward):
-        pass
-
-    def install(self, sensor):
-        self.sensor = sensor
-
-    def execute(self):
-        while not self.world.solved and self.step_index < len(self.genotype):
-            perception = self.sensor.get_observation(self)                          # Phase 5.1 & 5.2
-            action_to_take = self.deliberate(perception)                            # Phase 6
-
-            # deliberate may return None to indicate an invalid/no-op gene that was consumed
-            if action_to_take is None:
-                continue
-
-            reward = self.world.act(action_to_take, self)                           # Phase 7.1
-
-            # consume the gene after attempting the action
-            self.step_index += 1
-
-            if reward is not None:                                                  # Phase 7.3
-                self.evaluateCurrentState(reward)
-                break
-
-    def pickUp(self, item):
-        self.inventory.append(item)
-        item.pickUp()
-        print(f"ExplorerAgent:{self.id} picked up {item}")
-
-    def deliberate(self, perception):
-        if self.step_index >= len(self.genotype) or perception is None:
+        if self.step_index >= len(self.genotype):
             return None
 
         x, y = self.position
@@ -108,6 +55,29 @@ class ExplorerAgent(Agent):
         #self.behavior.add((env.agentx, env.agenty))
         #self.path.append((env.agentx, env.agenty))
 
+    def evaluateCurrentState(self, reward):
+        pass
+
+    def install(self, sensor):
+        self.sensor = sensor
+
+    def execute(self):
+        while not self.world.solved and self.step_index < len(self.genotype):
+            observation = self.sensor.get_observation(self)                          # Phase 5.1 & 5.2
+            action_to_take = self.act()                                             # Phase 6
+
+            # deliberate may return None to indicate an invalid/no-op gene that was consumed
+            if action_to_take is None:
+                continue
+
+            reward = self.world.act(action_to_take, self)                           # Phase 7.1
+
+            # consume the gene after attempting the action
+            self.step_index += 1
+
+            if reward is not None:                                                  # Phase 7.3
+                self.evaluateCurrentState(reward)
+                break
 
     def calculate_objective_fitness(self):
         """Simple objective: coverage (number of unique visited cells)."""
