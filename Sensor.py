@@ -14,7 +14,7 @@ class Sensor: # uses raycasting to detect distances to obstacles
         self.width = len(self.grid[0])
         self.max_range = max_range
 
-    def get_perception(self, agent_pos):
+    def get_observation(self, agent_pos):
         readings = {}
 
         for direction in Direction:                                        # ex: NORTH (0, 1)
