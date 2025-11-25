@@ -1,11 +1,11 @@
-from Direction import Direction
+from Actions.Direction import Direction
 from Agent.ExplorerAgent import ExplorerAgent
 from Observation import Observation
 from Obstacle import Obstacle
 from World.World import World
 
 
-class Sensor: # uses raycasting to detect distances to obstacles
+class Sensor:
 
     def __init__(self, world: World, max_range:int = 10):
         self.grid = world.map

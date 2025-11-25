@@ -1,8 +1,7 @@
 import random
 
 from Agent.Agent import Agent
-from Agent.ExplorerAgent import ExplorerAgent
-
+import Actions.Direction as D
 
 def jaccard_distance(set1, set2):
     intersection = len(set1 & set2)
@@ -26,7 +25,7 @@ def crossover(parent1, parent2):
     point = random.randint(1, len(parent1.genotype) - 1)
     child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
     child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
-    return ExplorerAgent(child1_geno), ExplorerAgent(child2_geno)
+    return Agent(child1_geno), Agent(child2_geno)
 
 def multi_point_crossover(parent1, parent2):
     points = sorted(random.sample(range(1, len(parent1.genotype) - 1), 2))
@@ -134,3 +133,25 @@ def run_evolution(self):
     # Convenience wrappers expected by Simulator
     def run_simulation(self):
         self.run()
+
+def get_farol_vector(farol, agente):
+    farol_position = farol.lightHouse.position
+    agente_position = agente.position
+    
+    distance = ((farol_position[0] - agente_position[0]), (farol_position[1] - agente_position[1]))
+    
+    for i in distance:
+        if i > 0:
+            distance[i] = 1
+        elif i < 0:
+            distance[i] = -1
+        else:
+            distance[i] = 0
+    
+    direction = D(distance)
+    
+    return direction
+
+# test
+# def main():
+#     print (get_farol_vector((9, 5),(10,4)))
