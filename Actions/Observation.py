@@ -11,3 +11,4 @@ class Observation:
             count += distance
 
         return count
+

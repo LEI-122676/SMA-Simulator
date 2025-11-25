@@ -5,7 +5,7 @@ from Obstacle.Obstacle import Obstacle
 from World.World import World
 
 
-class Sensor: # uses raycasting to detect distances to obstacles
+class Sensor:
 
     def __init__(self, world: World, max_range:int = 10):
         self.world = world
@@ -16,7 +16,7 @@ class Sensor: # uses raycasting to detect distances to obstacles
     def get_observation(self, explorer: ExplorerAgent) -> Observation:
         observation = Observation(explorer.id)
 
-        for direction in Direction:                                        # ex: NORTH (0, 1)
+        for direction in Direction:
             distance = self._cast_ray(explorer.position, direction.value)
             observation.possible_actions[direction] = distance
 
