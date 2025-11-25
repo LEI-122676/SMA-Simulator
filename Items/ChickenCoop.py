@@ -1,6 +1,7 @@
+from Items.Item import Item
 
 
-class ChickenCoop:             # Galinheiro!
+class ChickenCoop(Item):
 
-    def __init__(self, x: int, y: int):
-        self.position = (x, y)
+    def __init__(self, id, x, y):
+        super().__init__("CC", id, x, y)
