@@ -2,13 +2,7 @@ import time
 
 from Simulator.Simulator import Simulator
 from World.World import World
-
-
-
-
-
-
-
+from Utilities import read_file_parameters
 
 class SimulatorMotor(Simulator):
 
@@ -21,36 +15,32 @@ class SimulatorMotor(Simulator):
 
         self.states = []
 
-    def create(self, file_name_args):
+    def create(self, game_type, file_name_args):
         
-        #TODO : Generaliar a leitura do ficheiro de configuracao
-
-        try:
-            with open(file_name_args, 'r') as f: content = f.read()
-            
-            # Example fileNameAtgs content:
-            # numEggs=15
-            # numNests=3
-            # numChickens=5
-            
-        except FileNotFoundError:
-            print("file {} does not exist".format(file_name_args))
-            numEggs = 10  # Default number of eggs
-            numNests = 2  # Default number of nests
-            numChickens = 1  # Default number of chickens
+        # TODO : NOVO FORMATO DE CONFIGURAÇÃO EM MATRIZ
         
-        content_lines = content.splitlines()
-        for line in content_lines:
-            key, value = line.split('=')
-            key = key.strip().lower()
-            value = int(value.strip())
-            if key == 'numeggs':
-                numEggs = value
-            elif key == 'numnests':
-                numNests = value
-            elif key == 'numchickens':
-                numChickens = value
-
+        if game_type == "Foraging":
+            try:
+                config = read_file_parameters(["numEggs", "numNests", "numChickens"], file_name_args)
+                numEggs = config.get("numEggs", 10)
+                numNests = config.get("numNests", 2)
+                numChickens = config.get("numChickens", 1)
+            except Exception as e:
+                print(f"Error reading configuration file: {e}")
+                numEggs = 10
+                numNests = 2
+                numChickens = 1
+        elif game_type == "Farol":
+            try:
+                config = read_file_parameters(["numFarols", "numChickens"], file_name_args)
+                numFarols = config.get("numFarols", 3)
+                numChickens = config.get("numChickens", 1)
+            except Exception as e:
+                print(f"Error reading configuration file: {e}")
+                numFarols = 1
+                numChickens = 1
+        else:
+            print("Unknown game type. Recognized game types are: Foraging, Farol.")
 
         return SimulatorMotor()
 

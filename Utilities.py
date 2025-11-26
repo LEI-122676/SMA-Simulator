@@ -153,3 +153,51 @@ def get_farol_vector(farol, agente):
             vector = (0, 0)  # Same position
     
     return vector
+
+def read_file_parameters(allowed_params, file_name):
+    
+    
+    # TODO : NOVO FORMATO DE CONFIGURAÇÃO EM MATRIZ
+
+    allowed = {p: None for p in allowed_params}  # Dict of allowed keys
+
+    try:
+        with open(file_name, "r") as f:
+            for line in f:
+
+                # Clean and skip empty/comment lines
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+
+                if "=" not in line:
+                    raise ValueError(f"Invalid line (no '='): {line}")
+
+                key, value = line.split("=", 1)
+                key = key.strip()
+
+                if key not in allowed:
+                    raise ValueError(f"Unexpected parameter in file: '{key}'")
+
+                value = value.strip()
+
+                # Try to convert to int or float
+                if value.isdigit():
+                    value = int(value)
+                else:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        pass  # keep as string
+
+                allowed[key] = value
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File '{file_name}' does not exist")
+
+    # Check for missing allowed parameters
+    missing = [k for k, v in allowed.items() if v is None]
+    if missing:
+        raise ValueError(f"Missing required parameters: {missing}")
+
+    return allowed
