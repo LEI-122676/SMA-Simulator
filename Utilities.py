@@ -201,3 +201,45 @@ def read_file_parameters(allowed_params, file_name):
         raise ValueError(f"Missing required parameters: {missing}")
 
     return allowed
+
+def read_matrix_file_with_metadata(file_name):
+    ALLOWED_CHARS = {'.', 'E', 'N', 'S', 'W', 'F', 'C'}
+    matrix = []
+    metadata = {}
+
+    try:
+        with open(file_name, "r") as f:
+            for line_number, line in enumerate(f, start=1):
+                line = line.strip()
+                if not line:
+                    continue
+
+                if line.startswith("#"):
+                    # Metadata line
+                    if "=" in line:
+                        key, value = line[1:].split("=", 1)
+                        metadata[key.strip()] = value.strip()
+                    continue
+
+                # Validate characters
+                for char in line:
+                    if char not in ALLOWED_CHARS:
+                        raise ValueError(
+                            f"Invalid character '{char}' on line {line_number}"
+                        )
+
+                matrix.append(list(line))
+
+        if not matrix:
+            raise ValueError("Matrix is empty")
+
+        # Ensure all rows are same length
+        row_length = len(matrix[0])
+        for i, row in enumerate(matrix, start=1):
+            if len(row) != row_length:
+                raise ValueError(f"Row {i} has length {len(row)}, expected {row_length}")
+
+        return matrix, metadata
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File '{file_name}' does not exist")

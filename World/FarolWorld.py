@@ -3,7 +3,7 @@ from World import World
 from Actions.Action import Action
 from Agent.ExplorerAgent import ExplorerAgent
 
-class LightHouseWorld(World):
+class FarolWorld(World):
     """A simple lighthouse world: the agent must reach the lighthouse position to solve the world.
     
     initializeMap(numEggs, numNests, ...): coloca o farol no mapa

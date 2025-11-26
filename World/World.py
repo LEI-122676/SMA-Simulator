@@ -92,3 +92,4 @@ class World(Environment):
             return False
 
         return x, y
+
