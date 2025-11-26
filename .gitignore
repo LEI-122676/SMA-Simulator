@@ -1,6 +1,8 @@
 # Ignore everything by default
 *
 
+.idea/
+
 # But do not ignore Python source files anywhere
 !*/
 !*.py
