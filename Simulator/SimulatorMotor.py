@@ -1,14 +1,13 @@
 import time
 
+from importlib_metadata import metadata
+
+from Agent import Chicken
+from Items import ChickenCoop, Egg, Nest, Stone
+from Obstacle import Wall
 from Simulator.Simulator import Simulator
-from World.World import World
-
-
-
-
-
-
-
+from World import FarolWorld, World, ForagingWorld
+from Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
 
@@ -21,38 +20,73 @@ class SimulatorMotor(Simulator):
 
         self.states = []
 
-    def create(self, file_name_args):
-        
-        #TODO : Generaliar a leitura do ficheiro de configuracao
+    def create(self, matrix_file):
+        """
+        Create a simulator from a matrix file.
+        The matrix can be any size. Each character represents an object:
+        . empty, E egg, N nest, S stone, W wall, F farol, C chicken
+        """
 
+        # Step 1 — Read the matrix
         try:
-            with open(file_name_args, 'r') as f: content = f.read()
-            
-            # Example fileNameAtgs content:
-            # numEggs=15
-            # numNests=3
-            # numChickens=5
-            
-        except FileNotFoundError:
-            print("file {} does not exist".format(file_name_args))
-            numEggs = 10  # Default number of eggs
-            numNests = 2  # Default number of nests
-            numChickens = 1  # Default number of chickens
+            matrix, metadata = read_matrix_file_with_metadata(matrix_file)
+        except Exception as e:
+            raise ValueError(f"Error reading matrix file: {e}")
         
-        content_lines = content.splitlines()
-        for line in content_lines:
-            key, value = line.split('=')
-            key = key.strip().lower()
-            value = int(value.strip())
-            if key == 'numeggs':
-                numEggs = value
-            elif key == 'numnests':
-                numNests = value
-            elif key == 'numchickens':
-                numChickens = value
+        nest_capacity = int(metadata.get("nest_capacity", 1)) # if not specified, default to 1
+        game_type = metadata.get("game_type", "Farol") # if not specified, default to Farol      
+        
+        # Step 2 — Create ID counters
+        id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
+        
+        # Step 3 — Create world of matching size
+        height = len(matrix)
+        width = len(matrix[0])
+        
+        if game_type == "Foraging":
+            world = ForagingWorld(width, height)
+        elif game_type == "Farol":
+            world = FarolWorld(width, height)
+        else:
+            world = World(width, height)
 
+        for y in range(height):
+            for x in range(width):
+                char = matrix[y][x]
 
-        return SimulatorMotor()
+                if char == ".":
+                    continue
+                elif char == "E":
+                    egg = Egg(id_counter["egg"], x, y)
+                    world.eggs.append(egg)
+                    world.map[y][x] = egg
+                    id_counter["egg"] += 1
+                elif char == "N":
+                    world.nests.append((x, y))
+                    world.map[y][x] = Nest(id_counter["nest"], x, y, nest_capacity = nest_capacity)
+                    id_counter["nest"] += 1
+                elif char == "S":
+                    world.stones.append((x, y))
+                    world.map[y][x] = Stone(id_counter["stone"], x, y)
+                    id_counter["stone"] += 1
+                elif char == "W":
+                    wall = Wall(id_counter["wall"], x, y)
+                    world.map[y][x] = wall
+                    id_counter["wall"] += 1
+                elif char == "C":
+                    chicken = Chicken(id_counter["chicken"], x, y)
+                    world.agents.append(chicken)
+                    world.map[y][x] = chicken
+                    id_counter["chicken"] += 1
+                elif char == "F":
+                    world.map[y][x] = ChickenCoop(id_counter["farol"], x, y)
+                    id_counter["farol"] += 1
+                else:
+                    raise ValueError(f"Unknown character '{char}' at ({x},{y})")
+
+        # Step 4 — Return simulator with the world
+        return SimulatorMotor(world)
+
 
     def listAgents(self):
         if not self.running:
@@ -97,7 +131,7 @@ class SimulatorMotor(Simulator):
 if __name__ == "__main__":
 
     simulator = SimulatorMotor()
-    simulator.create("______") # TODO falta texto aq
+    simulator.create("example_file_farol.txt") # TODO : Placeholder file name
 
     simulator.execute()
 
