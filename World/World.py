@@ -23,7 +23,6 @@ class World(Environment):
         self.nests = []
         self.stones = []
 
-
     def observationFor(self, explorer: ExplorerAgent):  # Phase 5.2
         obs = Observation(explorer.id)
         sensor = explorer.sensor
@@ -93,3 +92,4 @@ class World(Environment):
             return False
 
         return x, y
+
