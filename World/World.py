@@ -6,7 +6,7 @@ from Items.Egg import Egg
 from Agent.ExplorerAgent import ExplorerAgent
 from Items.Item import Item
 from Actions.Observation import Observation
-from Obstacle import Obstacle
+from Items.Wall import Wall
 from World.Environment import Environment
 
 
@@ -89,7 +89,7 @@ class World(Environment):
             return False
 
         # Check for wall at destination
-        if isinstance(self.map[y][x], Obstacle):
+        if isinstance(self.map[y][x], Wall):
             return False
 
         return x, y

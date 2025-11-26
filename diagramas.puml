@@ -5,7 +5,7 @@
 
 abstract class Simulator {
   + {abstract} create(file_name_args: String): Simulator
-  + {abstract} listAgents(): List
+  + {abstract} listAgents(): List[Agents]
   + {abstract} execute(): void
 }
 
@@ -13,47 +13,39 @@ class SimulatorMotor {
   - time_limit: int
   - time_per_step: double
   - running: bool
-  - terrain: Terrain
-  + create(file_name_args: String): SimulatorMotor
-  + listAgents(): List
-  + execute(): void
+  - world: World
   + shutDownSimulation(): void
   + saveResults(fileName: String): void
+  + saveState(): void
 }
 
 abstract class Agent {
-  # id
-  # steps: int
-  # genotype: List<Action>
-  + {abstract} create(fileNameArgs: String)
-  + {abstract} observation(observation: Observation): void
-  + {abstract} act(): void
+  + {abstract} create(fileNameArgs: String): Agent
+  + {abstract} observe(observation: Observation): void
+  + {abstract} act(): Action
   + {abstract} evaluateCurrentState(reward: double)
   + {abstract} install(sensor: Sensor): void
+  + {abstract} execute(): void
 }
 
 class ExplorerAgent {
-  - id
+  - id: int
   - position: tuple
+  - learn_mode: boolean
+  - steps: steps
+  - genotype: List[Action]
   - sensor: Sensor
-  - observed: set
+  - observation: set
+  - step_index: int
+  - inventory: List
   - behavior: set
   - path: List
-  - inventory: List
+  - reward: int
   - noveltyScore: double
   - combinedFitness: double
-  - step_index: int
-  + create(fileNameArgs: String)
-  + observation(observation: Observation): void
-  + act(): void
-  + evaluateCurrentState(reward: double): void
-  + install(sensor: Sensor): void
-  + pickUp(item: Item): void
-  + run(): void
-  + deliberate(): void
-  + run_simulation(): void
-  + calculate_objective_fitness(): int
-  + mutate(rate: double): void
+}
+
+class Chicken {
 }
 
 enum Action {
@@ -65,52 +57,65 @@ enum Action {
   + random_action(): tuple
 }
 
-abstract class Environment {
-  # width: int
-  # height: int
-  + {abstract} observationFor(explorer: ExplorerAgent): Observation
-  + {abstract} update(): void
-  + {abstract} act(action: Action, agent: Agente): void
+enum Direction {
+  NORTH = (0, 1)
+  SOUTH = (0, -1)
+  WEST  = (-1, 0)
+  EAST  = (1, 0)
+  NORTH_EAST = (1, 1)
+  NORTH_WEST = (-1, 1)
+  SOUTH_EAST = (1, -1)
+  SOUTH_WEST = (-1, -1)
 }
 
-class Terrain {
+abstract class Environment {
+  + {abstract} observationFor(explorer: ExplorerAgent): Observation
+  + {abstract} update(): void
+  + {abstract} act(action: Action, agent: Agent): void
+}
+
+class World {
   - width: int
   - height: int
   - solved: boolean
   - map: List[List]
-  - chickens: List[Chicken]
+  - agents: List[Chicken]
   - eggs: List[Egg]
   - nests: List[Nest]
   - stones: List[Stone]
-  + observationFor(explorer: ExplorerAgent): Observation
-  + update(): void
-  + act(action: Action, agent: Agent): void
   + initializeMap(numEggs: int, numNests: int, numChickens: int): void
-  + isActionValid(future): boolean
+  + is_valid_action(action_to_validate: Action, explorer_pos: tuple): boolean
+}
+
+class ForagingWorld {
+}
+
+class LightHouseWorld {
 }
 
 class Observation {
   - agent_id: int
-  - data: List
-  + addData(data: Object): void
-  + getData(): Iterator
+  - possible_actions: List
+  + total_possible_actions(): int
 }
 
-class Item {
+class Wall {
+}
+
+abstract class Item {
   # name: String
   # id: int
   # position: tuple
-  # picked_up: boolean
-  + __str__(): String
 }
 
 class Pickable {
+  - picked_up: boolean
   + pickUp(): void
   + drop(): void
 }
 
 class Nest {
-  - limit: int
+  - capacity: int
   - eggs: int
   + putEgg(numEggs: int): boolean
 }
@@ -118,51 +123,48 @@ class Nest {
 class Egg {
 }
 
+class ChickenCoop {
+}
+
 class Stone {
+  - weight: int
 }
 
 class Sensor {
-  - grid
-  - width: int
+  - world: World
   - height: int
+  - width: int
   - max_range: int
-  + get_readings(agent_pos): Map
-  + normalize_readings(readings): Map
-}
-
-class Chicken {
-  - id: int
-  - x: int
-  - y: int
+  + get_observation(agent_pos): Map
+  + _cast_ray(start_pos: tuple, step_vector: tuple)
 }
 
 
+'TODO - check class relations !
 
-' Relationships
-' MotorDeSimulacao --> Avaliacao : registra
-'MotorDeSimulacao *-- AgenteAprendizagem : contém
-'MotorDeSimulacao *-- AgentePoliticaFixa : contém
-'MotorDeSimulacao --> Ambiente : gerencia
+Simulator <|-- SimulatorMotor
+SimulatorMotor "1" -- "1" World
 
-'Agent --> Action : gera
-'Agent --> Ambiente : consome
-'Agent <-- Observacao : recebe
+Environment <|-- World
+World <|-- ForagingWorld
+World <|-- LightHouseWorld
+World "1" -- "0..*" Item
 
-'Ambiente --> Observacao : produz
-
-
-Simulator <|-- SimulatorMotor : extends
-
-Environment <|-- Terrain : extends
-Terrain <-- Action
-
-Agent <|-- ExplorerAgent : extends
+Agent <|-- ExplorerAgent
+ExplorerAgent "1..*" -- "1" World
+ExplorerAgent "1" -- "0, 1" Sensor
 ExplorerAgent <|-- Chicken
+ExplorerAgent "1" -- "0, 1" Observation
 
-Item <|-- Pickable : extends
-Pickable <|-- Egg
-Pickable <|-- Stone
+Item <|--- Wall
+Item <|-- Pickable
+Item <|-- ChickenCoop
 Item <|-- Nest
 
+Pickable <|-- Egg
+Pickable <|-- Stone
+
+Direction --> Sensor
+Action --> ExplorerAgent
 
 @enduml
