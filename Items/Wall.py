@@ -1,7 +1,6 @@
-from Obstacle import Obstacle
+from Items.Item import Item
 
-
-class Wall(Obstacle):
+class Wall(Item):
 
     def __init__(self, x: int, y: int):
         super().__init__(x, y)

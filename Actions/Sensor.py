@@ -1,7 +1,7 @@
 from Actions.Direction import Direction
 from Agent.ExplorerAgent import ExplorerAgent
+from Items.Wall import Wall
 from Observation import Observation
-from Obstacle.Obstacle import Obstacle
 from World.World import World
 
 
@@ -35,7 +35,7 @@ class Sensor:
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if isinstance(self.world.map[current_y][current_x], Obstacle):
+            if isinstance(self.world.map[current_y][current_x], Wall):
                 return dist
 
             dist += 1
