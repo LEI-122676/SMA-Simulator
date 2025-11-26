@@ -2,6 +2,7 @@ import random
 
 from Actions.Action import Action
 from Agent import Agent
+from Utilities import read_agent_config
 
 
 class ExplorerAgent(Agent):
@@ -23,18 +24,34 @@ class ExplorerAgent(Agent):
         self.reward = None
         self.noveltyScore = 0.0
         self.combinedFitness = 0.0
+        
+    class ExplorerAgent(Agent):
 
-    def create(self, fileNameArgs):
-        # TODO - read from fileNameArgs to create an ExplorerAgent
+        # existing __init__ remains unchanged
 
-        fileNameArgs = fileNameArgs.split(',')
-        id = fileNameArgs[0]
-        x = int(fileNameArgs[1])
-        y = int(fileNameArgs[2])
-        learn_mode = fileNameArgs[3].lower() == 'true'
-        steps = int(fileNameArgs[4])
+        @staticmethod
+        def create(file_name: str) -> ExplorerAgent:
+            """
+            Create an ExplorerAgent from a configuration file.
+            """
+            config = read_agent_config(file_name)
 
-        return self.__init__(id, x, y, learn_mode, steps)
+            # Required fields with default fallbacks
+            id = config.get("id", "0")
+            x = int(config.get("x", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
+            y = int(config.get("y", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
+            learn_mode = config.get("learn_mode", "False").lower() == "true"
+            steps = int(config.get("steps", 5000))
+
+            # Optionally allow a custom genotype file
+            genotype_file = config.get("genotype_file", None)
+            genotype = None
+            if genotype_file:
+                # If file exists, read actions from it
+                # For simplicity, here we just generate random actions as placeholder
+                genotype = [Action.random_action() for _ in range(steps)]
+
+            return ExplorerAgent(id, x, y, learn_mode, steps, genotype)
 
     def observe(self, observation):                             # Phase 5.2 TODO - isto n esta a ser usado...
         self.observation = observation

@@ -243,3 +243,19 @@ def read_matrix_file_with_metadata(file_name):
 
     except FileNotFoundError:
         raise FileNotFoundError(f"File '{file_name}' does not exist")
+
+def read_agent_config(file_name: str) -> dict:
+    config = {}
+    try:
+        with open(file_name, "r") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                if "=" not in line:
+                    raise ValueError(f"Invalid line in config: {line}")
+                key, value = line.split("=", 1)
+                config[key.strip()] = value.strip()
+        return config
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Agent config file '{file_name}' does not exist")
