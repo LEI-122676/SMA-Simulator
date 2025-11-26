@@ -22,24 +22,23 @@ class SimulatorMotor(Simulator):
         self.states = []
 
     def create(self, file_name_args):
-
-        # TODO : Generaliar a leitura do ficheiro de configuracao
+        
+        #TODO : Generaliar a leitura do ficheiro de configuracao
 
         try:
-            with open(file_name_args, 'r') as f:
-                content = f.read()
-
+            with open(file_name_args, 'r') as f: content = f.read()
+            
             # Example fileNameAtgs content:
             # numEggs=15
             # numNests=3
             # numChickens=5
-
+            
         except FileNotFoundError:
             print("file {} does not exist".format(file_name_args))
             numEggs = 10  # Default number of eggs
             numNests = 2  # Default number of nests
             numChickens = 1  # Default number of chickens
-
+        
         content_lines = content.splitlines()
         for line in content_lines:
             key, value = line.split('=')
@@ -52,6 +51,7 @@ class SimulatorMotor(Simulator):
             elif key == 'numchickens':
                 numChickens = value
 
+
         return SimulatorMotor()
 
     def listAgents(self):
@@ -62,27 +62,27 @@ class SimulatorMotor(Simulator):
         return [a for a in self.world.chickens]
 
     def execute(self):
-        self.running = True  # Phase 1
-        self.world = World()  # Phase 2 & 3
+        self.running = True                                                 # Phase 1
+        self.world = World()                                                # Phase 2 & 3
 
-        while self.running:  # -- loop --
-            self.world.update()  # Phase 4
+        while self.running:                                                 # -- loop --
+            self.world.update()                                             # Phase 4
 
-            for agent in self.world.agents:  # Phase 5
+            for agent in self.world.agents:                                 # Phase 5
                 agent.execute()
 
             self.saveState()
 
             # Check termination conditions
-            if self.world.solved or self.time_limit == 0:  # Phase 9
+            if self.world.solved or self.time_limit == 0:                   # Phase 9
                 self.running = False
 
             # Manage time
             self.time_limit -= self.time_per_step
             time.sleep(self.time_per_step)
 
-        self.shutDownSimulation()  # Phase 10
-        self.saveResults("simulation_results.txt")  # Phase 11
+        self.shutDownSimulation()                                           # Phase 10
+        self.saveResults("simulation_results.txt")                          # Phase 11
 
     def shutDownSimulation(self):
         pass
@@ -95,8 +95,9 @@ class SimulatorMotor(Simulator):
         pass
 
 if __name__ == "__main__":
+
     simulator = SimulatorMotor()
-    simulator.create("______")  # TODO falta texto aq
+    simulator.create("______") # TODO falta texto aq
 
     simulator.execute()
 
