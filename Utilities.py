@@ -1,6 +1,5 @@
 import random
 
-from Actions.Action import Action
 from Agent.Agent import Agent
 import Actions.Direction as D
 
@@ -20,16 +19,6 @@ def compute_novelty(current_behavior, archive, k=5):
 
     # Your original logic is now safe because we know len(distances) > 0
     return sum(distances[:k]) / k if len(distances) >= k else sum(distances) / len(distances)
-
-def calculate_objective_fitness(self):
-    """Simple objective: coverage (number of unique visited cells)."""
-    return len(self.behavior)
-
-def mutate(self, rate: float):
-    """Randomly mutate genotype: with probability rate replace a gene with a random action."""
-    for i in range(len(self.genotype)):
-        if random.random() < rate:
-            self.genotype[i] = Action.random_action()
 
 def crossover(parent1, parent2):
     """Performs single-point crossover on two parent genotypes."""
@@ -160,11 +149,7 @@ def get_farol_vector(farol, agente):
             vector = (0, 1)  # South
         elif farol_position[1] < agente_position[1]:
             vector = (0, -1)  # North
-
         else:
             vector = (0, 0)  # Same position
     
     return vector
-# test
-# def main():
-#     print (get_farol_vector((9, 5),(10,4)))
