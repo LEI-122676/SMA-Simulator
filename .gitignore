@@ -1,18 +1,19 @@
-# Ignore everything by default
-*
-
+# --- JetBrains / IntelliJ / PyCharm ---
 .idea/
+*.iml
+*.iws
+*.ipr
 
-# But do not ignore Python source files anywhere
-!*/
-!*.py
-!*.puml
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# Keep gitignore itself
-!.gitignore
+# --- Environments ---
+.env
+venv/
+env/
 
-# Typical bytecode and caches should remain ignored (they are matched by '*',
-# but we explicitly exclude common ones in case something else changes):
-# (these remain ignored because they are not .py files)
-# __pycache__/
-# *.py[cod]
+# --- Mac OS (if you or teammates use Mac) ---
+.DS_Store
