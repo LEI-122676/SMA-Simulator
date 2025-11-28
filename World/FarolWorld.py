@@ -32,7 +32,3 @@ class FarolWorld(World):
         fx, fy = future_pos
         if (fx, fy) == self.lightHouse:
             self.solved = True
-
-    # mantém a validação em World uma vez que é igual
-    def is_valid_action(self, action_to_validate: Action, explorer: ExplorerAgent):
-        return super().is_valid_action(action_to_validate, explorer)

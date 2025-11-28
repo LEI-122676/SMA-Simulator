@@ -97,6 +97,10 @@ class ExplorerAgent(Agent):
 
     def storeItem(self, item: Pickable):
         item.pickUp()
-        self.reward += item.value           # TODO - not sure if this is the way to do it
         self.inventory.append(item)
+
+    def discardItem(self, item: Pickable):
+        item.drop()
+        self.inventory.append(item)
+
 
