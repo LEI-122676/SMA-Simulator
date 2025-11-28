@@ -4,6 +4,7 @@ from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
 from Agent import Agent
+from Items.Pickable import Pickable
 from Utilities import read_agent_config
 
 
@@ -93,3 +94,9 @@ class ExplorerAgent(Agent):
                 self.behavior.add(self.position)
                 self.path.append(self.position)
                 break
+
+    def storeItem(self, item: Pickable):
+        item.pickUp()
+        self.reward += item.value           # TODO - not sure if this is the way to do it
+        self.inventory.append(item)
+
