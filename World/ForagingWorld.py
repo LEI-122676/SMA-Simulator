@@ -61,7 +61,7 @@ class ForagingWorld(World):
 
         # pickup egg if present and not already picked
         if isinstance(obj, Egg) and not obj.picked_up:
-            agent.pickUp(obj)
+            agent.storeItem(obj)
             # remove from map but keep in eggs list
             self.map[fy][fx] = None
 
@@ -71,7 +71,7 @@ class ForagingWorld(World):
             inventory = list(agent.inventory)
             for item in inventory:
                 if isinstance(item, Egg):
-                    success = obj.putEgg(1)
+                    success = obj.put(1)
                     if success:
                         agent.inventory.remove(item)
                         # mark egg as delivered (optional)
@@ -83,7 +83,3 @@ class ForagingWorld(World):
         
         if all_in_nests:
             self.solved = True
-
-    # keep parent's validation logic
-    def is_valid_action(self, action_to_validate: Action, explorer: ExplorerAgent):
-        return super().is_valid_action(action_to_validate, explorer)
