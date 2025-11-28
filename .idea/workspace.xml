@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+Move,Collect,Deposit&#10;+Phase5-7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/Chicken.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Obstacle/Obstacle.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Obstacle/Wall.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Wall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramas.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagramas.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +73,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator&quot;,
-    &quot;accountId&quot;: &quot;188ddc38-3192-42bf-b822-fe1a337b3988&quot;
+    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
+    &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -113,7 +106,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;yaa&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
@@ -123,9 +116,9 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Items" />
       <recent name="$PROJECT_DIR$/Actions" />
       <recent name="$PROJECT_DIR$/World" />
+      <recent name="$PROJECT_DIR$/Items" />
       <recent name="$PROJECT_DIR$/Obstacle" />
       <recent name="$PROJECT_DIR$/Simulator" />
     </key>
@@ -166,7 +159,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
       </set>
     </attachedChunks>
   </component>
@@ -388,17 +381,6 @@
     <MESSAGE value="+8 directions" />
     <MESSAGE value="Item attributes tweaks" />
     <option name="LAST_COMMIT_MESSAGE" value="Item attributes tweaks" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Simulator/Simulator.py</url>
-          <line>1</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
