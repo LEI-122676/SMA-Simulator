@@ -6,6 +6,8 @@ from Items.Egg import Egg
 from Agent.ExplorerAgent import ExplorerAgent
 from Items.Item import Item
 from Actions.Observation import Observation
+from Items.Nest import Nest
+from Items.Pickable import Pickable
 from Items.Wall import Wall
 from World.Environment import Environment
 
@@ -23,6 +25,7 @@ class World(Environment):
         self.nests = []
         self.stones = []
 
+
     def observationFor(self, explorer: ExplorerAgent):  # Phase 5.2
         obs = Observation(explorer.id)
         sensor = explorer.sensor
@@ -34,17 +37,28 @@ class World(Environment):
     def update(self):
         pass
 
-    def act(self, action, agent):
-        future_pos = self.is_valid_action(action, agent.position)  # TODO - acho q n é preciso checkar a validade aq pq vai sempre receber uma acao valida right?
+    def act(self, action, agent: ExplorerAgent):  # Phase 6.1
+        future_pos = self.is_valid_action(action, agent.position)
         if not future_pos:
             return
         agent.position = future_pos
 
-        # TODO - interagir com o objeto na posicao futura
         fx, fy = future_pos
         obj = self.map[fy][fx]
-        if isinstance(obj, Item):
-            pass
+
+        # Interaction with pickable objects
+        if isinstance(obj, Pickable):
+            obj.pickUp()
+            agent.storeItem(obj)
+        # Dropping items at nests (eggs/stones)
+        elif isinstance(obj, Nest):
+            for item in agent.inventory:
+                obj.put(item)
+                agent.discardItem(item)
+        elif isinstance(obj, Wall):
+            pass #TODO
+
+
 
     def initializeMap(self, numEggs, numNests, numChickens):
         # TODO - corrigir isto, pq podem acontecer sobreposicoes de elementos com os randoms nao verificados
@@ -53,7 +67,6 @@ class World(Environment):
             # Random position
             x = random.randint(0, len(self.map[0]) - 1)
             y = random.randint(0, len(self.map) - 1)
-
 
             self.eggs.append(Egg(n, x, y))
 
@@ -92,4 +105,3 @@ class World(Environment):
             return False
 
         return x, y
-
