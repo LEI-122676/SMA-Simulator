@@ -18,5 +18,5 @@ class Environment(ABC):
         pass
 
     @abstractmethod
-    def act(self, action: Action, agent: Agent):
+    def act(self, action: Action, agent: Agent) -> float:
         pass

@@ -1,15 +1,13 @@
 import random
 
-from Actions.Action import Action
 from Agent.Chicken import Chicken
 from Items.Egg import Egg
 from Agent.ExplorerAgent import ExplorerAgent
-from Items.Item import Item
 from Actions.Observation import Observation
 from Items.Nest import Nest
 from Items.Pickable import Pickable
 from Items.Wall import Wall
-from World.Environment import Environment
+from Environment import Environment
 
 
 class World(Environment):
@@ -37,27 +35,41 @@ class World(Environment):
     def update(self):
         pass
 
-    def act(self, action, agent: ExplorerAgent):  # Phase 6.1
-        future_pos = self.is_valid_action(action, agent.position)
-        if not future_pos:
-            return
-        agent.position = future_pos
+    def act(self, action, agent: ExplorerAgent):  # Phase 7.1
+        if action is None or agent is None:
+            return False
 
-        fx, fy = future_pos
-        obj = self.map[fy][fx]
+        dx, dy = action
+        ax, ay = agent
+
+        newx = ax + dx
+        newy = ay + dy
+
+        # Within bounds
+        if newx < 0 or newx >= len(self.map[0]) or newy < 0 or newy >= len(self.map):
+            return False
+
+        # Check for wall at destination
+        if isinstance(self.map[newy][newx], Wall):
+            return False
+
+        agent.position = (newx, newy)
+        obj_under_agent = self.map[newy][newx]
+        reward = 0.0
 
         # Interaction with pickable objects
-        if isinstance(obj, Pickable):
-            obj.pickUp()
-            agent.storeItem(obj)
+        if isinstance(obj_under_agent, Pickable):
+            agent.storeItem(obj_under_agent)
         # Dropping items at nests (eggs/stones)
-        elif isinstance(obj, Nest):
+        elif isinstance(obj_under_agent, Nest):
             for item in agent.inventory:
-                obj.put(item)
+                obj_under_agent.put(item)
                 agent.discardItem(item)
-        elif isinstance(obj, Wall):
+
+        elif isinstance(obj_under_agent, Wall):
             pass #TODO
 
+        return reward
 
 
     def initializeMap(self, numEggs, numNests, numChickens):
@@ -79,29 +91,3 @@ class World(Environment):
 
         for n in range(numChickens):
             self.chickens.append(Chicken(n, 0, n))
-
-    # Phase 7.1
-    def is_valid_action(self, action_to_validate: Action, explorer_pos):
-        """
-        Validate if the action is possible for the explorer in the current world state.
-        Returns the new position (x, y) if valid, otherwise returns False.
-        """
-
-        if action_to_validate is None:
-            return False
-
-        dx, dy = action_to_validate
-        px, py = explorer_pos
-
-        x = px + dx
-        y = py + dy
-
-        # Within bounds
-        if x < 0 or x >= len(self.map[0]) or y < 0 or y >= len(self.map):
-            return False
-
-        # Check for wall at destination
-        if isinstance(self.map[y][x], Wall):
-            return False
-
-        return x, y
