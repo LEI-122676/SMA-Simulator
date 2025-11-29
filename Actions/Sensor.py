@@ -1,5 +1,6 @@
 from Actions.Direction import Direction
 from Actions.Observation import Observation
+from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
 
 
@@ -10,6 +11,15 @@ class Sensor:
         self.height = len(self.world_map)
         self.width = len(self.world_map[0])
         self.max_range = max_range
+
+    def get_coop_position(self):
+        for y in range(self.height):
+            for x in range(self.width):
+                obj = self.world_map[y][x]
+                if obj is ChickenCoop:
+                    return obj
+
+        return None
 
     def get_observation(self, explorer_id, explorer_position) -> Observation:
         observation = Observation(explorer_id)
