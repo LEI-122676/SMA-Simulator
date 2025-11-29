@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+World.update()&#10;# World also ends when all explorer use all steps">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Chicken.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agent/best_explorer.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/best_explorer.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/Simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/Environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
-    </list>
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="-import problems" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -414,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764429234127</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="-import problems">
+      <option name="closed" value="true" />
+      <created>1764434810061</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1764434810061</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -493,7 +485,8 @@
     <MESSAGE value="Completed act() in World" />
     <MESSAGE value="-numChickens" />
     <MESSAGE value="Modified Nest capacity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified Nest capacity" />
+    <MESSAGE value="-import problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="-import problems" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
