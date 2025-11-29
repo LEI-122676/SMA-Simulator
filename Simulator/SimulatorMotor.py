@@ -1,7 +1,7 @@
 import time
 
 from Agents.Chicken import Chicken
-from Items import ChickenCoop, Egg, Nest, Stone
+from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
 from Simulator.Simulator import Simulator
 from Worlds.CoopWorld import CoopWorld
@@ -47,6 +47,7 @@ class SimulatorMotor(Simulator):
 
                 if char == ".":
                     continue
+                    """
                 elif char == "E":
                     egg = Egg(id_counter["egg"], x, y)
                     world.eggs.append(egg)
@@ -60,6 +61,7 @@ class SimulatorMotor(Simulator):
                     world.stones.append((x, y))
                     world.map[y][x] = Stone(id_counter["stone"], x, y)
                     id_counter["stone"] += 1
+                    """
                 elif char == "W":
                     wall = Wall(id_counter["wall"], x, y)
                     world.map[y][x] = wall

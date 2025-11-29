@@ -2,6 +2,7 @@ from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
 from Agents.Agent import Agent
+from Items.ChickenCoop import ChickenCoop
 from Items.Pickable import Pickable
 from Utilities import read_agent_config
 
@@ -20,11 +21,12 @@ class ExplorerAgent(Agent):
         self.step_index = 0
         self.inventory = []
 
+        self.coop = None                    # If coop == None -> Explorer is in CoopWorld
         self.behavior = set()
         self.path = []
-        self.reward = None
-        self.noveltyScore = 0.0
         self.combinedFitness = 0.0
+        #self.reward = None
+        #self.noveltyScore = 0.0
 
     @staticmethod
     def create(file_name: str):
@@ -58,7 +60,10 @@ class ExplorerAgent(Agent):
             return self.genotype[self.step_index]  # gene == action
         else:
             # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
-            return self.genotype[self.step_index]  # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
+            if isinstance(self.coop, ChickenCoop):
+                return self.coop.get_action(self) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
+            else:
+                return Action.random_action()
 
     def evaluateCurrentState(self, reward: float):
         # TODO - n sei oq isto é suposto fzr -> usar self.observation?
@@ -67,6 +72,8 @@ class ExplorerAgent(Agent):
 
     def install(self, sensor: Sensor):
         self.sensor = sensor
+
+        self.coop = self.sensor.get_coop_position()
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
@@ -92,6 +99,7 @@ class ExplorerAgent(Agent):
                 self.behavior.add(self.position)
                 self.path.append(self.position)
                 break
+            # Didn't move :( - try again
 
     def storeItem(self, item: Pickable):
         fy, fx = item.position

@@ -134,25 +134,7 @@ def run_evolution(self):
     def run_simulation(self):
         self.run()
 
-def get_farol_vector(farol, agente):
-    farol_position = farol.lightHouse.position
-    agente_position = agente.position
-    
-    distance = ((farol_position[0] - agente_position[0]), (farol_position[1] - agente_position[1]))
-    vector = [0,0]
-    if farol_position[0] < agente_position[0]:
-        vector = (-1, 0)  # West
-    elif farol_position[0] > agente_position[0]:
-        vector = (1, 0)   # East
-    else:
-        if farol_position[1] > agente_position[1]:
-            vector = (0, 1)  # South
-        elif farol_position[1] < agente_position[1]:
-            vector = (0, -1)  # North
-        else:
-            vector = (0, 0)  # Same position
-    
-    return vector
+
 
 def read_file_parameters(allowed_params, file_name):
     

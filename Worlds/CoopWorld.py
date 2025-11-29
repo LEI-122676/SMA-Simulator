@@ -1,3 +1,4 @@
+from Agents.ExplorerAgent import ExplorerAgent
 from Worlds.World import World
 
 
@@ -21,4 +22,9 @@ class CoopWorld(World):
         """
 
     def is_solved(self) -> bool:
+        for explorer in self.agents:
+            if isinstance(explorer, ExplorerAgent):
+                if explorer.position != self.chicken_coop:
+                    return False
+
         return True
