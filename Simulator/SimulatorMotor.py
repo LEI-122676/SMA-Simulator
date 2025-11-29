@@ -4,21 +4,23 @@ from Agents.Chicken import Chicken
 from Items import ChickenCoop, Egg, Nest, Stone
 from Items.Wall import Wall
 from Simulator.Simulator import Simulator
-from Worlds import CoopWorld, World, ForagingWorld
+from Worlds.CoopWorld import CoopWorld
+from Worlds.World import World
 from Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
 
-    def __init__(self, time_limit=500, time_per_step=0.1):
+    def __init__(self, world: World, time_limit=500, time_per_step=0.1):
         self.time_limit = time_limit
         self.time_per_step = time_per_step
 
         self.running = None
-        self.world = None
+        self.world = world                                    # Phase 2 & 3
 
         self.states = []
 
-    def create(self, matrix_file):
+    @staticmethod
+    def create(matrix_file):
         """
         Create a simulator from a matrix file.
         The matrix can be any size. Each character represents an object:
@@ -37,7 +39,7 @@ class SimulatorMotor(Simulator):
         # Step 3 — Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
-        world = None
+        world = CoopWorld(width, height)
 
         for y in range(height):
             for x in range(width):
@@ -52,7 +54,7 @@ class SimulatorMotor(Simulator):
                     id_counter["egg"] += 1
                 elif char == "N":
                     world.nests.append((x, y))
-                    world.map[y][x] = Nest(id_counter["nest"], x, y, nest_capacity)
+                    world.map[y][x] = Nest(id_counter["nest"], x, y)
                     id_counter["nest"] += 1
                 elif char == "S":
                     world.stones.append((x, y))
@@ -86,7 +88,6 @@ class SimulatorMotor(Simulator):
 
     def execute(self):
         self.running = True                                                 # Phase 1
-        self.world = World()                                                # Phase 2 & 3
 
         while self.running:                                                 # -- loop --
             self.world.update()                                             # Phase 4

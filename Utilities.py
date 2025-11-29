@@ -234,7 +234,7 @@ def read_matrix_file_with_metadata(file_name):
             if len(row) != row_length:
                 raise ValueError(f"Row {i} has length {len(row)}, expected {row_length}")
 
-        return matrix, metadata
+        return matrix
 
     except FileNotFoundError:
         raise FileNotFoundError(f"File '{file_name}' does not exist")
