@@ -1,4 +1,4 @@
-from Pickable import Pickable
+from Items.Pickable import Pickable
 
 
 class Stone(Pickable):

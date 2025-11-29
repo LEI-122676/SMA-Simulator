@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Modified Nest capacity">
-      <change beforePath="$PROJECT_DIR$/World/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
-    </list>
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="-import problems" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,7 +128,29 @@
       <recent name="$PROJECT_DIR$/Simulator" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.demo">
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="SMA-Simulator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonProject" />
       <option name="ENV_FILES" value="" />
@@ -157,7 +175,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main" />
@@ -380,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764429234127</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="-import problems">
+      <option name="closed" value="true" />
+      <created>1764434810061</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1764434810061</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,7 +485,8 @@
     <MESSAGE value="Completed act() in World" />
     <MESSAGE value="-numChickens" />
     <MESSAGE value="Modified Nest capacity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified Nest capacity" />
+    <MESSAGE value="-import problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="-import problems" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

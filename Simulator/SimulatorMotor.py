@@ -1,10 +1,10 @@
 import time
 
-from Agent import Chicken
+from Agents.Chicken import Chicken
 from Items import ChickenCoop, Egg, Nest, Stone
 from Items.Wall import Wall
 from Simulator.Simulator import Simulator
-from World import CoopWorld, World, ForagingWorld
+from Worlds import CoopWorld, World, ForagingWorld
 from Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
