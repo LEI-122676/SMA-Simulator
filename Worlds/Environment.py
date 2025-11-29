@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 from Actions.Action import Action
-from Agent.Agent import Agent
-from Agent.ExplorerAgent import ExplorerAgent
+from Agents.Agent import Agent
+from Agents.ExplorerAgent import ExplorerAgent
 from Actions.Observation import Observation
 
 

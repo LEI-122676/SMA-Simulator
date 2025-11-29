@@ -1,7 +1,7 @@
 from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
-from Agent import Agent
+from Agents.Agent import Agent
 from Items.Pickable import Pickable
 from Utilities import read_agent_config
 
@@ -69,10 +69,10 @@ class ExplorerAgent(Agent):
         self.sensor = sensor
 
     def execute(self):
-        if self.step_index >= len(self.genotype):  # Agent is out of genes (actions)
+        if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
             return
 
-        observation = self.sensor.get_observation(self)  # Phase 5.1
+        observation = self.sensor.get_observation(self.id, self.position)  # Phase 5.1
         self.observe(observation)  # Phase 5.2
 
         attempts_left = observation.total_possible_actions()

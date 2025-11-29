@@ -1,5 +1,4 @@
-from Agent.Chicken import Chicken
-from World import World
+from Worlds.World import World
 
 
 class CoopWorld(World):

@@ -1,6 +1,6 @@
 import random
 
-from Agent.Agent import Agent
+from Agents.Agent import Agent
 import Actions.Direction as D
 
 def jaccard_distance(set1, set2):
