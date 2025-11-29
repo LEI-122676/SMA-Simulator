@@ -9,7 +9,7 @@ class Agent(ABC):
 
     @staticmethod
     @abstractmethod
-    def create(fileNameArgs: str) -> Agent:
+    def create(fileNameArgs: str):
         pass
 
     @abstractmethod
