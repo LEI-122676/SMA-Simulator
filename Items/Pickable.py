@@ -10,12 +10,10 @@ class Pickable(Item):
         self.picked_up = None
         self.value = value
 
-    @abstractmethod
     def pickUp(self):
         self.picked_up = True
         print(f"{self} - Location: {self.position}.")
 
-    @abstractmethod
     def drop(self):
         self.picked_up = False
         print(f"{self} - Location: {self.position}.")

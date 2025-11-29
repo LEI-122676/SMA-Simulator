@@ -30,7 +30,7 @@ class SimulatorMotor(Simulator):
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
-                
+
         # Step 2 — Create ID counters
         id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
         

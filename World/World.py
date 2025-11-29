@@ -1,10 +1,7 @@
-import random
 from abc import abstractmethod
 
-from Agent.Chicken import Chicken
 from Agent.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
-from Items.Egg import Egg
 from Actions.Observation import Observation
 from Items.Nest import Nest
 from Items.Pickable import Pickable
@@ -32,7 +29,10 @@ class World(Environment):
         return explorer.observation(obs)
 
     def update(self):
-        pass
+        # TODO - n sabia oq meter neste função ent ficou isto
+        for agent in self.agents:
+            if isinstance(agent, ExplorerAgent) and agent.step_index >= agent.steps:
+                self.solved = True
 
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
@@ -58,11 +58,13 @@ class World(Environment):
                 totalReward += item.value
                 agent.discardItem(item)
 
+                self.solved = self.is_solved()              # Checks if the Eggs were all safely stored in Nests
+
             reward += totalReward
 
         # Reached the goal -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
-            self.solved = True
+            self.solved = self.is_solved()
             reward += 100
 
         return reward                                            # No reward for empty space
@@ -90,4 +92,8 @@ class World(Environment):
 
     @abstractmethod
     def initializeMap(self):
+        pass
+
+    @abstractmethod
+    def is_solved(self) -> bool:
         pass
