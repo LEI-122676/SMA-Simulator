@@ -1,5 +1,3 @@
-import random
-
 from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
@@ -52,7 +50,7 @@ class ExplorerAgent(Agent):
 
         return ExplorerAgent(id, x, y, learn_mode, steps, genotype)
 
-    def observe(self, observation: Observation):                             # Phase 5.2 TODO - isto n esta a ser usado...
+    def observe(self, observation: Observation): # Phase 5.2 TODO - isto n esta a ser usado...
         self.observation = observation
 
     def act(self) -> Action:
@@ -63,7 +61,7 @@ class ExplorerAgent(Agent):
             return self.genotype[self.step_index]  # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
 
     def evaluateCurrentState(self, reward: float):
-        # TODO - n sei oq isto é suposto fzr
+        # TODO - n sei oq isto é suposto fzr -> usar self.observation?
         self.reward += reward
         pass
 
