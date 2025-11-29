@@ -11,9 +11,11 @@ abstract class Simulator {
 
 class SimulatorMotor {
   - time_limit: int
-  - time_per_step: double
+  - time_per_step: float
   - running: bool
   - world: World
+  - states: List[State]
+  + isSolved(): boolean
   + shutDownSimulation(): void
   + saveResults(fileName: String): void
   + saveState(): void
@@ -23,7 +25,7 @@ abstract class Agent {
   + {abstract} create(fileNameArgs: String): Agent
   + {abstract} observe(observation: Observation): void
   + {abstract} act(): Action
-  + {abstract} evaluateCurrentState(reward: double)
+  + {abstract} evaluateCurrentState(reward: float)
   + {abstract} install(sensor: Sensor): void
   + {abstract} execute(): void
 }
@@ -37,12 +39,14 @@ class ExplorerAgent {
   - sensor: Sensor
   - observation: set
   - step_index: int
-  - inventory: List
+  - inventory: List[Item]
   - behavior: set
-  - path: List
+  - path: List[tuple]
   - reward: int
-  - noveltyScore: double
-  - combinedFitness: double
+  - noveltyScore: float
+  - combinedFitness: float
+  + storeItem(item: Pickable): void
+  + discardItem(item: Pickable): void
 }
 
 class Chicken {
@@ -80,17 +84,19 @@ class World {
   - solved: boolean
   - map: List[List]
   - agents: List[Chicken]
-  - eggs: List[Egg]
-  - nests: List[Nest]
-  - stones: List[Stone]
-  + initializeMap(numEggs: int, numNests: int, numChickens: int): void
-  + is_valid_action(action_to_validate: Action, explorer_pos: tuple): boolean
+  + initializeMap(): void
+  + is_solved(): boolean
+  + is_valid_action(action_to_validate: Action, explorer: ExplorerAgent): tuple
 }
 
 class ForagingWorld {
+  + stones: List[Stone]
+  + nests: List[Nest]
+  + eggs: List[Egg]
 }
 
-class LightHouseWorld {
+class CoopWorld {
+  + chicken_coop: ChickenCoop
 }
 
 class Observation {
@@ -110,14 +116,15 @@ abstract class Item {
 
 class Pickable {
   - picked_up: boolean
+  - value: int
   + pickUp(): void
   + drop(): void
 }
 
 class Nest {
   - capacity: int
-  - eggs: int
-  + putEgg(numEggs: int): boolean
+  - num_of_items: int
+  + put(num_of_items: int): boolean
 }
 
 class Egg {
@@ -127,7 +134,6 @@ class ChickenCoop {
 }
 
 class Stone {
-  - weight: int
 }
 
 class Sensor {
@@ -135,24 +141,31 @@ class Sensor {
   - height: int
   - width: int
   - max_range: int
-  + get_observation(agent_pos): Map
+  + get_observation(explorer: ExplorerAgent): Observation
   + _cast_ray(start_pos: tuple, step_vector: tuple)
 }
 
-
+'TODO - Class state
 'TODO - check class relations !
 
 Simulator <|-- SimulatorMotor
 SimulatorMotor "1" -- "1" World
 
+World "1" -- "0..*" Item
+
 Environment <|-- World
 World <|-- ForagingWorld
-World <|-- LightHouseWorld
-World "1" -- "0..*" Item
+ForagingWorld "1" -- "1..*" Nest
+ForagingWorld "1" -- "1..*" Stone
+ForagingWorld "1" -- "1..*" Egg
+
+World <|-- CoopWorld
+CoopWorld "1" -- "1" ChickenCoop
+CoopWorld "1" -- "1..*" Wall
 
 Agent <|-- ExplorerAgent
 ExplorerAgent "1..*" -- "1" World
-ExplorerAgent "1" -- "0, 1" Sensor
+ExplorerAgent "1" --- "0, 1" Sensor
 ExplorerAgent <|-- Chicken
 ExplorerAgent "1" -- "0, 1" Observation
 
