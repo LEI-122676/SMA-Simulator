@@ -80,7 +80,6 @@ class SimulatorMotor(Simulator):
         # Step 4 — Return simulator with the world
         return SimulatorMotor(world)
 
-
     def listAgents(self):
         if not self.running:
             print("Simulator not running. No agents to list.")

@@ -19,7 +19,6 @@ class World(Environment):
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
 
-
     def observationFor(self, explorer: ExplorerAgent):      # Phase 5.2
         obs = Observation(explorer.id)
         sensor = explorer.sensor

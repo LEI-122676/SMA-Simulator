@@ -7,10 +7,10 @@ class ChickenCoop(Item):
     def __init__(self, id, x, y):
         super().__init__("F", id, x, y)
 
-    def get_action(self, explorer):
+    def get_action(self, explorer_position):
         """ Returns action in the direction of the coop """
         coop_x, coop_y = self.position
-        agent_x, agent_y = explorer.position
+        agent_x, agent_y = explorer_position
 
         if coop_x < agent_x:
             return Action.MOVE_WEST         # West
