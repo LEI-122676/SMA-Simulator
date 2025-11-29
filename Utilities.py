@@ -254,3 +254,16 @@ def read_agent_config(file_name: str) -> dict:
         return config
     except FileNotFoundError:
         raise FileNotFoundError(f"Agent config file '{file_name}' does not exist")
+
+def add_element(entClass, entType, x, y, world, idCounter, addToAgents=False):
+    entity = entClass(idCounter[entType], x, y)
+    world.map[x][y] = entity
+
+    if addToAgents:
+        world.agents.append(entity)
+    else:
+        collection = getattr(world, f"{entType}s", None)
+        if collection is not None:
+            collection.append((x, y))
+
+    idCounter[entType] += 1

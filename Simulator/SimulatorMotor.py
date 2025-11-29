@@ -48,28 +48,34 @@ class SimulatorMotor(Simulator):
                 if char == ".":
                     continue
                 elif char == "E":
+                    #add_element(Egg, "egg", x, y, world, id_counter)
                     egg = Egg(id_counter["egg"], x, y)
                     world.eggs.append(egg)
                     world.map[y][x] = egg
                     id_counter["egg"] += 1
                 elif char == "N":
+                    #add_element(Nest, "nest", x, y, world, id_counter)
                     world.nests.append((x, y))
                     world.map[y][x] = Nest(id_counter["nest"], x, y)
                     id_counter["nest"] += 1
                 elif char == "S":
+                    #add_element(Stone, "stone", x, y, world, id_counter)
                     world.stones.append((x, y))
                     world.map[y][x] = Stone(id_counter["stone"], x, y)
                     id_counter["stone"] += 1
                 elif char == "W":
+                    #add_element(Wall, "wall", x, y, world, id_counter)
                     wall = Wall(id_counter["wall"], x, y)
                     world.map[y][x] = wall
                     id_counter["wall"] += 1
                 elif char == "C":
+                    #add_element(Chicken, "chicken", x, y, world, id_counter, addToAgents=True)
                     chicken = Chicken(id_counter["chicken"], x, y)
                     world.agents.append(chicken)
                     world.map[y][x] = chicken
                     id_counter["chicken"] += 1
                 elif char == "F":
+                    #add_element(ChickenCoop, "farol", x, y, world, id_counter)
                     world.map[y][x] = ChickenCoop(id_counter["farol"], x, y)
                     id_counter["farol"] += 1
                 else:
