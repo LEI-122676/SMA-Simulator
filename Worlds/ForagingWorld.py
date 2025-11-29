@@ -1,9 +1,8 @@
-from Agent.Chicken import Chicken
-from World import World
 import random
 
 from Items.Egg import Egg
 from Items.Nest import Nest
+from Worlds.World import World
 
 
 class ForagingWorld(World):

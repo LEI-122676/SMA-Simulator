@@ -1,4 +1,4 @@
-from Agent.ExplorerAgent import ExplorerAgent
+from Agents.ExplorerAgent import ExplorerAgent
 
 
 class Chicken(ExplorerAgent):

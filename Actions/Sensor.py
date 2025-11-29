@@ -1,23 +1,22 @@
 from Actions.Direction import Direction
-from Agent.ExplorerAgent import ExplorerAgent
+from Actions.Observation import Observation
+from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
-from Observation import Observation
-from World.World import World
 
 
 class Sensor:
 
-    def __init__(self, world: World, max_range:int = 10):
-        self.world = world
-        self.height = len(self.world.map)
-        self.width = len(self.world.map[0])
+    def __init__(self, world_map, max_range:int = 10):
+        self.world_map = world_map
+        self.height = len(self.world_map)
+        self.width = len(self.world_map[0])
         self.max_range = max_range
 
-    def get_observation(self, explorer: ExplorerAgent) -> Observation:
-        observation = Observation(explorer.id)
+    def get_observation(self, explorer_id, explorer_position) -> Observation:
+        observation = Observation(explorer_id)
 
         for direction in Direction:
-            distance = self._cast_ray(explorer.position, direction.value)
+            distance = self._cast_ray(explorer_position, direction.value)
             observation.possible_actions[direction] = distance
 
         return observation
@@ -35,9 +34,18 @@ class Sensor:
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
-            if isinstance(self.world.map[current_y][current_x], Wall):
+            if isinstance(self.world_map[current_y][current_x], Wall):
                 return dist
 
             dist += 1
 
         return dist
+
+    def get_coop_position(self):
+        for y in range(self.height):
+            for x in range(self.width):
+                obj = self.world_map[y][x]
+                if obj is ChickenCoop:
+                    return obj
+
+        return None

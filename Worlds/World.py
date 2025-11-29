@@ -1,12 +1,12 @@
 from abc import abstractmethod
 
-from Agent.ExplorerAgent import ExplorerAgent
+from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
 from Actions.Observation import Observation
 from Items.Nest import Nest
 from Items.Pickable import Pickable
 from Items.Wall import Wall
-from Environment import Environment
+from Worlds.Environment import Environment
 
 
 class World(Environment):
