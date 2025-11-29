@@ -22,4 +22,4 @@ class CoopWorld(World):
         """
 
     def is_solved(self) -> bool:
-        pass
+        return True
