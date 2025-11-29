@@ -4,7 +4,6 @@ from World import World
 
 class CoopWorld(World):
 
-
     def __init__(self, width, height):
         super().__init__(width, height)
         self.chicken_coop = None

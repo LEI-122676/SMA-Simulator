@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="-numChickens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Pickable.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Pickable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/World/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +357,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764332931681</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="-numChickens">
+      <option name="closed" value="true" />
+      <created>1764427928743</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1764427928743</updated>
+    </task>
+    <task id="LOCAL-00024" summary="-numChickens">
+      <option name="closed" value="true" />
+      <created>1764428045607</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1764428045607</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -436,7 +450,8 @@
     <MESSAGE value="+best_explorer.txt" />
     <MESSAGE value="pickables have value" />
     <MESSAGE value="Completed act() in World" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed act() in World" />
+    <MESSAGE value="-numChickens" />
+    <option name="LAST_COMMIT_MESSAGE" value="-numChickens" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

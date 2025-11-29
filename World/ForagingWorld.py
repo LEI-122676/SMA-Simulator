@@ -35,7 +35,7 @@ class ForagingWorld(World):
 
         for n in range(numNests):
             x, y = place_unique()
-            nest = Nest(n, x, y, capacity)
+            nest = Nest(n, x, y).setCapacity(capacity)
             self.nests.append(nest)
             self.map[y][x] = nest
 

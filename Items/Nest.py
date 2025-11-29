@@ -3,13 +3,19 @@ from Items.Item import Item
 
 class Nest(Item):
 
-    def __init__(self, id, x, y, capacity: int):
+    def __init__(self, id, x, y):
         super().__init__("N", id, x, y)
-        self.capacity = capacity
+        self.capacity = None
         self.num_of_items = 0
+
+    def setCapacity(self, capacity):
+        self.capacity = capacity
 
     def put(self, num_of_items):
         """ Returns True when item is put in the Nest """
+        if self.capacity is None:
+            raise AttributeError("Nest", id, "wasn't correctly created.")
+
         future_num_of_items = self.num_of_items + num_of_items
 
         if future_num_of_items < self.capacity:
