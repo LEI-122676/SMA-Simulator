@@ -1,0 +1,3 @@
+# ExplorerAgent configuration
+learn_mode=False
+steps=5000

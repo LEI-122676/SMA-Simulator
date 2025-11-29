@@ -205,7 +205,6 @@ def read_file_parameters(allowed_params, file_name):
 def read_matrix_file_with_metadata(file_name):
     ALLOWED_CHARS = {'.', 'E', 'N', 'S', 'W', 'F', 'C'}
     matrix = []
-    metadata = {}
 
     try:
         with open(file_name, "r") as f:
@@ -215,10 +214,6 @@ def read_matrix_file_with_metadata(file_name):
                     continue
 
                 if line.startswith("#"):
-                    # Metadata line
-                    if "=" in line:
-                        key, value = line[1:].split("=", 1)
-                        metadata[key.strip()] = value.strip()
                     continue
 
                 # Validate characters

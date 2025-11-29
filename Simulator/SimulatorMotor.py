@@ -27,14 +27,10 @@ class SimulatorMotor(Simulator):
 
         # Step 1 — Read the matrix
         try:
-            matrix, metadata = read_matrix_file_with_metadata(matrix_file)
+            matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # TODO - isto é msm preciso? pq no ForagingWorld ja é calculada a capacidade automaticamente
-        nest_capacity = int(metadata.get("nest_capacity", 1)) # if not specified, default to 1
-        game_type = metadata.get("game_type", "Farol") # if not specified, default to Farol      
-        
         # Step 2 — Create ID counters
         id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
         
@@ -42,11 +38,6 @@ class SimulatorMotor(Simulator):
         height = len(matrix)
         width = len(matrix[0])
         world = None
-        
-        if game_type == "Foraging":
-            world = ForagingWorld(width, height)
-        if game_type == "Farol":
-            world = CoopWorld(width, height)
 
         for y in range(height):
             for x in range(width):
