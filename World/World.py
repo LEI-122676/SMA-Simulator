@@ -1,4 +1,5 @@
 import random
+from abc import abstractmethod
 
 from Agent.Chicken import Chicken
 from Agent.ExplorerAgent import ExplorerAgent
@@ -20,9 +21,6 @@ class World(Environment):
 
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
-        self.eggs = []
-        self.nests = []
-        self.stones = []
 
 
     def observationFor(self, explorer: ExplorerAgent):      # Phase 5.2
@@ -44,14 +42,15 @@ class World(Environment):
         agent.position = future_pos
         x, y = future_pos
         obj = self.map[y][x]                                # Object "under" the agent
+        reward = 0
 
         # Interaction with pickable objects
-        if isinstance(obj, Pickable):
+        if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
             agent.storeItem(obj)
-            return obj.value
+            reward += obj.value
 
         # Dropping items at nests (eggs/stones)
-        elif isinstance(obj, Nest):
+        elif isinstance(obj, Nest):                                 # Only happens on foraging world
             totalReward = 0
 
             for item in agent.inventory:
@@ -59,35 +58,14 @@ class World(Environment):
                 totalReward += item.value
                 agent.discardItem(item)
 
-            return totalReward
+            reward += totalReward
 
-        # Reached the goal
+        # Reached the goal -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
             self.solved = True
-            return 100                                      # Big reward for reaching the goal
+            reward += 100
 
-        else:
-            return 0                                        # No reward for empty space
-
-    def initializeMap(self, numEggs, numNests, numChickens):
-        # TODO - corrigir isto, pq podem acontecer sobreposicoes de elementos com os randoms nao verificados
-
-        for n in range(numEggs):
-            # Random position
-            x = random.randint(0, len(self.map[0]) - 1)
-            y = random.randint(0, len(self.map) - 1)
-
-            self.eggs.append(Egg(n, x, y))
-
-        for _ in range(numNests):
-            # Random position
-            x = random.randint(0, len(self.map[0]) - 1)
-            y = random.randint(0, len(self.map) - 1)
-
-            self.nests.append((x, y))
-
-        for n in range(numChickens):
-            self.chickens.append(Chicken(n, 0, n))
+        return reward                                            # No reward for empty space
 
     def is_valid_action(self, action_to_validate, explorer):
         """ Returns None if action is invalid, or new position (x,y) if valid """
@@ -109,3 +87,7 @@ class World(Environment):
             return None
 
         return newx, newy
+
+    @abstractmethod
+    def initializeMap(self):
+        pass
