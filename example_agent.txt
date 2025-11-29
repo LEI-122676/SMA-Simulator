@@ -1,0 +1,6 @@
+# ExplorerAgent configuration
+id=1
+x=5
+y=10
+learn_mode=False
+steps=5000
