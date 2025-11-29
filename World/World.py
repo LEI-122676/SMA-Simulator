@@ -1,10 +1,8 @@
 import random
 from abc import abstractmethod
 
-from Agent.Chicken import Chicken
 from Agent.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
-from Items.Egg import Egg
 from Actions.Observation import Observation
 from Items.Nest import Nest
 from Items.Pickable import Pickable
@@ -58,6 +56,8 @@ class World(Environment):
                 totalReward += item.value
                 agent.discardItem(item)
 
+            self.isSolved()
+
             reward += totalReward
 
         # Reached the goal -> big reward                            # Only happens on chicken coop world
@@ -90,4 +90,8 @@ class World(Environment):
 
     @abstractmethod
     def initializeMap(self):
+        pass
+
+    @abstractmethod
+    def is_solved(self) -> bool:
         pass

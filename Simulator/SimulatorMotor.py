@@ -1,7 +1,5 @@
 import time
 
-from importlib_metadata import metadata
-
 from Agent import Chicken
 from Items import ChickenCoop, Egg, Nest, Stone
 from Items.Wall import Wall
@@ -32,7 +30,8 @@ class SimulatorMotor(Simulator):
             matrix, metadata = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
-        
+
+        # TODO - isto é msm preciso? pq no ForagingWorld ja é calculada a capacidade automaticamente
         nest_capacity = int(metadata.get("nest_capacity", 1)) # if not specified, default to 1
         game_type = metadata.get("game_type", "Farol") # if not specified, default to Farol      
         

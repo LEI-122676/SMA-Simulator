@@ -14,7 +14,7 @@ class ForagingWorld(World):
         self.nests = []
         self.eggs = []
 
-    def initializeMap(self, numEggs=1, numNests=1, numChickens=1):
+    def initializeMap(self, numEggs=1, numNests=1):
         # Certificar que a posição está livre
         def place_unique():
             while True:
@@ -39,10 +39,15 @@ class ForagingWorld(World):
             self.nests.append(nest)
             self.map[y][x] = nest
 
+        """
         # Colocar as galinhas -> todas lado a lado na primeira fila
         for n in range(numChickens):
             x, y = n, 0
             chicken = Chicken(n, x, y)
             self.agents.append(chicken)
             self.map[y][x] = chicken
+        """
 
+    def is_solved(self):
+        # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
+        return all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs)
