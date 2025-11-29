@@ -96,6 +96,9 @@ class ExplorerAgent(Agent):
                 break
 
     def storeItem(self, item: Pickable):
+        fy, fx = item.position
+        self.sensor.world.map[fy][fx] = None
+
         item.pickUp()
         self.inventory.append(item)
 

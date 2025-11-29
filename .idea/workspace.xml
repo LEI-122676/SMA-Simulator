@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="pickables have value">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Completed act() in World">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agent/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/Environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/World/FarolWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/FarolWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/World/FarolWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/CoopWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/World/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/ForagingWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/World/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/World/World.py" afterDir="false" />
     </list>
@@ -172,7 +171,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
+        <option value="bundled-python-sdk-a101402ee41c-968fe969f28a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.28238.29" />
       </set>
     </attachedChunks>
   </component>
@@ -352,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764331438599</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Completed act() in World">
+      <option name="closed" value="true" />
+      <created>1764332931681</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1764332931681</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,7 +399,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -428,7 +435,8 @@
     <MESSAGE value="cleaned ExplorerAgent" />
     <MESSAGE value="+best_explorer.txt" />
     <MESSAGE value="pickables have value" />
-    <option name="LAST_COMMIT_MESSAGE" value="pickables have value" />
+    <MESSAGE value="Completed act() in World" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed act() in World" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

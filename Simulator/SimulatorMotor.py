@@ -4,9 +4,9 @@ from importlib_metadata import metadata
 
 from Agent import Chicken
 from Items import ChickenCoop, Egg, Nest, Stone
-from Obstacle import Wall
+from Items.Wall import Wall
 from Simulator.Simulator import Simulator
-from World import FarolWorld, World, ForagingWorld
+from World import CoopWorld, World, ForagingWorld
 from Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
@@ -42,13 +42,12 @@ class SimulatorMotor(Simulator):
         # Step 3 — Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
+        world = None
         
         if game_type == "Foraging":
             world = ForagingWorld(width, height)
-        elif game_type == "Farol":
-            world = FarolWorld(width, height)
-        else:
-            world = World(width, height)
+        if game_type == "Farol":
+            world = CoopWorld(width, height)
 
         for y in range(height):
             for x in range(width):
@@ -63,7 +62,7 @@ class SimulatorMotor(Simulator):
                     id_counter["egg"] += 1
                 elif char == "N":
                     world.nests.append((x, y))
-                    world.map[y][x] = Nest(id_counter["nest"], x, y, nest_capacity = nest_capacity)
+                    world.map[y][x] = Nest(id_counter["nest"], x, y, nest_capacity)
                     id_counter["nest"] += 1
                 elif char == "S":
                     world.stones.append((x, y))
@@ -108,7 +107,7 @@ class SimulatorMotor(Simulator):
             self.saveState()
 
             # Check termination conditions
-            if self.world.solved or self.time_limit == 0:                   # Phase 9
+            if self.isSolved():                                             # Phase 9
                 self.running = False
 
             # Manage time
@@ -117,6 +116,9 @@ class SimulatorMotor(Simulator):
 
         self.shutDownSimulation()                                           # Phase 10
         self.saveResults("simulation_results.txt")                          # Phase 11
+
+    def isSolved(self):
+        return self.world.solved or (self.time_limit <= 0)
 
     def shutDownSimulation(self):
         pass

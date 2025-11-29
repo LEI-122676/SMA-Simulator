@@ -1,30 +1,21 @@
+from Agent.Chicken import Chicken
 from World import World
 import random
 
-from Actions.Action import Action
-from Agent.ExplorerAgent import ExplorerAgent
 from Items.Egg import Egg
 from Items.Nest import Nest
 
 
 class ForagingWorld(World):
-    """A simple foraging world: eggs are scattered on the map and nests collect eggs.
 
-    Behavior implemented:
-    - initializeMap(numEggs, numNests, ...): coloca Egg e Nest objects (sem sobreposição)
-    - act(action, agent): move o agent, o agente pode recolher Eggs quando aterrar sobre eles, e deposita ovos no Ninho
-    """
-
-    def __init__(self, width=100, height=100):
+    def __init__(self, width, height):
         super().__init__(width, height)
-        self.solved = False
+        self.stones = []
+        self.nests = []
+        self.eggs = []
 
     def initializeMap(self, numEggs=1, numNests=1, numChickens=1):
-        self.eggs = []
-        self.nests = []
-        self.stones = []
-
-        # certificar que a posição está livre
+        # Certificar que a posição está livre
         def place_unique():
             while True:
                 x = random.randint(0, self.width - 1)
@@ -32,54 +23,26 @@ class ForagingWorld(World):
                 if self.map[y][x] is None:
                     return x, y
 
-        # colocar os n ovos
+        # Colocar os ovos
         for n in range(numEggs):
             x, y = place_unique()
             egg = Egg(n, x, y)
             self.eggs.append(egg)
             self.map[y][x] = egg
 
-        # colocar os ninhos ()
+        # Colocar os ninhos -> calcular primeiro a sua capacidade
+        capacity = (numEggs // numNests) + (1 if numEggs % numNests > 0 else 0)
+
         for n in range(numNests):
             x, y = place_unique()
-            nest = Nest(n, x, y, capacity=1)
+            nest = Nest(n, x, y, capacity)
             self.nests.append(nest)
             self.map[y][x] = nest
 
-        #TODO: Não utilizado ainda
-        self.chickens = []
+        # Colocar as galinhas -> todas lado a lado na primeira fila
+        for n in range(numChickens):
+            x, y = n, 0
+            chicken = Chicken(n, x, y)
+            self.agents.append(chicken)
+            self.map[y][x] = chicken
 
-    def act(self, action, agent: ExplorerAgent):
-        future_pos = self.is_valid_action(action, agent)
-        if not future_pos:
-            print("Invalid action attempted.")
-            return
-        agent.position = future_pos
-
-        fx, fy = future_pos
-        obj = self.map[fy][fx]
-
-        # pickup egg if present and not already picked
-        if isinstance(obj, Egg) and not obj.picked_up:
-            agent.storeItem(obj)
-            # remove from map but keep in eggs list
-            self.map[fy][fx] = None
-
-        # deposit eggs at nest
-        if isinstance(obj, Nest):
-            # try to deposit one egg per visit
-            inventory = list(agent.inventory)
-            for item in inventory:
-                if isinstance(item, Egg):
-                    success = obj.put(1)
-                    if success:
-                        agent.inventory.remove(item)
-                        # mark egg as delivered (optional)
-                        item.position = (fx, fy)
-                        item.picked_up = False
-
-        # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
-        all_in_nests = all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs)
-        
-        if all_in_nests:
-            self.solved = True
