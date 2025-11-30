@@ -1,5 +1,6 @@
 import time
 
+from Actions.Sensor import Sensor
 from Agents.Chicken import Chicken
 from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
@@ -67,7 +68,8 @@ class SimulatorMotor(Simulator):
                     world.map[y][x] = wall
                     id_counter["wall"] += 1
                 elif char == "C":
-                    chicken = Chicken(id_counter["chicken"], x, y)
+                    chicken = Chicken(id_counter["chicken"], x, y)          # Phase 3
+                    chicken.install(Sensor(world.map))
                     world.agents.append(chicken)
                     world.map[y][x] = chicken
                     id_counter["chicken"] += 1
@@ -85,7 +87,7 @@ class SimulatorMotor(Simulator):
             print("Simulator not running. No agents to list.")
             return None
 
-        return [a for a in self.world.chickens]
+        return [a for a in self.world.agents]
 
     def execute(self):
         self.running = True                                                 # Phase 1
@@ -125,7 +127,7 @@ class SimulatorMotor(Simulator):
 if __name__ == "__main__":
 
     simulator = SimulatorMotor()
-    simulator.create("example_file_farol.txt") # TODO : Placeholder file name
+    simulator.create("farol_level2.txt") # TODO : Placeholder file name
 
     simulator.execute()
 

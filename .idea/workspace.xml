@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Direction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Direction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_file_farol.txt" beforeDir="false" afterPath="$PROJECT_DIR$/farol_level2.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,10 +183,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
