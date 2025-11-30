@@ -9,9 +9,11 @@ from Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, id, x, y, learn_mode=True, steps=5000, genotype=None):
+    def __init__(self, id, x, y, world, learn_mode=True, steps=5000, genotype=None):
         self.id = id
         self.position = (x, y)
+        self.world = world
+
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
@@ -67,7 +69,7 @@ class ExplorerAgent(Agent):
 
     def evaluateCurrentState(self, reward: float):
         # TODO - n sei oq isto é suposto fzr -> usar self.observation?
-        self.reward += reward
+        # self.reward += reward
         pass
 
     def install(self, sensor: Sensor):
@@ -87,7 +89,7 @@ class ExplorerAgent(Agent):
         while attempts_left > 0:  # While there are still possible actions to try:
             action_to_take = self.act()  # Phase 6
 
-            reward = self.sensor.world.act(action_to_take, self)  # Phase 7.1 & 7.3
+            reward = self.world.act(action_to_take, self)  # Phase 7.1 & 7.3
             attempts_left -= 1
 
             if reward is not None:  # if reward is None -> tries to act again

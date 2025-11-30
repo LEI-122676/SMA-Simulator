@@ -52,15 +52,12 @@ class SimulatorMotor(Simulator):
                 elif char == "E":
                     egg = Egg(id_counter["egg"], x, y)
                     world.eggs.append(egg)
-                    world.map[y][x] = egg
                     id_counter["egg"] += 1
                 elif char == "N":
                     world.nests.append((x, y))
-                    world.map[y][x] = Nest(id_counter["nest"], x, y)
                     id_counter["nest"] += 1
                 elif char == "S":
                     world.stones.append((x, y))
-                    world.map[y][x] = Stone(id_counter["stone"], x, y)
                     id_counter["stone"] += 1
                     """
                 elif char == "W":
@@ -68,13 +65,12 @@ class SimulatorMotor(Simulator):
                     world.map[y][x] = wall
                     id_counter["wall"] += 1
                 elif char == "C":
-                    chicken = Chicken(id_counter["chicken"], x, y)          # Phase 3
+                    chicken = Chicken(id_counter["chicken"], x, y, world)          # Phase 3
                     chicken.install(Sensor(world.map))
-                    world.agents.append(chicken)
-                    world.map[y][x] = chicken
+                    world.add_agent(chicken)
                     id_counter["chicken"] += 1
                 elif char == "F":
-                    world.map[y][x] = ChickenCoop(id_counter["farol"], x, y)
+                    world.chicken_coop_pos = (x, y)
                     id_counter["farol"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
@@ -106,7 +102,12 @@ class SimulatorMotor(Simulator):
 
             # Manage time
             self.time_limit -= self.time_per_step
-            time.sleep(self.time_per_step)
+
+            self.world.showWorld()
+
+            # TODO - for debug:
+            print(f"Time left: {round(self.time_limit, 1)} seconds")
+            time.sleep(self.time_per_step * 2)                              # Slow down for visualization
 
         self.shutDownSimulation()                                           # Phase 10
         self.saveResults("simulation_results.txt")                          # Phase 11
