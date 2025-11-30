@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Nest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Nest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Sensor works!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Chicken.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/farol_level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/farol_level1.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,10 +184,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -429,7 +431,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764440663703</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Sensor works!">
+      <option name="closed" value="true" />
+      <created>1764510032940</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1764510032940</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Sensor works!">
+      <option name="closed" value="true" />
+      <created>1764510100452</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1764510100452</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -511,7 +529,8 @@
     <MESSAGE value="-import problems" />
     <MESSAGE value="-problems" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="Sensor works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sensor works!" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
