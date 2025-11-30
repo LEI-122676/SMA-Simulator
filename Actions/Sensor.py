@@ -18,7 +18,7 @@ class Sensor:
             distance = self._cast_ray(explorer_position, direction.value)
             key_name = direction.name.title()  # 8 directions: "North", "NorthEast", "East"...
 
-            # print("distance:", distance, "key_name:", key_name)           #
+            # print("distance:", distance, "key_name:", key_name)      # Debug: Shows the distances for each direction
 
             if key_name in observation.possible_actions:
                 observation.possible_actions[key_name] = distance
