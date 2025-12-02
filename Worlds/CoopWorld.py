@@ -15,6 +15,11 @@ class CoopWorld(World):
         x, y = (self.width // 2, self.height // 2)
         self.chicken_coop = ChickenCoop(0, x, y)
 
+        for y in range(self.height):
+            for x in range(self.width):
+                pass # TODO
+
+
         """
         # Colocar as galinhas -> todas lado a lado na primeira fila
         for n in range(numChickens):
