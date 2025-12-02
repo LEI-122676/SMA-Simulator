@@ -9,7 +9,7 @@ from Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, id, x, y, world, learn_mode=True, steps=5000, genotype=None):
+    def __init__(self, id, x, y, world, learn_mode=True, steps=100, genotype=None):
         self.id = id
         self.position = (x, y)
         self.world = world
@@ -63,6 +63,7 @@ class ExplorerAgent(Agent):
             return self.genotype[self.step_index]  # gene == action
         else:
             # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
+
             if isinstance(self.coop, ChickenCoop):
                 return self.coop.get_action(self) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
             else:
