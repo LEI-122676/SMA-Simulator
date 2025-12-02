@@ -2,12 +2,12 @@ import time
 
 from Actions.Sensor import Sensor
 from Agents.Chicken import Chicken
-from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
 from Simulator.Simulator import Simulator
 from Worlds.CoopWorld import CoopWorld
 from Worlds.World import World
 from Utilities import read_matrix_file_with_metadata
+
 
 class SimulatorMotor(Simulator):
 
@@ -36,7 +36,7 @@ class SimulatorMotor(Simulator):
 
         # Step 2 — Create ID counters
         id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
-        
+
         # Step 3 — Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
