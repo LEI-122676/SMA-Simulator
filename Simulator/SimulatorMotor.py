@@ -27,6 +27,9 @@ class SimulatorMotor(Simulator):
         The matrix can be any size. Each character represents an object:
         . empty, E egg, N nest, S stone, W wall, F farol, C chicken
         """
+               
+        #TODO : REMOVE MATRIX IMPLEMENTATION
+        #TODO : IMPLEMENT FORAGING OR CHICKEN COOP
 
         # Step 1 — Read the matrix
         try:
