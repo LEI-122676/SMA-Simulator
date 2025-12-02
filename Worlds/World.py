@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+from Actions.Sensor import Sensor
 from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
 from Actions.Observation import Observation
@@ -18,7 +19,6 @@ class World(Environment):
 
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
-
 
     def observationFor(self, explorer: ExplorerAgent):      # Phase 5.2
         obs = Observation(explorer.id)
@@ -75,8 +75,8 @@ class World(Environment):
         if action_to_validate is None or explorer is None:
             return None
 
-        dx, dy = action_to_validate
-        px, py = explorer
+        dx, dy = action_to_validate.value
+        px, py = explorer.position
 
         newx = px + dx
         newy = py + dy
@@ -90,10 +90,18 @@ class World(Environment):
 
         return newx, newy
 
+    def add_agent(self, agent):
+        self.agents.append(agent)
+        agent.install(Sensor(self.map))
+
     @abstractmethod
     def initializeMap(self):
         pass
 
     @abstractmethod
     def is_solved(self) -> bool:
+        pass
+
+    @abstractmethod
+    def showWorld(self):
         pass

@@ -3,10 +3,9 @@ from Actions.Observation import Observation
 from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
 
-
 class Sensor:
 
-    def __init__(self, world_map, max_range:int = 10):
+    def __init__(self, world_map, max_range: int = 10):
         self.world_map = world_map
         self.height = len(self.world_map)
         self.width = len(self.world_map[0])
@@ -17,23 +16,29 @@ class Sensor:
 
         for direction in Direction:
             distance = self._cast_ray(explorer_position, direction.value)
-            observation.possible_actions[direction] = distance
+            key_name = direction.name.title()  # 8 directions: "North", "NorthEast", "East"...
+
+            # print("distance:", distance, "key_name:", key_name)      # Debug: Shows the distances for each direction
+
+            if key_name in observation.possible_actions:
+                observation.possible_actions[key_name] = distance
 
         return observation
 
-    def _cast_ray(self, start_pos, step_vector):
+    def _cast_ray(self, start_pos, step_vector) -> int:
         current_x, current_y = start_pos
         dx, dy = step_vector
         dist = 0
 
-        # Continue stepping until we hit max range
         for _ in range(self.max_range):
             current_x += dx
             current_y += dy
 
+            # Check bounds
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
                 return dist
 
+            # Check for Wall
             if isinstance(self.world_map[current_y][current_x], Wall):
                 return dist
 
@@ -44,8 +49,7 @@ class Sensor:
     def get_coop_position(self):
         for y in range(self.height):
             for x in range(self.width):
-                obj = self.world_map[y][x]
-                if obj is ChickenCoop:
-                    return obj
+                if isinstance(self.world_map[y][x], ChickenCoop):
+                    return x, y
 
         return None

@@ -8,7 +8,7 @@ class Nest(Item):
         self.capacity = None
         self.num_of_items = 0
 
-    def setCapacity(self, capacity):
+    def set_capacity(self, capacity: int):
         self.capacity = capacity
 
     def put(self, num_of_items):
