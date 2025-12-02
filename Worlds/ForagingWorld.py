@@ -3,6 +3,7 @@ import random
 from Items.Egg import Egg
 from Items.Nest import Nest
 from Items.Stone import Stone
+from Items.Wall import Wall
 from Worlds.World import World
 
 
@@ -14,39 +15,43 @@ class ForagingWorld(World):
         self.nests = []
         self.eggs = []
 
-    def initializeMap(self, numEggs=1, numNests=1):
+    def initialize_map(self, numEggs=1, numNests=1, filename=None):
+        
+        if filename==None:
         # Certificar que a posição está livre
-        def place_unique():
-            while True:
-                x = random.randint(0, self.width - 1)
-                y = random.randint(0, self.height - 1)
-                if self.map[y][x] is None:
-                    return x, y
+            def place_unique():
+                while True:
+                    x = random.randint(0, self.width - 1)
+                    y = random.randint(0, self.height - 1)
+                    if self.map[y][x] is None:
+                        return x, y
 
-        # Colocar os ovos
-        for n in range(numEggs):
-            x, y = place_unique()
-            egg = Egg(n, x, y)
-            self.eggs.append(egg)
-            self.map[y][x] = egg
+            # Colocar os ovos
+            for n in range(numEggs):
+                x, y = place_unique()
+                egg = Egg(n, x, y)
+                self.eggs.append(egg)
+                self.map[y][x] = egg
 
-        # Colocar os ninhos -> calcular primeiro a sua capacidade
-        capacity = (numEggs // numNests) + (1 if numEggs % numNests > 0 else 0)
+            # Colocar os ninhos -> calcular primeiro a sua capacidade
+            capacity = (numEggs // numNests) + (1 if numEggs % numNests > 0 else 0)
 
-        for n in range(numNests):
-            x, y = place_unique()
-            nest = Nest(n, x, y).setCapacity(capacity)
-            self.nests.append(nest)
-            self.map[y][x] = nest
+            for n in range(numNests):
+                x, y = place_unique()
+                nest = Nest(n, x, y).setCapacity(capacity)
+                self.nests.append(nest)
+                self.map[y][x] = nest
 
-        """
-        # Colocar as galinhas -> todas lado a lado na primeira fila
-        for n in range(numChickens):
-            x, y = n, 0
-            chicken = Chicken(n, x, y)
-            self.agents.append(chicken)
-            self.map[y][x] = chicken
-        """
+            """
+            # Colocar as galinhas -> todas lado a lado na primeira fila
+            for n in range(numChickens):
+                x, y = n, 0
+                chicken = Chicken(n, x, y)
+                self.agents.append(chicken)
+                self.map[y][x] = chicken
+            """
+        else:
+            self.read_foraging_file(filename)
 
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
@@ -71,3 +76,35 @@ class ForagingWorld(World):
                 else:
                     row += "W "
             print(row)
+
+    def read_foraging_file(self, filename):
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+
+        id_counters = {"egg": 0, "nest": 0, "stone": 0, "wall": 0}
+
+        for y, line in enumerate(lines):
+            for x, char in enumerate(line.strip()):
+                if char == ".":
+                    continue
+                elif char == "E":
+                    egg = Egg(id_counters["egg"], x, y)
+                    self.eggs.append(egg)
+                    self.map[y][x] = egg
+                    id_counters["egg"] += 1
+                elif char == "N":
+                    nest = Nest(id_counters["nest"], x, y)
+                    self.nests.append(nest)
+                    self.map[y][x] = nest
+                    id_counters["nest"] += 1
+                elif char == "S":
+                    stone = Stone(id_counters["stone"], x, y)
+                    self.stones.append(stone)
+                    self.map[y][x] = stone
+                    id_counters["stone"] += 1
+                elif char == "W":
+                    wall = Wall(id_counters["wall"], x, y)
+                    self.map[y][x] = wall
+                    id_counters["wall"] += 1
+                else:
+                    raise ValueError(f"Unknown character '{char}' at ({x},{y})")
