@@ -26,7 +26,7 @@ class ExplorerAgent(Agent):
         self.path = []
         
         self.combinedFitness = 0.0
-        self.reward = None
+        self.reward = 0
         #self.noveltyScore = 0.0
 
     @staticmethod

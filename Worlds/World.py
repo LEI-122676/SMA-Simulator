@@ -111,7 +111,7 @@ class World(Environment):
 
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
-                elif obj is None:
+                elif isinstance(obj, Wall):
                     row += ". "
                 elif isinstance(obj, Egg):
                     row += "E "
@@ -122,7 +122,7 @@ class World(Environment):
                 elif isinstance(obj, ChickenCoop):
                     row += "F "
                 else:
-                    row += "W "
+                    row += ". "
             print(row)
 
     @abstractmethod
