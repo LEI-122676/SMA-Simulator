@@ -122,6 +122,28 @@ class World(Environment):
                     row += "W "
             print(row)
 
+    def show_world(self):
+        # Show the world map, agents, eggs, stones, and nests
+        for y in range(self.height):
+            row = ""
+            for x in range(self.width):
+                obj = self.map[y][x]
+                if obj is None:
+                    row += ". "
+                elif any(agent.position == (x, y) for agent in self.agents):
+                    row += "C "
+                elif obj is Egg:
+                    row += "E "
+                elif obj is Nest:
+                    row += "N "
+                elif obj is Stone:
+                    row += "S "
+                elif obj is ChickenCoop:
+                    row += "F "
+                else:
+                    row += "W "
+            print(row)
+
     @abstractmethod
     def initialize_map(self):
         pass
