@@ -28,11 +28,12 @@ class World(Environment):
 
         return explorer.observation(obs)
 
-    def update(self):
-        # TODO - n sabia oq meter neste função ent ficou isto
-        for agent in self.agents:
-            if isinstance(agent, ExplorerAgent) and agent.step_index >= agent.steps:
-                self.solved = True
+    def crossover(parent1: ExplorerAgent, parent2: ExplorerAgent):
+        """Performs single-point crossover on two parent genotypes."""
+        point = random.randint(1, len(parent1.genotype) - 1)
+        child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
+        child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
+        return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
 
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
@@ -92,7 +93,8 @@ class World(Environment):
 
         return newx, newy
 
-    def add_agent(self, agent):
+    def add_agent(self,agent: ExplorerAgent, position):
+        agent.position = position                 # TODO - colocar o agente na posicao inicial?
         self.agents.append(agent)
         agent.install(Sensor(self.map))
 

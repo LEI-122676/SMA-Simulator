@@ -14,9 +14,5 @@ class Environment(ABC):
         pass
 
     @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
     def act(self, action: Action, agent: Agent):
         pass
