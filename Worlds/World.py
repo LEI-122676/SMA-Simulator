@@ -41,8 +41,9 @@ class World(Environment):
 
         agent.position = future_pos
         x, y = future_pos
-        obj = self.map[y][x]                                # Object "under" the agent
-        reward = 0
+        obj = self.map[y][x]        
+
+        reward =+ 0
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
@@ -51,7 +52,7 @@ class World(Environment):
 
         # Dropping items at nests (eggs/stones)
         elif isinstance(obj, Nest):                                 # Only happens on foraging world
-            totalReward = 0
+            totalReward += 0
 
             for item in agent.inventory:
                 obj.put(item)
@@ -64,8 +65,8 @@ class World(Environment):
 
         # Reached the goal -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
-            self.solved = self.is_solved()
             reward += 100
+            self.solved = self.is_solved()
 
         return reward                                            # No reward for empty space
 

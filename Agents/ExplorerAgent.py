@@ -27,7 +27,7 @@ class ExplorerAgent(Agent):
         self.behavior = set()
         self.path = []
         self.combinedFitness = 0.0
-        #self.reward = None
+        self.reward = 0.0
         #self.noveltyScore = 0.0
 
     @staticmethod
@@ -58,6 +58,7 @@ class ExplorerAgent(Agent):
         self.observation = observation
 
     def act(self) -> Action:
+
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
@@ -113,5 +114,3 @@ class ExplorerAgent(Agent):
     def discardItem(self, item: Pickable):
         item.drop()
         self.inventory.append(item)
-
-
