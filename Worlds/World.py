@@ -128,10 +128,11 @@ class World(Environment):
             row = ""
             for x in range(self.width):
                 obj = self.map[y][x]
-                if obj is None:
-                    row += ". "
-                elif any(agent.position == (x, y) for agent in self.agents):
+
+                if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
+                elif obj is None:
+                    row += ". "
                 elif obj is Egg:
                     row += "E "
                 elif obj is Nest:
