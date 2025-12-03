@@ -67,7 +67,6 @@ class ExplorerAgent(Agent):
 
 
     def evaluateCurrentState(self, reward: float):
-        # TODO - n sei oq isto é suposto fzr -> usar self.observation?
         self.reward += reward
 
     def install(self, sensor: Sensor):
@@ -78,27 +77,20 @@ class ExplorerAgent(Agent):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
             return
 
-        observation = self.sensor.get_observation(self.id, self.position)  # Phase 5.1
-        self.observe(observation)  # Phase 5.2
+        # Gets observation
+        observation = self.sensor.get_observation(self.id, self.position)   # Phase 5.1
+        self.observe(observation)                                           # Phase 5.2
 
-        attempts_left = observation.total_possible_actions()
+        # Decides what to do
+        action_to_take = self.act()                                     # Phase 6
 
-        while attempts_left > 0:  # While there are still possible actions to try:
-            action_to_take = self.act()  # Phase 6
+        # Tries to do it
+        self.world.act(action_to_take, self)                            # Phase 7.1
 
-            reward = self.world.act(action_to_take, self)  # Phase 7.1 & 7.3
-            attempts_left -= 1
-
-            if reward is not None:  # if reward is None -> tries to act again
-                # Moved successfully
-                self.evaluateCurrentState(reward)  # Phase 7.3
-                self.step_index += 1
-
-                # Record behavior
-                self.behavior.add(self.position)
-                self.path.append(self.position)
-                break
-            # Didn't move :( - try again
+        # Even if it fails, we count the step
+        self.step_index += 1
+        self.behavior.add(self.position)
+        self.path.append(self.position)
 
     def storeItem(self, item: Pickable):
         fy, fx = item.position
