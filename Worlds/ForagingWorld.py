@@ -102,7 +102,7 @@ class ForagingWorld(World):
                 elif char == "C":
                     chicken = Chicken()          # Phase 3
                     chicken.install(Sensor(self.map))
-                    self.add_agent(chicken)
+                    self.add_agent(chicken, (x, y))
                     id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
