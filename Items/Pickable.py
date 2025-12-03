@@ -5,8 +5,8 @@ from Items.Item import Item
 
 class Pickable(Item):
 
-    def __init__(self, name, id, x, y, value=0):
-        super().__init__(name, id, x, y)
+    def __init__(self, name, id, value=0):
+        super().__init__(name, id)
         self.picked_up = None
         self.value = value
 

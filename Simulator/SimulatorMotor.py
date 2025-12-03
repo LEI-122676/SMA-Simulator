@@ -56,7 +56,7 @@ class SimulatorMotor(Simulator):
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
             # ForagingWorld has its own reader — delegate population to it and return early
-            world.read_foraging_file(matrix_file)
+            world.initialize_map(filename=matrix_file)
             return SimulatorMotor(world)
 
         for y in range(height):
