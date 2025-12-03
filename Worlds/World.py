@@ -10,7 +10,6 @@ from Items.Pickable import Pickable
 from Items.Wall import Wall
 from Worlds.Environment import Environment
 
-
 class World(Environment):
 
     def __init__(self, width=30, height=30):
