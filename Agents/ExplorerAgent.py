@@ -63,12 +63,11 @@ class ExplorerAgent(Agent):
             return self.genotype[self.step_index]  # gene == action
         else:
             # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
-            return ChickenCoop.get_action(self.sensor.get_coop_position(), self.position) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
+            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
 
 
     def evaluateCurrentState(self, reward: float):
-        #self.reward += reward
-        pass
+        self.reward += reward
 
     def install(self, sensor: Sensor, world):
         self.sensor = sensor

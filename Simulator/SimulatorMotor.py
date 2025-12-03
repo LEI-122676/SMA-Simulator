@@ -29,17 +29,14 @@ class SimulatorMotor(Simulator):
         The matrix can be any size. Each character represents an object:
         . empty, E egg, N nest, S stone, W wall, F farol, C chicken
         """
-               
-        #TODO : REMOVE MATRIX IMPLEMENTATION
-        #TODO : IMPLEMENT FORAGING OR CHICKEN COOP
 
-        # Step 1 — Read the matrix
+        # Read the matrix
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # Step 3 — Create world of matching size
+        # Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
 
@@ -50,8 +47,7 @@ class SimulatorMotor(Simulator):
             print("Creating CoopWorld")
             # Step 2 — Create ID counters for coop world
             world = CoopWorld(width, height)
-            world.read_coop_file(matrix_file)
-            # continue to parse the matrix below and populate world
+            world.initialize_map()  # TODO - pass matrix_file in .initialize_map()
             return SimulatorMotor(world)
         else:
             print("Creating ForagingWorld")
@@ -60,8 +56,6 @@ class SimulatorMotor(Simulator):
             world.initialize_map(filename=matrix_file)
             return SimulatorMotor(world)
 
-        # Step 4 — Return simulator with the world
-        return SimulatorMotor(world)
 
     def listAgents(self):
         if not self.running:
