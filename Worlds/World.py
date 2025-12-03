@@ -5,8 +5,10 @@ from Actions.Sensor import Sensor
 from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
 from Actions.Observation import Observation
+from Items.Egg import Egg
 from Items.Nest import Nest
 from Items.Pickable import Pickable
+from Items.Stone import Stone
 from Items.Wall import Wall
 from Worlds.Environment import Environment
 
@@ -98,6 +100,28 @@ class World(Environment):
         self.agents.append(agent)
         agent.install(Sensor(self.map), self)
 
+    def show_world(self):
+        # Show the world map, agents, eggs, stones, and nests
+        for y in range(self.height):
+            row = ""
+            for x in range(self.width):
+                obj = self.map[y][x]
+                if obj is None:
+                    row += ". "
+                elif any(agent.position == (x, y) for agent in self.agents):
+                    row += "C "
+                elif obj is Egg:
+                    row += "E "
+                elif obj is Nest:
+                    row += "N "
+                elif obj is Stone:
+                    row += "S "
+                elif obj is ChickenCoop:
+                    row += "F "
+                else:
+                    row += "W "
+            print(row)
+
     @abstractmethod
     def initialize_map(self):
         pass
@@ -106,6 +130,4 @@ class World(Environment):
     def is_solved(self) -> bool:
         pass
 
-    @abstractmethod
-    def showWorld(self):
-        pass
+

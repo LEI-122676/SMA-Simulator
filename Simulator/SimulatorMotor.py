@@ -66,8 +66,6 @@ class SimulatorMotor(Simulator):
         self.running = True                                                 # Phase 1
 
         while self.running:                                                 # -- loop --
-            self.world.update()                                             # Phase 4
-
             for agent in self.world.agents:                                 # Phase 5
                 agent.execute()
 
@@ -80,7 +78,7 @@ class SimulatorMotor(Simulator):
             # Manage time
             self.time_limit -= self.time_per_step
 
-            self.world.showWorld()
+            self.world.show_world()
 
             # TODO - for debug:
             print(f"Time left: {round(self.time_limit, 1)} seconds")
