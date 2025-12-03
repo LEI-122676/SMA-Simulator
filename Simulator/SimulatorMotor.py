@@ -29,17 +29,14 @@ class SimulatorMotor(Simulator):
         The matrix can be any size. Each character represents an object:
         . empty, E egg, N nest, S stone, W wall, F farol, C chicken
         """
-               
-        #TODO : REMOVE MATRIX IMPLEMENTATION
-        #TODO : IMPLEMENT FORAGING OR CHICKEN COOP
 
-        # Step 1 — Read the matrix
+        # Read the matrix
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # Step 3 — Create world of matching size
+        # Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
 
@@ -48,55 +45,15 @@ class SimulatorMotor(Simulator):
 
         if has_farol:
             print("Creating CoopWorld")
-            # Step 2 — Create ID counters for coop world
-            id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
             world = CoopWorld(width, height)
-            # continue to parse the matrix below and populate world
+            world.initialize_map()  # TODO - pass matrix_file in .initialize_map()
+            return SimulatorMotor(world)
         else:
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
-            # ForagingWorld has its own reader — delegate population to it and return early
-            world.read_foraging_file(matrix_file)
+            world.initialize_map(filename=matrix_file)
             return SimulatorMotor(world)
 
-        for y in range(height):
-            for x in range(width):
-                char = matrix[y][x]
-
-                if char == ".":
-                    continue
-                    """
-                elif char == "E":
-                    egg = Egg(id_counter["egg"], x, y)
-                    world.eggs.append(egg)
-                    id_counter["egg"] += 1
-                elif char == "N":
-                    world.nests.append((x, y))
-                    id_counter["nest"] += 1
-                elif char == "S":
-                    world.stones.append((x, y))
-                    id_counter["stone"] += 1
-                    """
-                elif char == "W":
-                    wall = Wall(id_counter["wall"], x, y)
-                    world.map[y][x] = wall
-                    id_counter["wall"] += 1
-                elif char == "C":
-                    chicken = Chicken(id_counter["chicken"], x, y, world)          # Phase 3
-                    chicken.install(Sensor(world.map))
-                    world.add_agent(chicken)
-                    id_counter["chicken"] += 1
-                elif char == "F":
-                    # place a ChickenCoop object on the map so World.act can detect it
-                    coop = ChickenCoop(id_counter["farol"], x, y)
-                    world.map[y][x] = coop
-                    world.chicken_coop_pos = (x, y)
-                    id_counter["farol"] += 1
-                else:
-                    raise ValueError(f"Unknown character '{char}' at ({x},{y})")
-
-        # Step 4 — Return simulator with the world
-        return SimulatorMotor(world)
 
     def listAgents(self):
         if not self.running:

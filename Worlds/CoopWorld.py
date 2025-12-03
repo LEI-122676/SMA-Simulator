@@ -10,7 +10,7 @@ class CoopWorld(World):
         super().__init__(width, height)
         self.chicken_coop = None
 
-    def initializeMap(self):
+    def initialize_map(self):
         # Posição padrão do farol no centro do mapa
         x, y = (self.width // 2, self.height // 2)
         self.chicken_coop = ChickenCoop(x, y)
