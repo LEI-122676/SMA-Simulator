@@ -15,7 +15,7 @@ class CoopWorld(World):
 
     def initialize_map(self, filename=None):
 
-        if filename==None:
+        if filename is None:
             attempts = 0
             max_attempts = self.width * self.height
 
@@ -72,7 +72,7 @@ class CoopWorld(World):
                     id_counter["farol"] += 1
                 elif char == "C":
                     chicken = Chicken()
-                    self.add_agent(chicken,(0,0))
+                    self.add_agent(chicken,(x, y))
                     id_counter["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
@@ -85,24 +85,3 @@ class CoopWorld(World):
                     return False
 
         return True
-
-    def showWorld(self):
-        # Show the world map, agents, and the chicken coop position
-        for y in range(self.height):
-            row = ""
-            for x in range(self.width):
-                obj = self.map[y][x]
-                if any(agent.position == (x, y) for agent in self.agents):
-                    row += "C "
-                    continue
-                elif (x, y) == self.chicken_coop:
-                    row += "F "
-                    continue
-                elif isinstance(obj, Wall):
-                    row += "W "
-                    continue
-                else:
-                    row += ". "
-
-            print(row)
-

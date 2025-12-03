@@ -18,7 +18,7 @@ class ChickenCoop(Item):
             return Action.MOVE_WEST         # West
         elif coop_x > agent_x:
             return Action.MOVE_EAST         # East
-        elif coop_y > agent_y:
+        elif coop_y < agent_y:
             return Action.MOVE_SOUTH        # South
         else:
             return Action.MOVE_NORTH        # North

@@ -5,8 +5,10 @@ from Actions.Sensor import Sensor
 from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
 from Actions.Observation import Observation
+from Items.Egg import Egg
 from Items.Nest import Nest
 from Items.Pickable import Pickable
+from Items.Stone import Stone
 from Items.Wall import Wall
 from Worlds.Environment import Environment
 
@@ -28,12 +30,14 @@ class World(Environment):
 
         return explorer.observation(obs)
 
-    def crossover(parent1: ExplorerAgent, parent2: ExplorerAgent):
-        """Performs single-point crossover on two parent genotypes."""
+    """
+    def crossover(self, parent1: ExplorerAgent, parent2: ExplorerAgent):
+        # Performs single-point crossover on two parent genotypes.
         point = random.randint(1, len(parent1.genotype) - 1)
         child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
         child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
         return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
+    """
 
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
@@ -98,6 +102,29 @@ class World(Environment):
         self.agents.append(agent)
         agent.install(Sensor(self.map), self)
 
+    def show_world(self):
+        # Show the world map, agents, eggs, stones, and nests
+        for y in range(self.height):
+            row = ""
+            for x in range(self.width):
+                obj = self.map[y][x]
+
+                if any(agent.position == (x, y) for agent in self.agents):
+                    row += "C "
+                elif obj is None:
+                    row += ". "
+                elif isinstance(obj, Egg):
+                    row += "E "
+                elif isinstance(obj, Nest):
+                    row += "N "
+                elif isinstance(obj, Stone):
+                    row += "S "
+                elif isinstance(obj, ChickenCoop):
+                    row += "F "
+                else:
+                    row += "W "
+            print(row)
+
     @abstractmethod
     def initialize_map(self):
         pass
@@ -106,6 +133,4 @@ class World(Environment):
     def is_solved(self) -> bool:
         pass
 
-    @abstractmethod
-    def showWorld(self):
-        pass
+

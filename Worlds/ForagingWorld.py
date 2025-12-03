@@ -18,7 +18,7 @@ class ForagingWorld(World):
 
     def initialize_map(self, numEggs=1, numNests=1, filename=None):
         
-        if filename==None:
+        if filename is None:
         # Certificar que a posição está livre
             def place_unique():
                 while True:
