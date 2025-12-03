@@ -19,7 +19,6 @@ class CoopWorld(World):
             for x in range(self.width):
                 pass # TODO
 
-
         """
         # Colocar as galinhas -> todas lado a lado na primeira fila
         for n in range(numChickens):

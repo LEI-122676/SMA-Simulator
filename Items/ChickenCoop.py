@@ -4,8 +4,8 @@ from Items.Item import Item
 
 class ChickenCoop(Item):
 
-    def __init__(self, id, x, y):
-        super().__init__("F", id, x, y)
+    def __init__(self, id):
+        super().__init__("F", id)
 
     def get_action(self, explorer_position):
         """ Returns action in the direction of the coop """

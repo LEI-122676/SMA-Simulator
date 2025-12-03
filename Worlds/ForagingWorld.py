@@ -5,7 +5,8 @@ from Items.Nest import Nest
 from Items.Stone import Stone
 from Items.Wall import Wall
 from Worlds.World import World
-
+from Agents.Chicken import Chicken
+from Actions.Sensor import Sensor
 
 class ForagingWorld(World):
 
@@ -42,14 +43,6 @@ class ForagingWorld(World):
                 self.nests.append(nest)
                 self.map[y][x] = nest
 
-            """
-            # Colocar as galinhas -> todas lado a lado na primeira fila
-            for n in range(numChickens):
-                x, y = n, 0
-                chicken = Chicken(n, x, y)
-                self.agents.append(chicken)
-                self.map[y][x] = chicken
-            """
         else:
             self.read_foraging_file(filename)
 
@@ -81,30 +74,35 @@ class ForagingWorld(World):
         with open(filename, 'r') as file:
             lines = file.readlines()
 
-        id_counters = {"egg": 0, "nest": 0, "stone": 0, "wall": 0}
+        id_counters = {"egg": 0, "nest": 0, "stone": 0, "wall": 0, "chicken": 0}
 
         for y, line in enumerate(lines):
             for x, char in enumerate(line.strip()):
                 if char == ".":
                     continue
                 elif char == "E":
-                    egg = Egg(id_counters["egg"], x, y)
+                    egg = Egg(id_counters["egg"])
                     self.eggs.append(egg)
                     self.map[y][x] = egg
                     id_counters["egg"] += 1
                 elif char == "N":
-                    nest = Nest(id_counters["nest"], x, y)
+                    nest = Nest(id_counters["nest"])
                     self.nests.append(nest)
                     self.map[y][x] = nest
                     id_counters["nest"] += 1
                 elif char == "S":
-                    stone = Stone(id_counters["stone"], x, y)
+                    stone = Stone(id_counters["stone"])
                     self.stones.append(stone)
                     self.map[y][x] = stone
                     id_counters["stone"] += 1
                 elif char == "W":
-                    wall = Wall(id_counters["wall"], x, y)
+                    wall = Wall(id_counters["wall"])
                     self.map[y][x] = wall
                     id_counters["wall"] += 1
+                elif char == "C":
+                    chicken = Chicken()          # Phase 3
+                    chicken.install(Sensor(self.map))
+                    self.add_agent(chicken)
+                    id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")

@@ -43,7 +43,7 @@ class World(Environment):
         x, y = future_pos
         obj = self.map[y][x]        
 
-        reward =+ 0
+        reward = 0
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
@@ -96,7 +96,7 @@ class World(Environment):
         agent.install(Sensor(self.map))
 
     @abstractmethod
-    def initializeMap(self):
+    def initialize_map(self):
         pass
 
     @abstractmethod
