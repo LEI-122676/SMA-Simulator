@@ -8,9 +8,9 @@ class ChickenCoop(Item):
         super().__init__("F", 0, x, y)
 
     @staticmethod
-    def get_action(coop_pos, explorer_position):
+    def get_action(target_position, explorer_position):
         """ Returns action in the direction of the coop """
-        coop_x, coop_y = coop_pos
+        coop_x, coop_y = target_position
         agent_x, agent_y = explorer_position
 
         if coop_x < agent_x:
