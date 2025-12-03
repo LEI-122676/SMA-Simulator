@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="explorer only needs genotype">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
-    </list>
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="new view" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,8 +78,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator&quot;,
-    &quot;accountId&quot;: &quot;188ddc38-3192-42bf-b822-fe1a337b3988&quot;
+    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
+    &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -121,7 +111,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "hell",
+    "git-widget-placeholder": "#96 on tigago",
     "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
     "settings.editor.selected.configurable": "settings.sync"
   }
@@ -191,8 +181,8 @@
       <list>
         <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -200,7 +190,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+        <option value="bundled-python-sdk-a101402ee41c-968fe969f28a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.28238.29" />
       </set>
     </attachedChunks>
   </component>
@@ -476,7 +466,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764770937480</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="show_world() fixed">
+      <option name="closed" value="true" />
+      <created>1764775988242</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1764775988242</updated>
+    </task>
+    <task id="LOCAL-00035" summary="new view">
+      <option name="closed" value="true" />
+      <created>1764776763474</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1764776763474</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -537,8 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first commit" />
-    <MESSAGE value="base classes added" />
     <MESSAGE value="removed a class" />
     <MESSAGE value="some Sensor logic" />
     <MESSAGE value="added Stone, no Lizard" />
@@ -562,7 +566,9 @@
     <MESSAGE value="100 steps" />
     <MESSAGE value="-attempt system on Explorer" />
     <MESSAGE value="explorer only needs genotype" />
-    <option name="LAST_COMMIT_MESSAGE" value="explorer only needs genotype" />
+    <MESSAGE value="show_world() fixed" />
+    <MESSAGE value="new view" />
+    <option name="LAST_COMMIT_MESSAGE" value="new view" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

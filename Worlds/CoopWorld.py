@@ -15,7 +15,7 @@ class CoopWorld(World):
 
     def initialize_map(self, filename=None):
 
-        if filename==None:
+        if filename is None:
             attempts = 0
             max_attempts = self.width * self.height
 
