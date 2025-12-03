@@ -13,7 +13,7 @@ class CoopWorld(World):
     def initializeMap(self):
         # Posição padrão do farol no centro do mapa
         x, y = (self.width // 2, self.height // 2)
-        self.chicken_coop = ChickenCoop(0, x, y)
+        self.chicken_coop = ChickenCoop(x, y)
 
         for y in range(self.height):
             for x in range(self.width):
@@ -46,7 +46,7 @@ class CoopWorld(World):
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
                     continue
-                elif (x, y) == self.chicken_coop_pos:
+                elif (x, y) == self.chicken_coop:
                     row += "F "
                     continue
                 elif isinstance(obj, Wall):

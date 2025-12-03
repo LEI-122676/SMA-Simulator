@@ -23,11 +23,12 @@ class ExplorerAgent(Agent):
         self.step_index = 0
         self.inventory = []
 
-        self.coop = None                    # If coop == None -> Explorer is in CoopWorld
+        self.coop_pos = None                    # If coop == None -> Explorer is in CoopWorld
         self.behavior = set()
         self.path = []
+        
         self.combinedFitness = 0.0
-        self.reward = 0.0
+        self.reward = None
         #self.noveltyScore = 0.0
 
     @staticmethod
@@ -58,26 +59,20 @@ class ExplorerAgent(Agent):
         self.observation = observation
 
     def act(self) -> Action:
-
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
             # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
+            return ChickenCoop.get_action(self.coop_pos, self.position) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
 
-            if isinstance(self.coop, ChickenCoop):
-                return self.coop.get_action(self) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
-            else:
-                return Action.random_action()
 
     def evaluateCurrentState(self, reward: float):
         # TODO - n sei oq isto é suposto fzr -> usar self.observation?
-        # self.reward += reward
-        pass
+        self.reward += reward
 
     def install(self, sensor: Sensor):
         self.sensor = sensor
-
-        self.coop = self.sensor.get_coop_position()
+        self.coop_pos = self.sensor.get_coop_position()
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
@@ -115,3 +110,5 @@ class ExplorerAgent(Agent):
     def discardItem(self, item: Pickable):
         item.drop()
         self.inventory.append(item)
+
+
