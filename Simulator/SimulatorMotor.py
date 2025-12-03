@@ -69,9 +69,11 @@ class SimulatorMotor(Simulator):
                     chicken.install(Sensor(world.map))
                     world.add_agent(chicken)
                     id_counter["chicken"] += 1
+                    """ 
                 elif char == "F":
                     world.chicken_coop_pos = (x, y)
                     id_counter["farol"] += 1
+                    """
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
 
