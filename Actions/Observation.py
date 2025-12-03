@@ -1,7 +1,6 @@
 class Observation:
 
-    def __init__(self, agent_id):
-        self.agent_id = agent_id
+    def __init__(self):
         self.possible_actions = {"North": 0, "NorthEast": 0, "East": 0, "SouthEast": 0,
                                  "South": 0, "SouthWest": 0, "West": 0, "NorthWest": 0}
 

@@ -1,7 +1,8 @@
 import random
 
 from Agents.Agent import Agent
-import Actions.Direction as D
+from Agents.ExplorerAgent import ExplorerAgent
+
 
 def jaccard_distance(set1, set2):
     intersection = len(set1 & set2)
@@ -20,12 +21,14 @@ def compute_novelty(current_behavior, archive, k=5):
     # Your original logic is now safe because we know len(distances) > 0
     return sum(distances[:k]) / k if len(distances) >= k else sum(distances) / len(distances)
 
-def crossover(parent1, parent2):
+def crossover(parent1: ExplorerAgent, parent2: ExplorerAgent):
     """Performs single-point crossover on two parent genotypes."""
     point = random.randint(1, len(parent1.genotype) - 1)
+
+
     child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
     child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
-    return Agent(child1_geno), Agent(child2_geno)
+    return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
 
 def multi_point_crossover(parent1, parent2):
     points = sorted(random.sample(range(1, len(parent1.genotype) - 1), 2))

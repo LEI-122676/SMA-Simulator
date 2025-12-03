@@ -9,10 +9,9 @@ from Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, id, x, y, world, learn_mode=True, steps=100, genotype=None):
-        self.id = id
-        self.position = (x, y)
-        self.world = world
+    def __init__(self, learn_mode=True, steps=100, genotype=None):
+        self.position = None
+        self.world = None
 
         self.learn_mode = learn_mode
         self.steps = steps
@@ -39,7 +38,6 @@ class ExplorerAgent(Agent):
         config = read_agent_config(file_name)
 
         # Required fields with default fallbacks
-        id = config.get("id", "0")
         x = int(config.get("x", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
         y = int(config.get("y", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
         learn_mode = config.get("learn_mode", "False").lower() == "true"
@@ -53,7 +51,10 @@ class ExplorerAgent(Agent):
             # For simplicity, here we just generate random actions as placeholder
             genotype = [Action.random_action() for _ in range(steps)]
 
-        return ExplorerAgent(id, x, y, learn_mode, steps, genotype)
+        explorer = ExplorerAgent(learn_mode, steps, genotype)
+        explorer.position = x, y
+
+        return explorer
 
     def observe(self, observation: Observation): # Phase 5.2 TODO - isto n esta a ser usado...
         self.observation = observation
@@ -78,7 +79,7 @@ class ExplorerAgent(Agent):
             return
 
         # Gets observation
-        observation = self.sensor.get_observation(self.id, self.position)   # Phase 5.1
+        observation = self.sensor.get_observation(self.position)   # Phase 5.1
         self.observe(observation)                                           # Phase 5.2
 
         # Decides what to do
