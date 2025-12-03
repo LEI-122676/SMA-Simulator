@@ -52,4 +52,4 @@ class Sensor:
                 if isinstance(self.world_map[y][x], ChickenCoop):
                     return x, y
 
-        return None
+        return None, None

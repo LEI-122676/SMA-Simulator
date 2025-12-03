@@ -1,3 +1,4 @@
+import random
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -95,7 +96,7 @@ class World(Environment):
     def add_agent(self,agent: ExplorerAgent, position):
         agent.position = position                 # TODO - colocar o agente na posicao inicial?
         self.agents.append(agent)
-        agent.install(Sensor(self.map))
+        agent.install(Sensor(self.map), self)
 
     @abstractmethod
     def initialize_map(self):
