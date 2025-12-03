@@ -37,11 +37,12 @@ class World(Environment):
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
         if future_pos is None:
-            return None
+            return
 
         agent.position = future_pos
         x, y = future_pos
-        obj = self.map[y][x]                                # Object "under" the agent
+        obj = self.map[y][x]        
+
         reward = 0
 
         # Interaction with pickable objects
@@ -62,12 +63,13 @@ class World(Environment):
 
             reward += totalReward
 
-        # Reached the goal -> big reward                            # Only happens on chicken coop world
+        # Reached the coop -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
-            self.solved = self.is_solved()
             reward += 100
+            self.solved = self.is_solved()
 
-        return reward                                            # No reward for empty space
+
+        agent.evaluateCurrentState(reward)                  # Phase 7.3
 
     def is_valid_action(self, action_to_validate, explorer):
         """ Returns None if action is invalid, or new position (x,y) if valid """

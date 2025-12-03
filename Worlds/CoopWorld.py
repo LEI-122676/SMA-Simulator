@@ -57,7 +57,7 @@ class CoopWorld(World):
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
                     continue
-                elif (x, y) == self.chicken_coop_pos:
+                elif (x, y) == self.chicken_coop:
                     row += "F "
                     continue
                 elif isinstance(obj, Wall):

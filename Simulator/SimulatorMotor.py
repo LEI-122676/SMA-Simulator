@@ -3,8 +3,10 @@ import time
 from Actions.Sensor import Sensor
 from Agents.Chicken import Chicken
 from Items.Wall import Wall
+from Items.ChickenCoop import ChickenCoop
 from Simulator.Simulator import Simulator
 from Worlds.CoopWorld import CoopWorld
+from Worlds.ForagingWorld import ForagingWorld
 from Worlds.World import World
 from Utilities import read_matrix_file_with_metadata
 
@@ -27,6 +29,9 @@ class SimulatorMotor(Simulator):
         The matrix can be any size. Each character represents an object:
         . empty, E egg, N nest, S stone, W wall, F farol, C chicken
         """
+               
+        #TODO : REMOVE MATRIX IMPLEMENTATION
+        #TODO : IMPLEMENT FORAGING OR CHICKEN COOP
 
         # Step 1 — Read the matrix
         try:
@@ -34,13 +39,25 @@ class SimulatorMotor(Simulator):
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # Step 2 — Create ID counters
-        id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
-
         # Step 3 — Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
-        world = CoopWorld(width, height)
+
+        # Detect whether the matrix describes a coop world (has 'F') or foraging world
+        has_farol = any('F' in row for row in matrix)
+
+        if has_farol:
+            print("Creating CoopWorld")
+            # Step 2 — Create ID counters for coop world
+            id_counter = {"egg": 0, "chicken": 0, "nest": 0, "stone": 0, "wall": 0, "farol": 0}
+            world = CoopWorld(width, height)
+            # continue to parse the matrix below and populate world
+        else:
+            print("Creating ForagingWorld")
+            world = ForagingWorld(width, height)
+            # ForagingWorld has its own reader — delegate population to it and return early
+            world.read_foraging_file(matrix_file)
+            return SimulatorMotor(world)
 
         for y in range(height):
             for x in range(width):
@@ -71,6 +88,9 @@ class SimulatorMotor(Simulator):
                     id_counter["chicken"] += 1
                     """ 
                 elif char == "F":
+                    # place a ChickenCoop object on the map so World.act can detect it
+                    coop = ChickenCoop(id_counter["farol"], x, y)
+                    world.map[y][x] = coop
                     world.chicken_coop_pos = (x, y)
                     id_counter["farol"] += 1
                     """
@@ -111,7 +131,9 @@ class SimulatorMotor(Simulator):
             print(f"Time left: {round(self.time_limit, 1)} seconds")
             time.sleep(self.time_per_step * 2)                              # Slow down for visualization
 
-        self.shutDownSimulation()                                           # Phase 10
+        self.shutDownSimulation()
+        for agent in self.world.agents:    
+            print(f"Agent Reward: " + str(agent.reward))# Phase 10
         self.saveResults("simulation_results.txt")                          # Phase 11
 
     def isSolved(self):
