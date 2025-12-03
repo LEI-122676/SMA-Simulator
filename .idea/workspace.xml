@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="explorer only needs genotype">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
-    </list>
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="new view" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -480,7 +474,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764775988242</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="new view">
+      <option name="closed" value="true" />
+      <created>1764776763474</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1764776763474</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="base classes added" />
     <MESSAGE value="removed a class" />
     <MESSAGE value="some Sensor logic" />
     <MESSAGE value="added Stone, no Lizard" />
@@ -566,7 +567,8 @@
     <MESSAGE value="-attempt system on Explorer" />
     <MESSAGE value="explorer only needs genotype" />
     <MESSAGE value="show_world() fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="show_world() fixed" />
+    <MESSAGE value="new view" />
+    <option name="LAST_COMMIT_MESSAGE" value="new view" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
