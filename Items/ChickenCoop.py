@@ -5,7 +5,8 @@ from Items.Item import Item
 class ChickenCoop(Item):
 
     def __init__(self, x, y):
-        super().__init__("F", 0, x, y)
+        super().__init__("F", 0)
+        self.pos = (x,y)
 
     @staticmethod
     def get_action(target_position, explorer_position):

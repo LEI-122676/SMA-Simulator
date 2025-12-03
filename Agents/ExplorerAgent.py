@@ -67,11 +67,14 @@ class ExplorerAgent(Agent):
 
 
     def evaluateCurrentState(self, reward: float):
-        self.reward += reward
+        #self.reward += reward
+        pass
 
-    def install(self, sensor: Sensor):
+    def install(self, sensor: Sensor, world):
         self.sensor = sensor
+        self.world = world
         self.coop_pos = self.sensor.get_coop_position()
+        print("installed")
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
