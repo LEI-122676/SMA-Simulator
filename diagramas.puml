@@ -40,10 +40,9 @@ class ExplorerAgent {
   - observation: set
   - step_index: int
   - inventory: List[Item]
+  - coop: ChickenCoop
   - behavior: set
   - path: List[tuple]
-  - reward: int
-  - noveltyScore: float
   - combinedFitness: float
   + storeItem(item: Pickable): void
   + discardItem(item: Pickable): void
@@ -124,6 +123,7 @@ class Pickable {
 class Nest {
   - capacity: int
   - num_of_items: int
+  + set_capacity(capacity): void
   + put(num_of_items: int): boolean
 }
 
@@ -131,6 +131,7 @@ class Egg {
 }
 
 class ChickenCoop {
+  + get_action(explorer_position: tuple): Action
 }
 
 class Stone {
@@ -143,6 +144,7 @@ class Sensor {
   - max_range: int
   + get_observation(explorer: ExplorerAgent): Observation
   + _cast_ray(start_pos: tuple, step_vector: tuple)
+  + get_coop_position(): ChickenCoop
 }
 
 'TODO - Class state
@@ -177,7 +179,7 @@ Item <|-- Nest
 Pickable <|-- Egg
 Pickable <|-- Stone
 
-Direction --> Sensor
-Action --> ExplorerAgent
+Direction <-- Sensor
+Action <-- ExplorerAgent
 
 @enduml

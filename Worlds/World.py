@@ -97,7 +97,7 @@ class World(Environment):
         agent.install(Sensor(self.map))
 
     @abstractmethod
-    def initializeMap(self):
+    def initialize_map(self):
         pass
 
     @abstractmethod

@@ -1,3 +1,5 @@
+import random
+
 from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
@@ -10,15 +12,24 @@ class CoopWorld(World):
         super().__init__(width, height)
         self.chicken_coop = None
 
-    def initializeMap(self):
-        # Posição padrão do farol no centro do mapa
-        x, y = (self.width // 2, self.height // 2)
-        self.chicken_coop = ChickenCoop(x, y)
+    def initialize_map(self):
+        attemps = 0
+        max_attempts = self.width * self.height
 
-        for y in range(self.height):
-            for x in range(self.width):
-                pass # TODO
+        while attemps < max_attempts:
+            x = random.randrange(self.width)
+            y = random.randrange(self.height)
+            obj = self.map[y][x]
 
+            isOccupied = any(agent.position == (x,y) for agent in self.agents)
+
+            if isinstance(obj, Wall) or isOccupied:
+                attemps += 1
+                continue
+
+            self.chicken_coop = ChickenCoop(0,x,y)
+            self.map[x][y] = self.chicken_coop
+            return
 
         """
         # Colocar as galinhas -> todas lado a lado na primeira fila
@@ -56,3 +67,4 @@ class CoopWorld(World):
                     row += ". "
 
             print(row)
+
