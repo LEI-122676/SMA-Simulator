@@ -3,6 +3,7 @@ import time
 from Actions.Sensor import Sensor
 from Agents.Chicken import Chicken
 from Items.Wall import Wall
+from Items.ChickenCoop import ChickenCoop
 from Simulator.Simulator import Simulator
 from Worlds.CoopWorld import CoopWorld
 from Worlds.World import World
@@ -73,6 +74,9 @@ class SimulatorMotor(Simulator):
                     world.add_agent(chicken)
                     id_counter["chicken"] += 1
                 elif char == "F":
+                    # place a ChickenCoop object on the map so World.act can detect it
+                    coop = ChickenCoop(id_counter["farol"], x, y)
+                    world.map[y][x] = coop
                     world.chicken_coop_pos = (x, y)
                     id_counter["farol"] += 1
                 else:
@@ -112,7 +116,9 @@ class SimulatorMotor(Simulator):
             print(f"Time left: {round(self.time_limit, 1)} seconds")
             time.sleep(self.time_per_step * 2)                              # Slow down for visualization
 
-        self.shutDownSimulation()                                           # Phase 10
+        self.shutDownSimulation()
+        for agent in self.world.agents:    
+            print(f"Agent Reward: " + str(agent.reward))# Phase 10
         self.saveResults("simulation_results.txt")                          # Phase 11
 
     def isSolved(self):
