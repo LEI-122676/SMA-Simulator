@@ -11,8 +11,8 @@ class Sensor:
         self.width = len(self.world_map[0])
         self.max_range = max_range
 
-    def get_observation(self, explorer_id, explorer_position) -> Observation:
-        observation = Observation(explorer_id)
+    def get_observation(self, explorer_position) -> Observation:
+        observation = Observation()
 
         for direction in Direction:
             distance = self._cast_ray(explorer_position, direction.value)
