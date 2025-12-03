@@ -67,8 +67,7 @@ class ExplorerAgent(Agent):
 
 
     def evaluateCurrentState(self, reward: float):
-        #self.reward += reward
-        pass
+        self.reward += reward
 
     def install(self, sensor: Sensor, world):
         self.sensor = sensor

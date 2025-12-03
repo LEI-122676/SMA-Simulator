@@ -29,17 +29,14 @@ class SimulatorMotor(Simulator):
         The matrix can be any size. Each character represents an object:
         . empty, E egg, N nest, S stone, W wall, F farol, C chicken
         """
-               
-        #TODO : REMOVE MATRIX IMPLEMENTATION
-        #TODO : IMPLEMENT FORAGING OR CHICKEN COOP
 
-        # Step 1 — Read the matrix
+        # Read the matrix
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # Step 3 — Create world of matching size
+        # Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
 
@@ -48,20 +45,15 @@ class SimulatorMotor(Simulator):
 
         if has_farol:
             print("Creating CoopWorld")
-            # Step 2 — Create ID counters for coop world
             world = CoopWorld(width, height)
-            world.read_coop_file(matrix_file)
-            # continue to parse the matrix below and populate world
+            world.initialize_map()  # TODO - pass matrix_file in .initialize_map()
             return SimulatorMotor(world)
         else:
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
-            # ForagingWorld has its own reader — delegate population to it and return early
             world.initialize_map(filename=matrix_file)
             return SimulatorMotor(world)
 
-        # Step 4 — Return simulator with the world
-        return SimulatorMotor(world)
 
     def listAgents(self):
         if not self.running:
@@ -74,7 +66,6 @@ class SimulatorMotor(Simulator):
         self.running = True                                                 # Phase 1
 
         while self.running:                                                 # -- loop --
-
             for agent in self.world.agents:                                 # Phase 5
                 agent.execute()
 
@@ -87,7 +78,7 @@ class SimulatorMotor(Simulator):
             # Manage time
             self.time_limit -= self.time_per_step
 
-            self.world.showWorld()
+            self.world.show_world()
 
             # TODO - for debug:
             print(f"Time left: {round(self.time_limit, 1)} seconds")

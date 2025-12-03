@@ -5,6 +5,7 @@ from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
 
+
 class Agent(ABC):
 
     @staticmethod
@@ -25,7 +26,7 @@ class Agent(ABC):
         pass
 
     @abstractmethod
-    def install(self, sensor: Sensor):
+    def install(self, sensor: Sensor, world):
         pass
 
     @abstractmethod
