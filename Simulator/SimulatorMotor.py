@@ -1,116 +1,108 @@
 import time
+import random
+import math
 
-from Actions.Sensor import Sensor
-from Agents.Chicken import Chicken
-from Items.Wall import Wall
-from Items.ChickenCoop import ChickenCoop
 from Simulator.Simulator import Simulator
 from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Worlds.World import World
 from Utilities import read_matrix_file_with_metadata
 
+# --- EA Hyperparameters ---
+POPULATION_SIZE = 50
+NUM_GENERATIONS = 25
+MUTATION_RATE = 0.05  # Increased slightly for better exploration
+TOURNAMENT_SIZE = 3
+N_ARCHIVE_ADD = 5  # Add top 5 most novel agents to archive
+ELITISM_COUNT = 2  # Keep the best 2 agents unchanged
+
 
 class SimulatorMotor(Simulator):
 
-    def __init__(self, world: World, time_limit=500, time_per_step=0.1):
-        self.time_limit = time_limit
-        self.time_per_step = time_per_step
+    def __init__(self, world: World, headless=False):
+        self.time_limit = 100
+        self.time_per_step = 0.05
 
+        # HEADLESS MODE: If True, disables sleep() and prints for fast training
+        self.headless = headless
         self.running = None
-        self.world = world                                    # Phase 2 & 3
-
+        self.world = world
         self.states = []
 
     @staticmethod
-    def create(matrix_file):
+    def create(matrix_file, headless=False):
         """
-        Create a simulator from a matrix file.
-        The matrix can be any size. Each character represents an object:
-        . empty, E egg, N nest, S stone, W wall, F farol, C chicken
+        Factory method to create a simulation instance.
         """
-
-        # Read the matrix
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
-        # Create world of matching size
         height = len(matrix)
         width = len(matrix[0])
-
-        # Detect whether the matrix describes a coop world (has 'F') or foraging world
         has_farol = any('F' in row for row in matrix)
 
         if has_farol:
-            print("Creating CoopWorld")
-            # Step 2 — Create ID counters for coop world
+            if not headless: print("Creating CoopWorld")
             world = CoopWorld(width, height)
-            world.initialize_map(matrix_file)  # TODO - pass matrix_file in .initialize_map()
-            return SimulatorMotor(world)
+            world.initialize_map(matrix_file)
+            return SimulatorMotor(world, headless)
         else:
-            print("Creating ForagingWorld")
+            if not headless: print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
-            # ForagingWorld has its own reader — delegate population to it and return early
             world.initialize_map(filename=matrix_file)
-            return SimulatorMotor(world)
-
+            return SimulatorMotor(world, headless)
 
     def listAgents(self):
         if not self.running:
             print("Simulator not running. No agents to list.")
-            return None
-
-        return [a for a in self.world.agents]
+        return self.world.agents
 
     def execute(self):
-        self.running = True                                                 # Phase 1
+        """
+        Runs one complete episode (simulation of life).
+        Returns the agents after execution so we can extract their fitness.
+        """
+        self.running = True
 
-        while self.running:                                                 # -- loop --
+        while self.running:
+            # 1. Visualization (Skip in headless mode)
+            if not self.headless:
+                self.world.show_world()
 
-            self.world.show_world()
-
-            for agent in self.world.agents:                                 # Phase 5
+            # 2. Agent Lifecycle
+            for agent in self.world.agents:
                 agent.execute()
 
             self.saveState()
 
-            # Check termination conditions
-            if self.isSolved():                                             # Phase 9
+            # 3. Termination Checks
+            if self.isSolved():
                 self.running = False
 
-            # Manage time
             self.time_limit -= self.time_per_step
 
+            # 4. Time Management (Skip sleep in headless mode for speed)
+            if not self.headless:
+                print(f"Time left: {round(self.time_limit, 1)} seconds")
+                time.sleep(self.time_per_step * 2)
 
-            # TODO - for debug:
-            print(f"Time left: {round(self.time_limit, 1)} seconds")
-            time.sleep(self.time_per_step * 2)                              # Slow down for visualization
+                # Force stop if time runs out
+            if self.time_limit <= 0:
+                self.running = False
 
-        self.shutDownSimulation()
-        for agent in self.world.agents:    
-            print(f"Agent Reward: " + str(agent.reward))# Phase 10
-        self.saveResults("simulation_results.txt")                          # Phase 11
+        self.shut_down()
+        return self.world.agents  # Return agents to extract Fitness/Genotypes
 
     def isSolved(self):
-        return self.world.solved or (self.time_limit <= 0)
+        return self.world.solved
 
-    def shutDownSimulation(self):
+    def shut_down(self):
         pass
 
-    def saveResults(self, fileName="simulation_results.txt"):
+    def save_results(self, fileName="simulation_results.txt"):
         pass
 
-    def saveState(self):
-        # save the metrics: tempo e nr de passos, valores de novelty e fitness
+    def save_state(self):
         pass
-
-if __name__ == "__main__":
-
-    simulator = SimulatorMotor()
-    simulator.create("farol_level2.txt") # TODO : Placeholder file name
-
-    simulator.execute()
-
-    simulator.saveResults()

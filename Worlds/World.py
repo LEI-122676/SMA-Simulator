@@ -56,6 +56,8 @@ class World(Environment):
 
         # Dropping items at nests (eggs/stones)
         elif isinstance(obj, Nest):                                 # Only happens on foraging world
+            # TODO - informar outros agentes?
+
             totalReward = 0
 
             for item in agent.inventory:
@@ -124,9 +126,10 @@ class World(Environment):
                     row += ". "
             print(row)
 
-    def broadcast_message(self, message: str):
+    def broadcast(self, message, from_agent):
         for agent in self.agents:
-            agent.communicate(message)
+            if agent != from_agent:
+                agent.communicate(message)
 
     @abstractmethod
     def initialize_map(self):

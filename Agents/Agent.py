@@ -34,5 +34,5 @@ class Agent(ABC):
         pass
 
     @abstractmethod
-    def communicate(self, message: str, from_agent: Agent) -> str:
+    def communicate(self, message: str, from_agent: Agent):
         pass

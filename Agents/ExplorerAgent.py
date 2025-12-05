@@ -9,6 +9,8 @@ from Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
+
+
     def __init__(self, learn_mode=True, steps=100, genotype=None):
         self.position = None
         self.world = None
@@ -21,6 +23,7 @@ class ExplorerAgent(Agent):
         self.observation = None
         self.step_index = 0
         self.inventory = []
+        self.communications = []
 
         self.behavior = set()
         self.path = []
@@ -62,11 +65,11 @@ class ExplorerAgent(Agent):
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
-            # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
-            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
-
+            # TODO - rede neuronal!!!!!
+            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
 
     def evaluateCurrentState(self, reward: float):
+        """ Accumulates "raw" reward during an Agent's life. """
         self.reward += reward
 
     def install(self, sensor: Sensor, world):
@@ -74,6 +77,12 @@ class ExplorerAgent(Agent):
         self.world = world
         self.coop_pos = self.sensor.get_coop_position()
         print("installed")
+
+    def communicate(self, message: str, from_agent: Agent):
+        # Could check if it wants to accept the message or discard it according to who sent it
+        #message_content = TODO
+
+        self.communications.append()
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
