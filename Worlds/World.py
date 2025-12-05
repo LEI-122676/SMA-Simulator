@@ -1,4 +1,3 @@
-import random
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -112,7 +111,7 @@ class World(Environment):
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
                 elif isinstance(obj, Wall):
-                    row += ". "
+                    row += "W "
                 elif isinstance(obj, Egg):
                     row += "E "
                 elif isinstance(obj, Nest):
@@ -124,6 +123,10 @@ class World(Environment):
                 else:
                     row += ". "
             print(row)
+
+    def broadcast_message(self, message: str):
+        for agent in self.agents:
+            agent.communicate(message)
 
     @abstractmethod
     def initialize_map(self):
