@@ -9,16 +9,16 @@ from Simulators.Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
 
-    def __init__(self, world: World, headless=True): # headless == True  ---->  no visualization
-        self.time_limit = 100
-        self.time_per_step = 0.05
+    def __init__(self, world: World, headless): # headless == True  ---->  no visualization
+        self.time_limit = 20
+        self.time_per_step = 0.1
         self.running = None
         self.world = world                                    # Phase 2 & 3
         self.headless = headless
         self.states = []
 
     @staticmethod
-    def create(matrix_file):
+    def create(matrix_file, headless):
         """
         Create a simulator from a matrix file.
         The matrix can be any size. Each character represents an object:
@@ -43,14 +43,13 @@ class SimulatorMotor(Simulator):
             # Step 2 — Create ID counters for coop world
             world = CoopWorld(width, height)
             world.initialize_map(matrix_file)  # TODO - pass matrix_file in .initialize_map()
-            return SimulatorMotor(world)
+            return SimulatorMotor(world, headless)
         else:
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
             # ForagingWorld has its own reader — delegate population to it and return early
             world.initialize_map(filename=matrix_file)
-            return SimulatorMotor(world)
-
+            return SimulatorMotor(world, headless)
 
     def listAgents(self):
         if not self.running:
@@ -70,8 +69,7 @@ class SimulatorMotor(Simulator):
             for agent in self.world.agents:                                 # Phase 5
                 agent.execute()
 
-
-            self.saveState()
+            self.save_state()
 
             # Check termination conditions
             if self.is_solved():                                             # Phase 9
@@ -102,7 +100,3 @@ class SimulatorMotor(Simulator):
     def save_state(self):
         # save the metrics: tempo e nr de passos, valores de novelty e fitness
         pass
-
-if __name__ == "__main__":
-    simulator = SimulatorMotor.create("farol_level1.txt")
-    simulator.execute()

@@ -11,13 +11,14 @@ class ExplorerAgent(Agent):
 
 
 
-    def __init__(self, learn_mode=True, steps=100, genotype=None):
+    def __init__(self, learn_mode=True, steps=200, genotype=None):
         self.position = None
         self.world = None
 
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
+        self.coop_pos = None            # Needed for neural network
 
         self.sensor = None
         self.observation = None
@@ -76,7 +77,6 @@ class ExplorerAgent(Agent):
         self.sensor = sensor
         self.world = world
         self.coop_pos = self.sensor.get_coop_position()
-        print("installed")
 
     def communicate(self, message: str, from_agent: Agent):
         # Could check if it wants to accept the message or discard it according to who sent it

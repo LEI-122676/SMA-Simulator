@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+GeneticUtils">
-      <change afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulator/SimulatorMotor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Utilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_agent.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/example_agent.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_file_foraging.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/example_file_foraging.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farol_level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/farol_level1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farol_level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/farol_level2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple_farol.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/simple_farol.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple_foraging.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/simple_foraging.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/GeneticUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/GeneticUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Simulator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +113,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ExplorerAgent.executor": "Run",
     "Python.SimulatorMotor.executor": "Run",
     "Python.demo.executor": "Run",
     "Python.main.executor": "Run",
@@ -137,11 +131,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Levels" />
+      <recent name="$PROJECT_DIR$/Simulators" />
       <recent name="$PROJECT_DIR$/Actions" />
       <recent name="$PROJECT_DIR$/World" />
       <recent name="$PROJECT_DIR$/Items" />
-      <recent name="$PROJECT_DIR$/Obstacle" />
-      <recent name="$PROJECT_DIR$/Simulator" />
     </key>
   </component>
   <component name="RunManager">
@@ -167,36 +161,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.demo" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.demo" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.demo" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.demo" />
@@ -506,7 +473,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764932207519</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="+GeneticUtils">
+      <option name="closed" value="true" />
+      <created>1764933982003</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1764933982003</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

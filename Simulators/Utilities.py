@@ -3,7 +3,7 @@ import random
 from Agents.Agent import Agent
 
 
-def jaccard_distance(set1, set2):
+def jaccard_distance(set1, set2):                                               # BC !!!!!!!!!!
     intersection = len(set1 & set2)
     union = len(set1 | set2)
     return 1 - intersection / union if union != 0 else 0
@@ -20,24 +20,14 @@ def compute_novelty(current_behavior, archive, k=5):
     # Your original logic is now safe because we know len(distances) > 0
     return sum(distances[:k]) / k if len(distances) >= k else sum(distances) / len(distances)
 
-# def crossover(parent1: ExplorerAgent, parent2: ExplorerAgent):
-#     """Performs single-point crossover on two parent genotypes."""
-#     point = random.randint(1, len(parent1.genotype) - 1)
 
-
-#     child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
-#     child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
-#     return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
-
-def multi_point_crossover(parent1, parent2):
-    points = sorted(random.sample(range(1, len(parent1.genotype) - 1), 2))
-    child1_geno = (parent1.genotype[:points[0]] +
-                    parent2.genotype[points[0]:points[1]] +
-                    parent1.genotype[points[1]:])
-    child2_geno = (parent2.genotype[:points[0]] +
-                    parent1.genotype[points[0]:points[1]] +
-                    parent2.genotype[points[1]:])
+def crossover(parent1, parent2):
+    """Performs single-point crossover on two parent genotypes."""
+    point = random.randint(1, len(parent1.genotype) - 1)
+    child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
+    child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
     return Agent(child1_geno), Agent(child2_geno)
+
 
 def select_parent(population, tournament_size):
     """Selects a parent using tournament selection based on *combined_fitness*."""
