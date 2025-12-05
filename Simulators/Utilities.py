@@ -132,7 +132,7 @@ def run_evolution(self):
 
     print("Evolution complete.")
 
-    # Convenience wrappers expected by Simulator
+    # Convenience wrappers expected by Simulators
     def run_simulation(self):
         self.run()
 

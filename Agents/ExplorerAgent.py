@@ -4,7 +4,7 @@ from Actions.Sensor import Sensor
 from Agents.Agent import Agent
 from Items.ChickenCoop import ChickenCoop
 from Items.Pickable import Pickable
-from Utilities import read_agent_config
+from Simulators.Utilities import read_agent_config
 
 
 class ExplorerAgent(Agent):
@@ -23,12 +23,12 @@ class ExplorerAgent(Agent):
         self.observation = None
         self.step_index = 0
         self.inventory = []
-        self.communications = []
+        #self.communications = []
 
         self.behavior = set()
         self.path = []
         
-        self.combinedFitness = 0.0
+        self.combined_fitness = 0.0
         self.reward = 0
         #self.noveltyScore = 0.0
 
@@ -82,7 +82,8 @@ class ExplorerAgent(Agent):
         # Could check if it wants to accept the message or discard it according to who sent it
         #message_content = TODO
 
-        self.communications.append()
+        #self.communications.append()
+        pass
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
