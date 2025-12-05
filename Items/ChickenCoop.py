@@ -9,16 +9,16 @@ class ChickenCoop(Item):
         self.pos = (x,y)
 
     @staticmethod
+    @staticmethod
     def get_action(target_position, explorer_position):
-        """ Returns action in the direction of the coop """
         coop_x, coop_y = target_position
         agent_x, agent_y = explorer_position
 
-        if coop_x < agent_x:
-            return Action.MOVE_WEST         # West
-        elif coop_x > agent_x:
-            return Action.MOVE_EAST         # East
-        elif coop_y < agent_y:
-            return Action.MOVE_SOUTH        # South
+        # Calculate the difference vector
+        dx = coop_x - agent_x
+        dy = coop_y - agent_y
+
+        if abs(dx) > abs(dy):
+            return Action.MOVE_EAST if dx > 0 else Action.MOVE_WEST
         else:
-            return Action.MOVE_NORTH        # North
+            return Action.MOVE_NORTH if dy > 0 else Action.MOVE_SOUTH

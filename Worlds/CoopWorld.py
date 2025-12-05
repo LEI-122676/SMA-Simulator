@@ -78,10 +78,9 @@ class CoopWorld(World):
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
 
 
-    def is_solved(self) -> bool:
+    def is_solved(self):
         for explorer in self.agents:
-            if isinstance(explorer, ExplorerAgent):
-                if explorer.position != self.chicken_coop.pos:
-                    return False
+            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.pos:
+                return False
 
         return True

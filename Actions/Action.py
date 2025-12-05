@@ -11,3 +11,7 @@ class Action(Enum):
     @classmethod
     def random_action(cls):
         return random.choice(list(cls))
+
+    @classmethod
+    def get_all_actions(cls):
+        return list(Action)

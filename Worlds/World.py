@@ -1,4 +1,3 @@
-import random
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -57,6 +56,8 @@ class World(Environment):
 
         # Dropping items at nests (eggs/stones)
         elif isinstance(obj, Nest):                                 # Only happens on foraging world
+            # TODO - informar outros agentes?
+
             totalReward = 0
 
             for item in agent.inventory:
@@ -112,7 +113,7 @@ class World(Environment):
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
                 elif isinstance(obj, Wall):
-                    row += ". "
+                    row += "W "
                 elif isinstance(obj, Egg):
                     row += "E "
                 elif isinstance(obj, Nest):
@@ -124,6 +125,11 @@ class World(Environment):
                 else:
                     row += ". "
             print(row)
+
+    def broadcast(self, message, from_agent):
+        for agent in self.agents:
+            if agent != from_agent:
+                agent.communicate(message)
 
     @abstractmethod
     def initialize_map(self):
