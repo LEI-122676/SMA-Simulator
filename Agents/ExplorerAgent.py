@@ -4,29 +4,33 @@ from Actions.Sensor import Sensor
 from Agents.Agent import Agent
 from Items.ChickenCoop import ChickenCoop
 from Items.Pickable import Pickable
-from Utilities import read_agent_config
+from Simulators.Utilities import read_agent_config
 
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, learn_mode=True, steps=100, genotype=None):
+
+
+    def __init__(self, learn_mode=True, steps=200, genotype=None):
         self.position = None
         self.world = None
 
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
+        self.coop_pos = None            # Needed for neural network
 
         self.sensor = None
         self.observation = None
         self.step_index = 0
         self.inventory = []
+        #self.communications = []
 
         self.behavior = set()
         self.path = []
         
-        self.combinedFitness = 0.0
-        self.reward = None
+        self.combined_fitness = 0.0
+        self.reward = 0
         #self.noveltyScore = 0.0
 
     @staticmethod
@@ -62,18 +66,24 @@ class ExplorerAgent(Agent):
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
-            # TODO - rede neuronal! para escolher a acao a partir da 'self.observation' (i think)
-            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position) # TODO - HARDCODED - neste momento esta a correr o que foi gerado no genotype com random actions (isto é pra mudar)
-
+            # TODO - rede neuronal!!!!!
+            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
 
     def evaluateCurrentState(self, reward: float):
+        """ Accumulates "raw" reward during an Agent's life. """
         self.reward += reward
 
     def install(self, sensor: Sensor, world):
         self.sensor = sensor
         self.world = world
         self.coop_pos = self.sensor.get_coop_position()
-        print("installed")
+
+    def communicate(self, message: str, from_agent: Agent):
+        # Could check if it wants to accept the message or discard it according to who sent it
+        #message_content = TODO
+
+        #self.communications.append()
+        pass
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)

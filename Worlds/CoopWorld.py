@@ -62,7 +62,7 @@ class CoopWorld(World):
                 if char == ".":
                     continue
                 elif char == "W":
-                    wall = Wall(id_counter["wall"], x, y)
+                    wall = Wall((id_counter["wall"]+1) * 100 )
                     self.map[y][x] = wall
                     id_counter["wall"] += 1
                 elif char == "F":
@@ -72,37 +72,15 @@ class CoopWorld(World):
                     id_counter["farol"] += 1
                 elif char == "C":
                     chicken = Chicken()
-                    self.add_agent(chicken,(0,0))
+                    self.add_agent(chicken,(x, y))
                     id_counter["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
 
 
-    def is_solved(self) -> bool:
+    def is_solved(self):
         for explorer in self.agents:
-            if isinstance(explorer, ExplorerAgent):
-                if explorer.position != self.chicken_coop.pos:
-                    return False
+            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.pos:
+                return False
 
         return True
-
-    def showWorld(self):
-        # Show the world map, agents, and the chicken coop position
-        for y in range(self.height):
-            row = ""
-            for x in range(self.width):
-                obj = self.map[y][x]
-                if any(agent.position == (x, y) for agent in self.agents):
-                    row += "C "
-                    continue
-                elif (x, y) == self.chicken_coop:
-                    row += "F "
-                    continue
-                elif isinstance(obj, Wall):
-                    row += "W "
-                    continue
-                else:
-                    row += ". "
-
-            print(row)
-

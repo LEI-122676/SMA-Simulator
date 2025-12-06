@@ -1,4 +1,3 @@
-import random
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -30,12 +29,14 @@ class World(Environment):
 
         return explorer.observation(obs)
 
-    def crossover(parent1: ExplorerAgent, parent2: ExplorerAgent):
-        """Performs single-point crossover on two parent genotypes."""
+    """
+    def crossover(self, parent1: ExplorerAgent, parent2: ExplorerAgent):
+        # Performs single-point crossover on two parent genotypes.
         point = random.randint(1, len(parent1.genotype) - 1)
         child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
         child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
         return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
+    """
 
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
@@ -55,6 +56,8 @@ class World(Environment):
 
         # Dropping items at nests (eggs/stones)
         elif isinstance(obj, Nest):                                 # Only happens on foraging world
+            # TODO - informar outros agentes?
+
             totalReward = 0
 
             for item in agent.inventory:
@@ -106,44 +109,27 @@ class World(Environment):
             row = ""
             for x in range(self.width):
                 obj = self.map[y][x]
-                if obj is None:
-                    row += ". "
-                elif any(agent.position == (x, y) for agent in self.agents):
-                    row += "C "
-                elif obj is Egg:
-                    row += "E "
-                elif obj is Nest:
-                    row += "N "
-                elif obj is Stone:
-                    row += "S "
-                elif obj is ChickenCoop:
-                    row += "F "
-                else:
-                    row += "W "
-            print(row)
-
-    def show_world(self):
-        # Show the world map, agents, eggs, stones, and nests
-        for y in range(self.height):
-            row = ""
-            for x in range(self.width):
-                obj = self.map[y][x]
 
                 if any(agent.position == (x, y) for agent in self.agents):
                     row += "C "
-                elif obj is None:
-                    row += ". "
-                elif obj is Egg:
+                elif isinstance(obj, Wall):
+                    row += "W "
+                elif isinstance(obj, Egg):
                     row += "E "
-                elif obj is Nest:
+                elif isinstance(obj, Nest):
                     row += "N "
-                elif obj is Stone:
+                elif isinstance(obj, Stone):
                     row += "S "
-                elif obj is ChickenCoop:
+                elif isinstance(obj, ChickenCoop):
                     row += "F "
                 else:
-                    row += "W "
+                    row += ". "
             print(row)
+
+    def broadcast(self, message, from_agent):
+        for agent in self.agents:
+            if agent != from_agent:
+                agent.communicate(message)
 
     @abstractmethod
     def initialize_map(self):

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="new view" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+GeneticUtils">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/GeneticUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/GeneticUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Simulator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,22 +84,22 @@
     }
   ]
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
-    &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LEI-122676/SMA-Simulator.git",
+    "accountId": "483e790a-ab28-475c-a48b-fe1d48db6132"
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;LEI-122676&quot;,
-    &quot;repository&quot;: &quot;SMA-Simulator&quot;
+    "owner": "LEI-122676",
+    "repository": "SMA-Simulator"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -105,13 +113,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ExplorerAgent.executor": "Run",
+    "Python.SimulatorMotor.executor": "Run",
     "Python.demo.executor": "Run",
     "Python.main.executor": "Run",
     "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#96 on tigago",
+    "git-widget-placeholder": "tigago",
     "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
     "settings.editor.selected.configurable": "settings.sync"
   }
@@ -121,14 +131,14 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Levels" />
+      <recent name="$PROJECT_DIR$/Simulators" />
       <recent name="$PROJECT_DIR$/Actions" />
       <recent name="$PROJECT_DIR$/World" />
       <recent name="$PROJECT_DIR$/Items" />
-      <recent name="$PROJECT_DIR$/Obstacle" />
-      <recent name="$PROJECT_DIR$/Simulator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
+  <component name="RunManager">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SMA-Simulator" />
       <option name="ENV_FILES" value="" />
@@ -142,7 +152,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Simulators/demo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,38 +161,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.demo" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.demo" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.demo" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -466,23 +449,39 @@
       <option name="project" value="LOCAL" />
       <updated>1764770937480</updated>
     </task>
-    <task id="LOCAL-00034" summary="show_world() fixed">
+    <task id="LOCAL-00034" summary="fixed get_actions">
       <option name="closed" value="true" />
-      <created>1764775988242</created>
+      <created>1764927461128</created>
       <option name="number" value="00034" />
       <option name="presentableId" value="LOCAL-00034" />
       <option name="project" value="LOCAL" />
-      <updated>1764775988242</updated>
+      <updated>1764927461128</updated>
     </task>
-    <task id="LOCAL-00035" summary="new view">
+    <task id="LOCAL-00035" summary="+communicate()">
       <option name="closed" value="true" />
-      <created>1764776763474</created>
+      <created>1764928792249</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1764776763474</updated>
+      <updated>1764928792249</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="+GeneticUtils">
+      <option name="closed" value="true" />
+      <created>1764932207519</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1764932207519</updated>
+    </task>
+    <task id="LOCAL-00037" summary="+GeneticUtils">
+      <option name="closed" value="true" />
+      <created>1764933982003</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1764933982003</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -543,7 +542,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removed a class" />
     <MESSAGE value="some Sensor logic" />
     <MESSAGE value="added Stone, no Lizard" />
     <MESSAGE value="Added Chicken" />
@@ -566,9 +564,10 @@
     <MESSAGE value="100 steps" />
     <MESSAGE value="-attempt system on Explorer" />
     <MESSAGE value="explorer only needs genotype" />
-    <MESSAGE value="show_world() fixed" />
-    <MESSAGE value="new view" />
-    <option name="LAST_COMMIT_MESSAGE" value="new view" />
+    <MESSAGE value="fixed get_actions" />
+    <MESSAGE value="+communicate()" />
+    <MESSAGE value="+GeneticUtils" />
+    <option name="LAST_COMMIT_MESSAGE" value="+GeneticUtils" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
