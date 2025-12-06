@@ -30,7 +30,8 @@ class ForagingWorld(World):
             # Colocar os ovos
             for n in range(numEggs):
                 x, y = place_unique()
-                egg = Egg(n, x, y)
+                egg = Egg(n)
+                egg.position = (x, y)
                 self.eggs.append(egg)
                 self.map[y][x] = egg
 
@@ -39,7 +40,10 @@ class ForagingWorld(World):
 
             for n in range(numNests):
                 x, y = place_unique()
-                nest = Nest(n, x, y).setCapacity(capacity)
+                nest = Nest(n)
+                # set_capacity is the defined method on Nest
+                nest.set_capacity(capacity)
+                nest.position = (x, y)
                 self.nests.append(nest)
                 self.map[y][x] = nest
 
@@ -62,27 +66,30 @@ class ForagingWorld(World):
                     continue
                 elif char == "E":
                     egg = Egg(id_counters["egg"])
+                    egg.position = (x, y)
                     self.eggs.append(egg)
                     self.map[y][x] = egg
                     id_counters["egg"] += 1
                 elif char == "N":
                     nest = Nest(id_counters["nest"])
+                    nest.position = (x, y)
                     self.nests.append(nest)
                     self.map[y][x] = nest
                     id_counters["nest"] += 1
                 elif char == "S":
                     stone = Stone(id_counters["stone"])
+                    stone.position = (x, y)
                     self.stones.append(stone)
                     self.map[y][x] = stone
                     id_counters["stone"] += 1
                 elif char == "W":
                     wall = Wall(id_counters["wall"])
+                    wall.position = (x, y)
                     self.map[y][x] = wall
                     id_counters["wall"] += 1
                 elif char == "C":
-                    chicken = Chicken()          # Phase 3
-                    chicken.install(Sensor(self.map))
-                    self.add_agent(chicken, (x, y))
+                    chicken = Chicken()
+                    self.add_agent(chicken,(x, y))
                     id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
