@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+pickle file &#10;(Python &quot;default&quot; file type to store objects in a binary file)" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Change Euclidean to Jaccard" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,7 +166,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+        <option value="bundled-python-sdk-a101402ee41c-968fe969f28a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.28238.29" />
       </set>
     </attachedChunks>
   </component>
@@ -514,15 +514,7 @@
       <option name="project" value="LOCAL" />
       <updated>1765027771231</updated>
     </task>
-    <task id="LOCAL-00043" summary="+pickle file &#10;(Python &quot;default&quot; file type to store objects in a binary file)">
-      <option name="closed" value="true" />
-      <created>1765032123856</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1765032123856</updated>
-    </task>
-    <option name="localTasksCounter" value="44" />
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -583,6 +575,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="+Action" />
     <MESSAGE value="Phases 5-&gt;6" />
     <MESSAGE value="+Move,Collect,Deposit&#10;+Phase5-7" />
     <MESSAGE value="+8 directions" />
@@ -607,8 +600,7 @@
     <MESSAGE value="+GeneticUtils.py" />
     <MESSAGE value="+Motor with genes" />
     <MESSAGE value="Change Euclidean to Jaccard" />
-    <MESSAGE value="+pickle file &#10;(Python &quot;default&quot; file type to store objects in a binary file)" />
-    <option name="LAST_COMMIT_MESSAGE" value="+pickle file &#10;(Python &quot;default&quot; file type to store objects in a binary file)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Euclidean to Jaccard" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

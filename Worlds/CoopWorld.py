@@ -41,7 +41,6 @@ class CoopWorld(World):
         else:
             self.read_coop_file(filename)
 
-
         """
         # Colocar as galinhas -> todas lado a lado na primeira fila
         for n in range(numChickens):
