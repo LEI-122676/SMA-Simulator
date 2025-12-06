@@ -5,3 +5,4 @@ class Stone(Pickable):
 
     def __init__(self, id):
         super().__init__("S", id)
+        self.value = -5

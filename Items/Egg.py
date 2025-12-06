@@ -5,3 +5,4 @@ class Egg(Pickable):
 
     def __init__(self, id):
         super().__init__("E", id)
+        self.value = 10
