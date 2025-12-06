@@ -10,7 +10,7 @@ class Environment(ABC):
 
     @staticmethod
     @abstractmethod
-    def observationFor(self, explorer: ExplorerAgent) -> Observation:
+    def observation_for(self, explorer: ExplorerAgent) -> Observation:
         pass
 
     @abstractmethod
