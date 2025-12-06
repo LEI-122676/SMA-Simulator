@@ -43,6 +43,11 @@ class SimulatorMotor(Simulator):
         self.config_headless = headless
 
         # Dynamic state variable (toggled during execution)
+    def __init__(self, world: World, headless): # headless == True  ---->  no visualization
+        self.time_limit = 5
+        self.time_per_step = 0.1
+        self.running = None
+        self.world = world                                    # Phase 2 & 3
         self.headless = headless
 
         # Evolutionary State (Instance variables for persistence)
@@ -203,6 +208,15 @@ class SimulatorMotor(Simulator):
             # Shuffle agents for fair cooperation
             agents = self.world.agents[:]
             random.shuffle(agents)
+            for agent in self.world.agents:                                 # Phase 5
+                print("Step index:", agent.step_index)
+                print("Steps:", agent.steps)
+                if (agent.step_index >= agent.steps) and (not self.is_solved()):
+                    print("Agent has completed all steps.")
+                    self.shut_down()
+                    return
+                else:
+                    agent.execute()
 
             for agent in agents:
                 agent.execute()

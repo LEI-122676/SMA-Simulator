@@ -71,6 +71,7 @@ class CoopWorld(World):
                     id_counter["farol"] += 1
                 elif char == "C":
                     chicken = Chicken()
+                    chicken.initialize_chicken_from_file(filename="Agents/example_agent.txt")
                     self.add_agent(chicken,(x, y))
                     id_counter["chicken"] += 1
                 else:

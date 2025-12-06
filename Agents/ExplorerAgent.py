@@ -10,9 +10,7 @@ from Simulators.Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
-
-
-    def __init__(self, learn_mode=True, steps=200):
+    def __init__(self, learn_mode=True, steps=200, genotype=None):
         self.position = None
         self.world = None
 
@@ -35,20 +33,28 @@ class ExplorerAgent(Agent):
         #self.noveltyScore = 0.0
 
     @staticmethod
-    def create(file_name: str):
+    def create(self, file_name: str):
         """
         Create an ExplorerAgent from a configuration file.
         """
         config = read_agent_config(file_name)
 
-        # Required fields with default fallbacks
-        x = int(config.get("x", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
-        y = int(config.get("y", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
         learn_mode = config.get("learn_mode", "False").lower() == "true"
-        steps = int(config.get("steps", 5000))
+        self.steps = int(config.get("steps", 5000))
+        print(self.steps)
 
         explorer = ExplorerAgent(learn_mode, steps)
         explorer.position = x, y
+        # Optionally allow a custom genotype file
+        genotype_file = config.get("genotype_file", None)
+        self.genotype = None
+        if genotype_file:
+            # TODO : genotype file logic
+            # If file exists, read actions from it
+            # For simplicity, here we just generate random actions as placeholder
+            self.genotype = [Action.random_action() for _ in range(self.steps)]
+
+        explorer = ExplorerAgent(learn_mode, self.steps, self.genotype)
 
         return explorer
 
@@ -106,6 +112,10 @@ class ExplorerAgent(Agent):
 
         # Even if it fails, we count the step
         self.step_index += 1
+        
+        if(self.step_index >= self.steps):
+            return
+        
         self.behavior.add(self.position)
         self.path.append(self.position)
 

@@ -98,6 +98,8 @@ class ForagingWorld(World):
                     id_counters["wall"] += 1
                 elif char == "C":
                     chicken = Chicken()
+                    chicken.initialize_chicken_from_file(filename="Agents/example_agent.txt")
+                    print("chicken.steps:", chicken.steps)
                     self.add_agent(chicken,(x, y))
                     id_counters["chicken"] += 1
                 else:
