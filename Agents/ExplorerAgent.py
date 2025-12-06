@@ -19,7 +19,7 @@ class ExplorerAgent(Agent):
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
-        self.coop_pos = None            # Needed for neural network
+        self.coop_vector = None            # Needed for neural network
 
         self.sensor = None
         self.observation = None
@@ -67,8 +67,10 @@ class ExplorerAgent(Agent):
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
-            # TODO - rede neuronal!!!!!
-            return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
+            if self.coop_vector != None:
+                return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
+            else:
+                return Action.random_action()
 
     def evaluateCurrentState(self, reward: float):
         """ Accumulates "raw" reward during an Agent's life. """
@@ -101,7 +103,7 @@ class ExplorerAgent(Agent):
             return
 
         # Gets observation
-        observation = self.sensor.get_observation(self.position)   # Phase 5.1
+        observation = self.world.observation_for(self)                       # Phase 5.1
         self.observe(observation)                                           # Phase 5.2
 
         # Decides what to do
@@ -115,15 +117,14 @@ class ExplorerAgent(Agent):
         self.behavior.add(self.position)
         self.path.append(self.position)
 
-    def storeItem(self, item: Pickable):
-        fy, fx = item.position
-        self.sensor.world.map[fy][fx] = None
-
+    def storeItem(self, item: Pickable, x, y):
+        self.sensor.world_map[y][x] = None
         item.pickUp()
         self.inventory.append(item)
 
     def discardItem(self, item: Pickable):
         item.drop()
-        self.inventory.append(item)
+        if item in self.inventory:
+            self.inventory.remove(item)
 
 

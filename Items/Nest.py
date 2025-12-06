@@ -11,15 +11,13 @@ class Nest(Item):
     def set_capacity(self, capacity: int):
         self.capacity = capacity
 
-    def put(self, num_of_items):
+    def put(self, item):
         """ Returns True when item is put in the Nest """
         if self.capacity is None:
-            raise AttributeError("Nest", id, "wasn't correctly created.")
+            raise AttributeError("Nest wasn't correctly created. capacity is None")
 
-        future_num_of_items = self.num_of_items + num_of_items
-
-        if future_num_of_items < self.capacity:
-            self.num_of_items = future_num_of_items
+        if self.num_of_items + 1 <= self.capacity:
+            self.num_of_items += 1
             return True
 
         return False

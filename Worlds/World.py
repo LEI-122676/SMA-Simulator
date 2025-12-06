@@ -21,22 +21,8 @@ class World(Environment):
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
 
-    def observationFor(self, explorer: ExplorerAgent):      # Phase 5.2
-        obs = Observation(explorer.id)
-        sensor = explorer.sensor
-
-        # TODO - usar Sensor?
-
-        return explorer.observation(obs)
-
-    """
-    def crossover(self, parent1: ExplorerAgent, parent2: ExplorerAgent):
-        # Performs single-point crossover on two parent genotypes.
-        point = random.randint(1, len(parent1.genotype) - 1)
-        child1_geno = parent1.genotype[:point] + parent2.genotype[point:]
-        child2_geno = parent2.genotype[:point] + parent1.genotype[point:]
-        return ExplorerAgent(genotype=child1_geno), ExplorerAgent(genotype=child2_geno)
-    """
+    def observation_for(self, explorer: ExplorerAgent):      # Phase 5.2
+        return explorer.sensor.get_observation(explorer.position)
 
     def act(self, action, agent: ExplorerAgent):            # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
@@ -51,7 +37,7 @@ class World(Environment):
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
-            agent.storeItem(obj)
+            agent.storeItem(obj, x, y)
             reward += obj.value
 
         # Dropping items at nests (eggs/stones)
@@ -60,12 +46,18 @@ class World(Environment):
 
             totalReward = 0
 
-            for item in agent.inventory:
+            for item in list(agent.inventory):
                 obj.put(item)
-                totalReward += item.value
+                try:
+                    item.position = obj.position
+                except Exception:
+                    item.position = (x, y)
+
+                totalReward += getattr(item, 'value', 0)
                 agent.discardItem(item)
 
-                self.solved = self.is_solved()              # Checks if the Eggs were all safely stored in Nests
+            # After depositing, check solved condition
+            self.solved = self.is_solved()
 
             reward += totalReward
 
