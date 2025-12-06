@@ -7,7 +7,7 @@ class Simulator(ABC):
 
     @staticmethod
     @abstractmethod
-    def create(file_name_args: str, test_mode: bool):
+    def create(file_name_args: str):
         pass
 
     @abstractmethod
