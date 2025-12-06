@@ -53,3 +53,15 @@ class Sensor:
                     return x, y
 
         return None, None
+
+    def get_item_position(self, item):
+        #target = (item if isinstance(item, type) else item.__class__,)
+        target = type(item)
+
+        for y in range(self.height):
+            for x in range(self.width):
+                if isinstance(self.world_map[y][x], target):
+                    return x, y
+
+        return None, None
+

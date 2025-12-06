@@ -15,6 +15,11 @@ class CoopWorld(World):
 
     def initialize_map(self, filename=None):
 
+        # Resets everything
+        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        self.agents = []
+        self.chicken_coop = None
+
         if filename is None:
             attempts = 0
             max_attempts = self.width * self.height
@@ -31,16 +36,10 @@ class CoopWorld(World):
                     continue
 
                 self.chicken_coop = ChickenCoop(x,y)
-                self.map[x][y] = self.chicken_coop
-                return
-
-
-                #chicken = Chicken()
-                #self.add_agent(chicken, (0, 0))
-
+                self.map[y][x] = self.chicken_coop
+                break
         else:
             self.read_coop_file(filename)
-
 
         """
         # Colocar as galinhas -> todas lado a lado na primeira fila
@@ -81,7 +80,7 @@ class CoopWorld(World):
 
     def is_solved(self):
         for explorer in self.agents:
-            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.pos:
+            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.position:
                 return False
 
         return True

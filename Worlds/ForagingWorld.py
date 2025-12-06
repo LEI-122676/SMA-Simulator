@@ -16,9 +16,16 @@ class ForagingWorld(World):
         self.nests = []
         self.eggs = []
 
-    def initialize_map(self, numEggs=1, numNests=1, filename=None):
-        
-        if filename is None:
+    def initialize_map(self, file_name=None, numEggs=1, numNests=1):
+
+        # Resets everything
+        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        self.eggs = []
+        self.nests = []
+        self.stones = []
+        self.agents = []
+
+        if file_name is None:
         # Certificar que a posição está livre
             def place_unique():
                 while True:
@@ -48,7 +55,7 @@ class ForagingWorld(World):
                 self.map[y][x] = nest
 
         else:
-            self.read_foraging_file(filename)
+            self.read_foraging_file(file_name)
 
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido

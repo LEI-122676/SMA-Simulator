@@ -3,6 +3,7 @@ from Actions.Observation import Observation
 from Actions.Sensor import Sensor
 from Agents.Agent import Agent
 from Items.ChickenCoop import ChickenCoop
+from Items.Item import Item
 from Items.Pickable import Pickable
 from Simulators.Utilities import read_agent_config
 
@@ -15,14 +16,14 @@ class ExplorerAgent(Agent):
 
         self.learn_mode = learn_mode
         self.steps = steps
-        self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
+        self.genotype = None
         self.coop_vector = None            # Needed for neural network
 
         self.sensor = None
         self.observation = None
         self.step_index = 0
         self.inventory = []
-        #self.communications = []
+        self.communications = []
 
         self.behavior = set()
         self.path = []
@@ -42,6 +43,8 @@ class ExplorerAgent(Agent):
         self.steps = int(config.get("steps", 5000))
         print(self.steps)
 
+        explorer = ExplorerAgent(learn_mode, steps)
+        explorer.position = x, y
         # Optionally allow a custom genotype file
         genotype_file = config.get("genotype_file", None)
         self.genotype = None
@@ -74,14 +77,24 @@ class ExplorerAgent(Agent):
     def install(self, sensor: Sensor, world):
         self.sensor = sensor
         self.world = world
-        self.coop_pos = self.sensor.get_coop_position()
+        self.coop_pos = self.sensor.get_coop_position() # usar self.sensor.get_item_position()
 
-    def communicate(self, message: str, from_agent: Agent):
+
+    def communicate(self, item: Item, from_agent: Agent):
         # Could check if it wants to accept the message or discard it according to who sent it
-        #message_content = TODO
+        message = {
+            'item_name': item.name,
+            'item_id': item.id,
+            'item_position': item.position,
+            'sender': from_agent,
+        }
 
-        #self.communications.append()
-        pass
+        self.communications.append(message)
+
+    def broadcast_info(self, item: Item, agents: list):
+        for agent in agents:
+            if agent != self:
+                agent.communicate(item, self)
 
     def execute(self):
         if self.step_index >= len(self.genotype):  # Agents is out of genes (actions)
