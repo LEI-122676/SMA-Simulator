@@ -6,6 +6,7 @@ import GeneticUtils as GU
 from Actions.Action import Action
 
 # --- Imports for World/Agent Management ---
+from Worlds.World import World
 from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
