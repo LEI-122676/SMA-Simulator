@@ -41,7 +41,6 @@ class ExplorerAgent(Agent):
 
         learn_mode = config.get("learn_mode", "False").lower() == "true"
         self.steps = int(config.get("steps", 5000))
-        print(self.steps)
         
         # Optionally allow a custom genotype file
         genotype_file = config.get("genotype_file", None)

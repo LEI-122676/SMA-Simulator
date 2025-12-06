@@ -2,7 +2,7 @@ import time
 import random
 import pickle
 import os
-import GeneticUtils as GU
+from . import GeneticUtils as GU
 from Actions.Action import Action
 
 # --- Imports for World/Agent Management ---
@@ -10,7 +10,7 @@ from Worlds.World import World
 from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
-from Utilities import read_matrix_file_with_metadata
+from Simulators.Utilities import read_matrix_file_with_metadata
 
 
 class SimulatorMotor(Simulator):
@@ -44,11 +44,6 @@ class SimulatorMotor(Simulator):
         self.config_headless = headless
 
         # Dynamic state variable (toggled during execution)
-    def __init__(self, world: World, headless): # headless == True  ---->  no visualization
-        self.time_limit = 5
-        self.time_per_step = 0.1
-        self.running = None
-        self.world = world                                    # Phase 2 & 3
         self.headless = headless
 
         # Evolutionary State (Instance variables for persistence)
@@ -210,12 +205,15 @@ class SimulatorMotor(Simulator):
             agents = self.world.agents[:]
             random.shuffle(agents)
             for agent in self.world.agents:                                 # Phase 5
-                print("Step index:", agent.step_index)
-                print("Steps:", agent.steps)
-                if (agent.step_index >= agent.steps) and (not self.is_solved()):
+                if (agent.step_index >= agent.steps):
                     print("Agent has completed all steps.")
-                    self.shut_down()
-                    return
+                    # Return partial statistics instead of None so evaluation can continue
+                    total_reward = sum(a.reward for a in self.world.agents)
+                    final_positions = [a.position for a in self.world.agents]
+                    return {
+                        "fitness": total_reward,
+                        "final_positions": final_positions
+                    }
                 else:
                     agent.execute()
 
