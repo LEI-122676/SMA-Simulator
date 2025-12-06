@@ -52,7 +52,9 @@ class ForagingWorld(World):
 
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
-        return all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs)
+        if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
+            print("World is solved!")
+            return True
 
     def read_foraging_file(self, filename):
         with open(filename, 'r') as file:
@@ -93,3 +95,6 @@ class ForagingWorld(World):
                     id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
+                
+        for nest in self.nests:
+            nest.set_capacity((len(self.eggs) // len(self.nests)) + (1 if len(self.eggs) % len(self.nests) > 0 else 0))
