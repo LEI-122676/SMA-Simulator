@@ -15,7 +15,7 @@ class CoopWorld(World):
 
     def initialize_map(self, filename=None):
 
-        if filename is None:
+        if filename is None: # TODO - nao funciona bem
             attempts = 0
             max_attempts = self.width * self.height
 
@@ -32,11 +32,10 @@ class CoopWorld(World):
 
                 self.chicken_coop = ChickenCoop(x,y)
                 self.map[x][y] = self.chicken_coop
-                return
+                break
 
-
-                #chicken = Chicken()
-                #self.add_agent(chicken, (0, 0))
+            chicken = Chicken()
+            self.add_agent(chicken, (0, 0))
 
         else:
             self.read_coop_file(filename)
@@ -80,7 +79,7 @@ class CoopWorld(World):
 
     def is_solved(self):
         for explorer in self.agents:
-            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.pos:
+            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.position:
                 return False
 
         return True

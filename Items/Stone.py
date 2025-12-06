@@ -3,5 +3,5 @@ from Items.Pickable import Pickable
 
 class Stone(Pickable):
 
-    def __init__(self, id):
-        super().__init__("S", id)
+    def __init__(self, id, x, y):
+        super().__init__("S", id, x, y)
