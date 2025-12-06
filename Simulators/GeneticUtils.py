@@ -2,30 +2,29 @@ import random
 import math
 
 
-def calculate_euclidean_novelty(position, archive, k=15):
+def jaccard_distance(set1, set2):  # BC
     """
-    Calculates the novelty score based on the average distance to the k-nearest neighbors in the archive.
+    Calculates the Jaccard distance between two sets.
+    Distance = 1 - (Intersection / Union)
     """
+    intersection = len(set1 & set2)
+    union = len(set1 | set2)
+    return 1 - intersection / union if union != 0 else 0
+
+def compute_novelty(current_behavior, archive, k=5):
+    """
+    Calculates novelty based on Jaccard distance to the k-nearest neighbors in the archive.
+    """
+    # Handle the empty archive case
     if not archive:
-        return 0.0
+        # The first item is, by definition, maximally novel
+        return 1.0
 
-    distances = []
-    x1, y1 = position
-
-    for (x2, y2) in archive:
-        dist = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-        distances.append(dist)
-
+    distances = [jaccard_distance(current_behavior, b) for b in archive]
     distances.sort()
 
-    # Take the k nearest neighbors (or all if less than k)
-    k_nearest = distances[:k]
-
-    if not k_nearest:
-        return 0.0
-
-    avg_distance = sum(k_nearest) / len(k_nearest)
-    return avg_distance
+    # Your original logic is now safe because we know len(distances) > 0
+    return sum(distances[:k]) / k if len(distances) >= k else sum(distances) / len(distances)
 
 
 def tournament_selection_dict(evaluated_results, tournament_size):
