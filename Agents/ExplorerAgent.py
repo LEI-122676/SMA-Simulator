@@ -90,7 +90,7 @@ class ExplorerAgent(Agent):
             return
 
         # Gets observation
-        observation = self.world.observationFor(self)                       # Phase 5.1
+        observation = self.world.observation_for(self)                       # Phase 5.1
         self.observe(observation)                                           # Phase 5.2
 
         # Decides what to do
