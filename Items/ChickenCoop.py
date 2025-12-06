@@ -9,7 +9,6 @@ class ChickenCoop(Item):
         self.pos = (x,y)
 
     @staticmethod
-    @staticmethod
     def get_action(target_position, explorer_position):
         coop_x, coop_y = target_position
         agent_x, agent_y = explorer_position
