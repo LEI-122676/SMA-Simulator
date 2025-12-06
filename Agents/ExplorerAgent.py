@@ -12,13 +12,13 @@ class ExplorerAgent(Agent):
 
 
 
-    def __init__(self, learn_mode=True, steps=200, genotype=None):
+    def __init__(self, learn_mode=True, steps=200):
         self.position = None
         self.world = None
 
         self.learn_mode = learn_mode
         self.steps = steps
-        self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
+        self.genotype = None
         self.coop_vector = None            # Needed for neural network
 
         self.sensor = None
@@ -47,15 +47,7 @@ class ExplorerAgent(Agent):
         learn_mode = config.get("learn_mode", "False").lower() == "true"
         steps = int(config.get("steps", 5000))
 
-        # Optionally allow a custom genotype file
-        genotype_file = config.get("genotype_file", None)
-        genotype = None
-        if genotype_file:
-            # If file exists, read actions from it
-            # For simplicity, here we just generate random actions as placeholder
-            genotype = [Action.random_action() for _ in range(steps)]
-
-        explorer = ExplorerAgent(learn_mode, steps, genotype)
+        explorer = ExplorerAgent(learn_mode, steps)
         explorer.position = x, y
 
         return explorer

@@ -124,7 +124,7 @@ class World(Environment):
                 agent.communicate(message)
 
     @abstractmethod
-    def initialize_map(self):
+    def initialize_map(self, file_name):
         pass
 
     @abstractmethod

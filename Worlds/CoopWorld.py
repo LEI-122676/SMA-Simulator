@@ -15,7 +15,12 @@ class CoopWorld(World):
 
     def initialize_map(self, filename=None):
 
-        if filename is None: # TODO - nao funciona bem
+        # Resets everything
+        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        self.agents = []
+        self.chicken_coop = None
+
+        if filename is None:
             attempts = 0
             max_attempts = self.width * self.height
 
@@ -31,12 +36,8 @@ class CoopWorld(World):
                     continue
 
                 self.chicken_coop = ChickenCoop(x,y)
-                self.map[x][y] = self.chicken_coop
+                self.map[y][x] = self.chicken_coop
                 break
-
-            chicken = Chicken()
-            self.add_agent(chicken, (0, 0))
-
         else:
             self.read_coop_file(filename)
 

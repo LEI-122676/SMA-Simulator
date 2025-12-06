@@ -4,8 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="fixed observation_for">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+GeneticUtils.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/ChickenCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/ChickenCoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/GeneticUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/GeneticUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Simulator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,22 +113,22 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ExplorerAgent.executor": "Run",
+    "Python.SimulatorMotor.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "tigago",
+    "last_opened_file_path": "/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -484,7 +493,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765021417214</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="+GeneticUtils.py">
+      <option name="closed" value="true" />
+      <created>1765023383584</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1765023383584</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -545,7 +562,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added Stone, no Lizard" />
     <MESSAGE value="Added Chicken" />
     <MESSAGE value="+ExplorerAgent" />
     <MESSAGE value="+Action" />
@@ -570,7 +586,8 @@
     <MESSAGE value="+communicate()" />
     <MESSAGE value="+GeneticUtils" />
     <MESSAGE value="fixed observation_for" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed observation_for" />
+    <MESSAGE value="+GeneticUtils.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="+GeneticUtils.py" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
