@@ -18,7 +18,7 @@ class ExplorerAgent(Agent):
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = genotype or [Action.random_action() for _ in range(self.steps)]
-        self.coop_pos = None            # Needed for neural network
+        self.coop_vector = None            # Needed for neural network
 
         self.sensor = None
         self.observation = None
@@ -90,7 +90,7 @@ class ExplorerAgent(Agent):
             return
 
         # Gets observation
-        observation = self.sensor.get_observation(self.position)   # Phase 5.1
+        observation = self.world.observationFor(self)                       # Phase 5.1
         self.observe(observation)                                           # Phase 5.2
 
         # Decides what to do
@@ -104,10 +104,8 @@ class ExplorerAgent(Agent):
         self.behavior.add(self.position)
         self.path.append(self.position)
 
-    def storeItem(self, item: Pickable):
-        fy, fx = item.position
-        self.sensor.world.map[fy][fx] = None
-
+    def storeItem(self, item: Pickable, x, y):
+        self.sensor.world.map[y][x] = None
         item.pickUp()
         self.inventory.append(item)
 
