@@ -42,7 +42,7 @@ class SimulatorMotor(Simulator):
             print("Creating CoopWorld")
             # Step 2 — Create ID counters for coop world
             world = CoopWorld(width, height)
-            world.initialize_map(matrix_file)  # TODO - pass matrix_file in .initialize_map()
+            world.initialize_map(matrix_file)
             return SimulatorMotor(world, headless)
         else:
             print("Creating ForagingWorld")
