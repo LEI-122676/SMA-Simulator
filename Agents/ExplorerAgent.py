@@ -32,26 +32,26 @@ class ExplorerAgent(Agent):
         #self.noveltyScore = 0.0
 
     @staticmethod
-    def create(file_name: str):
+    def create(self, file_name: str):
         """
         Create an ExplorerAgent from a configuration file.
         """
         config = read_agent_config(file_name)
 
         learn_mode = config.get("learn_mode", "False").lower() == "true"
-        steps = int(config.get("steps", 5000))
-        print(steps)
+        self.steps = int(config.get("steps", 5000))
+        print(self.steps)
 
         # Optionally allow a custom genotype file
         genotype_file = config.get("genotype_file", None)
-        genotype = None
+        self.genotype = None
         if genotype_file:
             # TODO : genotype file logic
             # If file exists, read actions from it
             # For simplicity, here we just generate random actions as placeholder
-            genotype = [Action.random_action() for _ in range(steps)]
+            self.genotype = [Action.random_action() for _ in range(self.steps)]
 
-        explorer = ExplorerAgent(learn_mode, steps, genotype)
+        explorer = ExplorerAgent(learn_mode, self.steps, self.genotype)
 
         return explorer
 

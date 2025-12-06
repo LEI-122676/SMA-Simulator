@@ -67,9 +67,12 @@ class SimulatorMotor(Simulator):
                 self.world.show_world()
 
             for agent in self.world.agents:                                 # Phase 5
+                print("Step index:", agent.step_index)
+                print("Steps:", agent.steps)
                 if (agent.step_index >= agent.steps) and (not self.is_solved()):
                     print("Agent has completed all steps.")
                     self.shut_down()
+                    return
                 else:
                     agent.execute()
 
