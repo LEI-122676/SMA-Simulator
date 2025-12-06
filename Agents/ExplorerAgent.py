@@ -9,8 +9,6 @@ from Simulators.Utilities import read_agent_config
 
 class ExplorerAgent(Agent):
 
-
-
     def __init__(self, learn_mode=True, steps=200, genotype=None):
         self.position = None
         self.world = None
@@ -40,22 +38,20 @@ class ExplorerAgent(Agent):
         """
         config = read_agent_config(file_name)
 
-        # Required fields with default fallbacks
-        x = int(config.get("x", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
-        y = int(config.get("y", 0)) # TODO : Confused if we get these here or in the SimulatorMotor
         learn_mode = config.get("learn_mode", "False").lower() == "true"
         steps = int(config.get("steps", 5000))
+        print(steps)
 
         # Optionally allow a custom genotype file
         genotype_file = config.get("genotype_file", None)
         genotype = None
         if genotype_file:
+            # TODO : genotype file logic
             # If file exists, read actions from it
             # For simplicity, here we just generate random actions as placeholder
             genotype = [Action.random_action() for _ in range(steps)]
 
         explorer = ExplorerAgent(learn_mode, steps, genotype)
-        explorer.position = x, y
 
         return explorer
 
@@ -103,6 +99,10 @@ class ExplorerAgent(Agent):
 
         # Even if it fails, we count the step
         self.step_index += 1
+        
+        if(self.step_index >= self.steps):
+            return
+        
         self.behavior.add(self.position)
         self.path.append(self.position)
 

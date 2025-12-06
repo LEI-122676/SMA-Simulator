@@ -10,7 +10,7 @@ from Simulators.Utilities import read_matrix_file_with_metadata
 class SimulatorMotor(Simulator):
 
     def __init__(self, world: World, headless): # headless == True  ---->  no visualization
-        self.time_limit = 20
+        self.time_limit = 5
         self.time_per_step = 0.1
         self.running = None
         self.world = world                                    # Phase 2 & 3
@@ -67,7 +67,11 @@ class SimulatorMotor(Simulator):
                 self.world.show_world()
 
             for agent in self.world.agents:                                 # Phase 5
-                agent.execute()
+                if (agent.step_index >= agent.steps) and (not self.is_solved()):
+                    print("Agent has completed all steps.")
+                    self.shut_down()
+                else:
+                    agent.execute()
 
             self.save_state()
 

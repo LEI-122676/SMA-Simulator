@@ -34,12 +34,11 @@ class World(Environment):
         obj = self.map[y][x]        
 
         reward = 0
-
+        
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
             agent.storeItem(obj, x, y)
             reward += obj.value
-            print("Reward:", reward)
 
         # Dropping items at nests (eggs/stones)
         elif isinstance(obj, Nest):                                 # Only happens on foraging world
