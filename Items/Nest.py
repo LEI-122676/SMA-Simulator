@@ -5,7 +5,7 @@ class Nest(Item):
 
     def __init__(self, id):
         super().__init__("N", id)
-        self.capacity = 1
+        self.capacity = None
         self.num_of_items = 0
 
     def set_capacity(self, capacity: int):

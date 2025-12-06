@@ -95,3 +95,6 @@ class ForagingWorld(World):
                     id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
+                
+        for nest in self.nests:
+            nest.set_capacity((len(self.eggs) // len(self.nests)) + (1 if len(self.eggs) % len(self.nests) > 0 else 0))
