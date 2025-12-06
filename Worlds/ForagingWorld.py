@@ -52,7 +52,9 @@ class ForagingWorld(World):
 
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
-        return all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs)
+        if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
+            print("World is solved!")
+            return True
 
     def read_foraging_file(self, filename):
         with open(filename, 'r') as file:

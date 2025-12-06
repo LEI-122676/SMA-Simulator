@@ -46,12 +46,18 @@ class World(Environment):
 
             totalReward = 0
 
-            for item in agent.inventory:
+            for item in list(agent.inventory):
                 obj.put(item)
-                totalReward += item.value
+                try:
+                    item.position = obj.position
+                except Exception:
+                    item.position = (x, y)
+
+                totalReward += getattr(item, 'value', 0)
                 agent.discardItem(item)
 
-                self.solved = self.is_solved()              # Checks if the Eggs were all safely stored in Nests
+            # After depositing, check solved condition
+            self.solved = self.is_solved()
 
             reward += totalReward
 
