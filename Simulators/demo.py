@@ -7,7 +7,7 @@ def main():
     #   False    =    Show graphics (visual replay of best agent)
     run_headless = False
 
-    simulator_farol = SimulatorMotor.create("Levels/farol_level1.txt", headless=run_headless)
+    simulator_farol = SimulatorMotor.create("Levels/farol_level1.txt", headless=run_headless) # TODO - test_mode=True
     simulator_farol.execute()
 
 

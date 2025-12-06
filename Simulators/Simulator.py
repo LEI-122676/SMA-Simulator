@@ -11,9 +11,5 @@ class Simulator(ABC):
         pass
 
     @abstractmethod
-    def listAgents(self) -> list[Agent]:
-        pass
-
-    @abstractmethod
     def execute(self):
         pass

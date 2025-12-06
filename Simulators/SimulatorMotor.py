@@ -1,5 +1,4 @@
 import time
-import random
 import GeneticUtils as GU
 from Actions.Action import Action
 
@@ -62,16 +61,9 @@ class SimulatorMotor(Simulator):
         else:
             print(f"--- Initializing ForagingWorld ({width}x{height}) ---")
             world = ForagingWorld(width, height)
-            world.initialize_map(filename=matrix_file)
+            world.initialize_map(matrix_file)
 
         return SimulatorMotor(world, matrix_file, headless)
-
-    def listAgents(self):
-        if not self.running:
-            print("Simulators not running. No agents to list.")
-            return None
-
-        return [a for a in self.world.agents]
 
     def execute(self):
         """
@@ -89,7 +81,7 @@ class SimulatorMotor(Simulator):
         # Uses the constant STEPS instead of checking agent instances
         population = []
         for _ in range(self.POPULATION_SIZE):
-            genes = [Action.random_action() for _ in range(self.STEPS)]
+            genes = [Action.random_action() for _ in range(self.STEPS)]             # Gene == Individual
             population.append(genes)
 
         best_result_global = None
@@ -103,8 +95,7 @@ class SimulatorMotor(Simulator):
             print(f"Gen {gen + 1}/{self.NUM_GENERATIONS} evaluating...", end="\r")
 
             for genotype in population:
-                # Run a simulation episode for this genotype
-                # We use headless mode for training efficiency regardless of config
+                # Run a simulation episode for this genotype/individual
                 team_stats = self._run_single_episode(genotype, headless=True)
 
                 # Calculate Team Novelty (Average of agents)
@@ -191,7 +182,7 @@ class SimulatorMotor(Simulator):
         # 2. Inject Brain (Genotype)
         for agent in self.world.agents:
             agent.genotype = genotype
-            agent.learn_mode = True  # Use genes
+            agent.learn_mode = True  # Use genes TODO
 
         # 3. Execution Loop
         self.running = True
