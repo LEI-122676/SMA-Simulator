@@ -60,6 +60,7 @@ class ForagingWorld(World):
         if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
             print("World is solved!")
             return True
+        return False
 
     def read_foraging_file(self, filename):
         with open(filename, 'r') as file:
@@ -95,8 +96,7 @@ class ForagingWorld(World):
                     self.map[y][x] = wall
                     id_counters["wall"] += 1
                 elif char == "C":
-                    chicken = Chicken.create_from_file("Agents/example_agent.txt")
-                    print("chicken.steps:", chicken.steps)
+                    chicken = Chicken.create("Agents/chicken_compose.txt")
                     self.add_agent(chicken,(x, y))
                     id_counters["chicken"] += 1
                 else:
