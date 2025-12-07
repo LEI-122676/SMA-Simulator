@@ -1,15 +1,14 @@
 import time
 import random
 import pickle
-import GeneticUtils as GU
+from . import GeneticUtils as GU
 from Actions.Action import Action
 
 # --- Imports for World/Agent Management ---
 from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
-from Utilities import read_matrix_file_with_metadata
-
+from Simulators.Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
