@@ -5,6 +5,8 @@ def main():
     headless = False         # True == no graphics
     single_run = True        # True --> Debug 1 episode
 
+    simple_farol = "Levels/simple_farol.txt"
+    simple_foraging = "Levels/simple_foraging.txt"
     farol_level1 = "Levels/farol_level1.txt"
     farol_level2 = "Levels/farol_level2.txt"
     foraging_level1 = "Levels/foraging_level1.txt"

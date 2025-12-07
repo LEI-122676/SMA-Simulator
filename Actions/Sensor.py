@@ -10,6 +10,7 @@ class Sensor:
         self.height = len(self.world_map)
         self.width = len(self.world_map[0])
         self.max_range = max_range
+        self.coop_position = self._get_coop_position()
 
     def get_observation(self, explorer_position) -> Observation:
         observation = Observation()
@@ -46,7 +47,7 @@ class Sensor:
 
         return dist
 
-    def get_coop_position(self):
+    def _get_coop_position(self):
         for y in range(self.height):
             for x in range(self.width):
                 if isinstance(self.world_map[y][x], ChickenCoop):
@@ -65,3 +66,11 @@ class Sensor:
 
         return None, None
 
+    def get_coop_vector(self, explorer_position):
+        if self.coop_position is None:
+            return None
+
+        coop_x, coop_y = self.coop_position
+        agent_x, agent_y = explorer_position
+
+        return coop_x - agent_x, coop_y - agent_y
