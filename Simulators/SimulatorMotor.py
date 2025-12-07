@@ -92,7 +92,7 @@ class SimulatorMotor(Simulator):
         print(f"Generations: {self.NUM_GENERATIONS} | Population: {self.POPULATION_SIZE}")
 
         # If configured for a single run, skip the EA loop and execute one episode.
-        if getattr(self, 'single_run', False):
+        if self.single_run:
             print("--- Single-run mode: executing one episode (no training) ---")
             # Ensure we have at least one genotype to run
             if not self.population:
