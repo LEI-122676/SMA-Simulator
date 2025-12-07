@@ -31,7 +31,7 @@ class SimulatorMotor(Simulator):
     # Persistence
     SAVE_FILE = "evolution_state.pkl"
 
-    def __init__(self, world, map_file_path, headless=False):
+    def __init__(self, world, map_file_path, headless=False, single_run=False):
         """
         Initialize with a 'template' world, the file path to recreate it,
         and a headless configuration.
@@ -46,6 +46,9 @@ class SimulatorMotor(Simulator):
         # Dynamic state variable (toggled during execution)
         self.headless = headless
 
+        # Single-run mode (skip evolutionary loop, execute one episode)
+        self.single_run = single_run
+
         # Evolutionary State (Instance variables for persistence)
         self.population = []
         self.archive = []
@@ -53,30 +56,33 @@ class SimulatorMotor(Simulator):
         self.current_generation = 0
 
     @staticmethod
-    def create(matrix_file, headless=False):
+    def create(matrix_file, headless=False, single_run=False):
         """
         Factory method: Reads the file and returns a configured SimulatorMotor.
         Accepts a headless boolean to control visualization.
         """
-        try:
-            matrix = read_matrix_file_with_metadata(matrix_file)
-        except Exception as e:
-            raise ValueError(f"Error reading matrix file: {e}")
-
-        height = len(matrix)
-        width = len(matrix[0])
-        has_farol = any('F' in row for row in matrix)
-
-        if has_farol:
-            print(f"--- Initializing CoopWorld ({width}x{height}) ---")
-            world = CoopWorld(width, height)
-            world.initialize_map(matrix_file)
+        if single_run:
+            return SimulatorMotor.create_single(matrix_file, headless)
         else:
-            print(f"--- Initializing ForagingWorld ({width}x{height}) ---")
-            world = ForagingWorld(width, height)
-            world.initialize_map(matrix_file)
+            try:
+                matrix = read_matrix_file_with_metadata(matrix_file)
+            except Exception as e:
+                raise ValueError(f"Error reading matrix file: {e}")
 
-        return SimulatorMotor(world, matrix_file, headless)
+            height = len(matrix)
+            width = len(matrix[0])
+            has_farol = any('F' in row for row in matrix)
+
+            if has_farol:
+                print(f"--- Initializing CoopWorld ({width}x{height}) ---")
+                world = CoopWorld(width, height)
+                world.initialize_map(matrix_file)
+            else:
+                print(f"--- Initializing ForagingWorld ({width}x{height}) ---")
+                world = ForagingWorld(width, height)
+                world.initialize_map(matrix_file)
+
+            return SimulatorMotor(world, matrix_file, headless, single_run)
 
     def execute(self):
         """
@@ -85,6 +91,18 @@ class SimulatorMotor(Simulator):
         """
         print(f"--- Starting Evolutionary Process ---")
         print(f"Generations: {self.NUM_GENERATIONS} | Population: {self.POPULATION_SIZE}")
+
+        # If configured for a single run, skip the EA loop and execute one episode.
+        if getattr(self, 'single_run', False):
+            print("--- Single-run mode: executing one episode (no training) ---")
+            # Ensure we have at least one genotype to run
+            if not self.population:
+                self.population = [[Action.random_action() for _ in range(self.STEPS)]]
+
+            genotype = self.population[0]
+            stats = self._run_single_episode(genotype, headless=self.config_headless)
+            print(f"Single-run stats: {stats}")
+            return
 
         # 1. Setup Evolution
         action_space = Action.get_all_actions()
@@ -273,3 +291,45 @@ class SimulatorMotor(Simulator):
             print(">>> Replay skipped (Headless Mode) <<<")
 
         print("[System] Simulation shut down.")
+        
+        
+    @staticmethod
+    def create_single(matrix_file, headless=False):
+
+        """
+        TESTING PURPOSES ONLY - RUNS A SINGLE SIMULATION WITHOUT EVOLUTION
+        Create a simulator from a matrix file.
+        The matrix can be any size. Each character represents an object:
+        . empty, E egg, N nest, S stone, W wall, F farol, C chicken
+        """
+        # Read the matrix
+        try:
+            matrix = read_matrix_file_with_metadata(matrix_file)
+            print(f"Matrix loaded from {matrix_file}: {len(matrix)} rows x {len(matrix[0])} cols")
+
+        except Exception as e:
+            raise ValueError(f"Error reading matrix file: {e}")
+
+        # Create world of matching size
+
+        height = len(matrix)
+        width = len(matrix[0])
+
+        # Detect whether the matrix describes a coop world (has 'F') or foraging world
+
+        has_farol = any('F' in row for row in matrix)
+
+        if has_farol:
+            print("Creating CoopWorld")
+
+            # Step 2 — Create ID counters for coop world
+            world = CoopWorld(width, height)
+            world.initialize_map(filename=matrix_file)
+            return SimulatorMotor(world, matrix_file, headless, single_run=True)
+
+        else:
+            print("Creating ForagingWorld")
+            world = ForagingWorld(width, height)
+            # ForagingWorld has its own reader — delegate population to it and return early
+            world.initialize_map(filename=matrix_file)
+            return SimulatorMotor(world, matrix_file, headless, single_run=True)

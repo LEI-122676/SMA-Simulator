@@ -6,6 +6,8 @@ from Items.ChickenCoop import ChickenCoop
 from Items.Item import Item
 from Items.Pickable import Pickable
 from Simulators.Utilities import read_agent_config
+from Items.Egg import Egg
+from Items.Nest import Nest
 
 
 class ExplorerAgent(Agent):
@@ -23,7 +25,7 @@ class ExplorerAgent(Agent):
         self.observation = None
         self.step_index = 0
         self.inventory = []
-        self.communications = []
+        self.communications = []            # Acho que não faz sentido para NN
 
         self.behavior = set()
         self.path = []
@@ -62,7 +64,7 @@ class ExplorerAgent(Agent):
         if not self.learn_mode:
             return self.genotype[self.step_index]  # gene == action
         else:
-            if self.coop_vector != None:
+            if self.is_in_CoopWorld():
                 return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
             else:
                 return Action.random_action()
@@ -76,7 +78,6 @@ class ExplorerAgent(Agent):
         self.world = world
         self.coop_pos = self.sensor.get_coop_position() # usar self.sensor.get_item_position()
 
-
     def communicate(self, item: Item, from_agent: Agent):
         # Could check if it wants to accept the message or discard it according to who sent it
         message = {
@@ -87,6 +88,9 @@ class ExplorerAgent(Agent):
         }
 
         self.communications.append(message)
+        
+    def communicate_nest_positions(self, agents: list):
+        return self.found_nests
 
     def broadcast_info(self, item: Item, agents: list):
         for agent in agents:
@@ -98,7 +102,7 @@ class ExplorerAgent(Agent):
             return
 
         # Gets observation
-        observation = self.world.observation_for(self)                       # Phase 5.1
+        observation = self.world.observation_for(self)                      # Phase 5.1
         self.observe(observation)                                           # Phase 5.2
 
         # Decides what to do
@@ -113,6 +117,7 @@ class ExplorerAgent(Agent):
         if(self.step_index >= self.steps):
             return
         
+        self.update_found_nest()
         self.behavior.add(self.position)
         self.path.append(self.position)
 
@@ -125,5 +130,18 @@ class ExplorerAgent(Agent):
         item.drop()
         if item in self.inventory:
             self.inventory.remove(item)
+    
+    def is_in_CoopWorld(self):
+        return self.coop_vector is not None
 
-
+    def update_found_nest(self):
+        '''
+        append new found nest positions to self.found_nests
+        '''
+        x, y = self.position
+        tile = self.world.map[y][x]
+        if not isinstance(tile, Nest):
+            return
+        
+        self.found_nests.append(tile.position)
+        print(f"Found nest at position: {tile.position}")
