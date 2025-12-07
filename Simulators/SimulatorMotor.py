@@ -321,15 +321,12 @@ class SimulatorMotor(Simulator):
 
         if has_farol:
             print("Creating CoopWorld")
-
-            # Step 2 — Create ID counters for coop world
             world = CoopWorld(width, height)
-            world.initialize_map(filename=matrix_file)
+            world.initialize_map(matrix_file)
             return SimulatorMotor(world, matrix_file, headless, single_run=True)
 
         else:
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
-            # ForagingWorld has its own reader — delegate population to it and return early
-            world.initialize_map(filename=matrix_file)
+            world.initialize_map(matrix_file)
             return SimulatorMotor(world, matrix_file, headless, single_run=True)

@@ -24,6 +24,7 @@ class ExplorerAgent(Agent):
         self.sensor = None
         self.observation = None
         self.step_index = 0
+        self.found_nests = []              # List of found nest positions
         self.inventory = []
         self.communications = []            # Acho que não faz sentido para NN
 
@@ -142,6 +143,6 @@ class ExplorerAgent(Agent):
         tile = self.world.map[y][x]
         if not isinstance(tile, Nest):
             return
-        
-        self.found_nests.append(tile.position)
-        print(f"Found nest at position: {tile.position}")
+        if tile.position not in self.found_nests:
+            self.found_nests.append(tile.position)
+            print(f"Found nest at position: {tile.position}")

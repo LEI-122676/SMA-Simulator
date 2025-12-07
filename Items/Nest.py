@@ -3,7 +3,7 @@ from Items.Item import Item
 
 class Nest(Item):
 
-    def __init__(self, id, x, y):
+    def __init__(self, id, x=0, y=0):
         super().__init__("N", id, x, y)
         self.capacity = None
         self.num_of_items = 0
