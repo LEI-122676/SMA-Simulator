@@ -67,7 +67,7 @@ class Sensor:
         return None, None
 
     def get_coop_vector(self, explorer_position):
-        if self.coop_position is None:
+        if self.coop_position is (None, None):
             return None
 
         coop_x, coop_y = self.coop_position
