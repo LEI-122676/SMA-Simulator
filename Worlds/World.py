@@ -56,9 +56,9 @@ class World(Environment):
                     item.position = obj.position
                     totalReward += getattr(item, 'value', 0)
                     agent.discardItem(item)
-                    print(f"Deposited item {item.name} in Nest at {obj.position}")
-                    print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
-                    print(f"chicken has {len(agent.inventory)} items left in inventory.")
+                    #print(f"Deposited item {item.name} in Nest at {obj.position}")
+                    #print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
+                    #print(f"chicken has {len(agent.inventory)} items left in inventory.")
 
             # After depositing, check solved condition
             self.solved = self.is_solved()

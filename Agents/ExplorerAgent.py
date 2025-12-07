@@ -26,6 +26,7 @@ class ExplorerAgent(Agent):
         self.step_index = 0
         self.inventory: list[Pickable] = []
         self.communications = []                # Acho que não faz sentido para NN
+        self.found_nests = []
 
         self.behavior = set()
         self.path = []
@@ -114,7 +115,6 @@ class ExplorerAgent(Agent):
         # Even if it fails, we count the step
         self.step_index += 1
 
-        
         self.update_found_nest()
         self.behavior.add(self.position)
         self.path.append(self.position)
@@ -133,13 +133,13 @@ class ExplorerAgent(Agent):
         return self.coop_vector is not None
 
     def update_found_nest(self):
-        '''
-        append new found nest positions to self.found_nests
-        '''
+        """
+        Append new found nest positions to self.found_nests
+        """
         x, y = self.position
         tile = self.world.map[y][x]
         if not isinstance(tile, Nest):
             return
         if tile.position not in self.found_nests:
             self.found_nests.append(tile.position)
-            print(f"Found nest at position: {tile.position}")
+            #print(f"Found nest at position: {tile.position}")
