@@ -1,16 +1,14 @@
 import time
 import random
 import pickle
-import os
-from . import GeneticUtils as GU
+import GeneticUtils as GU
 from Actions.Action import Action
 
 # --- Imports for World/Agent Management ---
-from Worlds.World import World
 from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
-from Simulators.Utilities import read_matrix_file_with_metadata
+from Utilities import read_matrix_file_with_metadata
 
 
 class SimulatorMotor(Simulator):
@@ -22,8 +20,10 @@ class SimulatorMotor(Simulator):
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
+    P = 0.5                 # Weighting factor for fitness vs novelty!
+
     # Simulation Settings
-    STEPS = 500  # Genome length (Number of actions per agent)
+    STEPS = 200             # Genome length (Number of actions per agent)
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
@@ -89,6 +89,8 @@ class SimulatorMotor(Simulator):
         The 'Black Box' method.
         Runs the full Evolutionary Algorithm process.
         """
+
+        # --- A. Start Evolution ---
         print(f"--- Starting Evolutionary Process ---")
         print(f"Generations: {self.NUM_GENERATIONS} | Population: {self.POPULATION_SIZE}")
 
@@ -123,15 +125,13 @@ class SimulatorMotor(Simulator):
             print(f"Gen {gen + 1}/{self.NUM_GENERATIONS} evaluating...", end="\r")
 
             for genotype in self.population:
-                # Run a simulation episode for this genotype
+                # Run a simulation episode
                 team_stats = self._run_single_episode(genotype, headless=True)
 
-                # Calculate Team Novelty (Average of agents) using Jaccard Distance
+                # Calculate Team Novelty (Average of all agents for 1 episode)
                 team_novelty = 0
 
                 # Convert archive to sets for Jaccard comparison
-                # Note: final_positions are tuples (x,y), we convert them to sets {x, y}
-                # to satisfy the set intersection logic of Jaccard.
                 archive_sets = [set(p) for p in self.archive]
 
                 for pos in team_stats["final_positions"]:
@@ -141,7 +141,7 @@ class SimulatorMotor(Simulator):
                 avg_novelty = team_novelty / len(team_stats["final_positions"]) if team_stats["final_positions"] else 0
 
                 # Combined Fitness Calculation
-                combined_score = team_stats["fitness"] + (avg_novelty * 10.0)
+                combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 10.0))
 
                 result = {
                     "genotype": genotype,
@@ -152,12 +152,14 @@ class SimulatorMotor(Simulator):
                 }
                 evaluated_results.append(result)
 
+
             # --- B. Archive Update ---
             # Sort by Novelty descending
             evaluated_results.sort(key=lambda x: x["novelty"], reverse=True)
             for i in range(min(self.N_ARCHIVE_ADD, len(evaluated_results))):
                 for pos in evaluated_results[i]["final_positions"]:
                     self.archive.append(pos)
+
 
             # --- C. Statistics & Logging ---
             # Sort by Combined Fitness descending for selection
@@ -169,23 +171,26 @@ class SimulatorMotor(Simulator):
             if self.best_result_global is None or best_gen_result["combined"] > self.best_result_global["combined"]:
                 self.best_result_global = best_gen_result
 
-            print(
-                f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
+            print(f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
 
-            # --- D. Selection & Reproduction ---
+
+            # --- D. Artificial Selection & Reproduction ---
             new_population = []
 
             # Elitism
             sorted_genomes = [r["genotype"] for r in evaluated_results]
-            new_population.extend(sorted_genomes[:self.ELITISM_COUNT])
+            new_population.extend(sorted_genomes[:self.ELITISM_COUNT])      # Keeps the ELITISM_COUNT best individuals
 
             # Breeding
             while len(new_population) < self.POPULATION_SIZE:
+                # Choose the TOURNAMENT_SIZE best individuals from random samples
                 parent1 = GU.tournament_selection_dict(evaluated_results, self.TOURNAMENT_SIZE)
                 parent2 = GU.tournament_selection_dict(evaluated_results, self.TOURNAMENT_SIZE)
 
+                # Crossover
                 child1, child2 = GU.crossover_one_point(parent1["genotype"], parent2["genotype"])
 
+                # Mutation
                 GU.mutate_random_reset(child1, action_space, self.MUTATION_RATE)
                 GU.mutate_random_reset(child2, action_space, self.MUTATION_RATE)
 
@@ -195,7 +200,7 @@ class SimulatorMotor(Simulator):
 
             self.population = new_population
 
-        self.shut_down()
+        self._shut_down()
 
     def _run_single_episode(self, genotype, headless=True):
         """
@@ -222,18 +227,6 @@ class SimulatorMotor(Simulator):
             # Shuffle agents for fair cooperation
             agents = self.world.agents[:]
             random.shuffle(agents)
-            for agent in self.world.agents:                                 # Phase 5
-                if (agent.step_index >= agent.steps):
-                    print("Agent has completed all steps.")
-                    # Return partial statistics instead of None so evaluation can continue
-                    total_reward = sum(a.reward for a in self.world.agents)
-                    final_positions = [a.position for a in self.world.agents]
-                    return {
-                        "fitness": total_reward,
-                        "final_positions": final_positions
-                    }
-                else:
-                    agent.execute()
 
             for agent in agents:
                 agent.execute()
@@ -262,7 +255,7 @@ class SimulatorMotor(Simulator):
         print(">>> Replaying Best Strategy Visualized <<<")
         self._run_single_episode(genotype, headless=False)
 
-    def save_state(self):
+    def _save_state(self):
         """ Saves the current population, archive, and best result to a file. """
         state = {
             "population": self.population,
@@ -277,12 +270,12 @@ class SimulatorMotor(Simulator):
         except Exception as e:
             print(f"\n[System] Error saving state: {e}")
 
-    def shut_down(self):
+    def _shut_down(self):
         """ Handles the end of the simulation execution. """
         print(f"\n--- Evolution Complete. Best Combined Score: {self.best_result_global['combined']:.2f} ---")
 
         # Save state before closing
-        self.save_state()
+        self._save_state()
 
         # Visual Replay if allowed
         if not self.config_headless and self.best_result_global:
