@@ -17,9 +17,13 @@ class World(Environment):
         self.width = width
         self.height = height
         self.solved = False
-
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
+
+    def reset(self):
+        self.solved = False
+        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        self.agents = []
 
     def observation_for(self, explorer: ExplorerAgent):      # Phase 5.2
         return explorer.sensor.get_observation(explorer.position)
@@ -48,12 +52,9 @@ class World(Environment):
 
             for item in list(agent.inventory):
                 obj.put(item)
-                try:
-                    item.position = obj.position
-                except Exception:
-                    item.position = (x, y)
+                item.position = obj.position
 
-                totalReward += getattr(item, 'value', 0)
+                totalReward += item.value
                 agent.discardItem(item)
 
             # After depositing, check solved condition

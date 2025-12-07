@@ -2,12 +2,10 @@ from Simulators.SimulatorMotor import SimulatorMotor
 
 
 def main():
-    # Toggle headless here:
-    #   True     =    No graphics (faster, no replay)
-    #   False    =    Show graphics (visual replay of best agent)
-    run_headless = False
+    headless = False         # True == no graphics
+    single_run = True      # True --> Debug 1 episode
 
-    simulator_farol = SimulatorMotor.create("Levels/foraging_level2.txt", headless=run_headless, single_run=True) # TODO - test_mode=True
+    simulator_farol = SimulatorMotor.create("Levels/farol_level1.txt", headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
 
 if __name__ == "__main__":

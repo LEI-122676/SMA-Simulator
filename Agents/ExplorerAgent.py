@@ -24,8 +24,7 @@ class ExplorerAgent(Agent):
         self.sensor = None
         self.observation = None
         self.step_index = 0
-        self.found_nests = []              # List of found nest positions
-        self.inventory = []
+        self.inventory: list[Pickable] = []
         self.communications = []            # Acho que não faz sentido para NN
 
         self.behavior = set()
@@ -35,28 +34,26 @@ class ExplorerAgent(Agent):
         self.reward = 0
         #self.noveltyScore = 0.0
 
-    @staticmethod
-    def create(self, file_name: str):
+    @classmethod
+    def create(cls, file_name: str):
         """
         Create an ExplorerAgent from a configuration file.
         """
         config = read_agent_config(file_name)
 
         learn_mode = config.get("learn_mode", "False").lower() == "true"
-        self.steps = int(config.get("steps", 5000))
+        steps = int(config.get("steps", 5000))
         
         # Optionally allow a custom genotype file
         genotype_file = config.get("genotype_file", None)
-        self.genotype = None
+        genotype = None
         if genotype_file:
             # TODO : genotype file logic
             # If file exists, read actions from it
             # For simplicity, here we just generate random actions as placeholder
-            self.genotype = [Action.random_action() for _ in range(self.steps)]
+            genotype = [Action.random_action() for _ in range(steps)]
 
-        explorer = ExplorerAgent(learn_mode, self.steps, self.genotype)
-
-        return explorer
+        return cls(learn_mode, steps, genotype)
 
     def observe(self, observation: Observation): # Phase 5.2 TODO - isto n esta a ser usado...
         self.observation = observation
@@ -77,7 +74,7 @@ class ExplorerAgent(Agent):
     def install(self, sensor: Sensor, world):
         self.sensor = sensor
         self.world = world
-        self.coop_pos = self.sensor.get_coop_position() # usar self.sensor.get_item_position()
+        self.coop_vector = self.sensor.get_coop_position() # TODO - trocar esta funcao self.sensor.get_coop_position() & self.coop_vector tem de ser updated a cada passo (para a rede neuronal usar nos inputs)
 
     def communicate(self, item: Item, from_agent: Agent):
         # Could check if it wants to accept the message or discard it according to who sent it
@@ -91,6 +88,7 @@ class ExplorerAgent(Agent):
         self.communications.append(message)
         
     def communicate_nest_positions(self, agents: list):
+        # TODO
         return self.found_nests
 
     def broadcast_info(self, item: Item, agents: list):
@@ -114,9 +112,7 @@ class ExplorerAgent(Agent):
 
         # Even if it fails, we count the step
         self.step_index += 1
-        
-        if(self.step_index >= self.steps):
-            return
+
         
         self.update_found_nest()
         self.behavior.add(self.position)
