@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="+.pkl to ignore">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="P added Motor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/best_explorer.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -526,7 +531,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765032465241</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="P added Motor">
+      <option name="closed" value="true" />
+      <created>1765121199674</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1765121199674</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -587,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Phases 5-&gt;6" />
     <MESSAGE value="+Move,Collect,Deposit&#10;+Phase5-7" />
     <MESSAGE value="+8 directions" />
     <MESSAGE value="Item attributes tweaks" />
@@ -612,7 +624,8 @@
     <MESSAGE value="+Motor with genes" />
     <MESSAGE value="Change Euclidean to Jaccard" />
     <MESSAGE value="+.pkl to ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="+.pkl to ignore" />
+    <MESSAGE value="P added Motor" />
+    <option name="LAST_COMMIT_MESSAGE" value="P added Motor" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

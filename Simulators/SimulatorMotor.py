@@ -215,7 +215,7 @@ class SimulatorMotor(Simulator):
             agent.genotype = genotype
             agent.learn_mode = True
 
-            # Execution Loop
+        # Execution Loop
         self.running = True
         time_limit = self.TIME_LIMIT
         time_step = self.TIME_PER_STEP_HEADLESS if headless else self.TIME_PER_STEP_VISUAL

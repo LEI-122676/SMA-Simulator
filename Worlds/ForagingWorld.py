@@ -17,13 +17,11 @@ class ForagingWorld(World):
         self.eggs = []
 
     def initialize_map(self, file_name=None, numEggs=1, numNests=1):
-
-        # Resets everything
-        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        # Resets everything (for next simulation run)
+        self.reset()
         self.eggs = []
         self.nests = []
         self.stones = []
-        self.agents = []
 
         if file_name is None:
         # Certificar que a posição está livre

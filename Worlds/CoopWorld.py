@@ -14,10 +14,8 @@ class CoopWorld(World):
         self.chicken_coop = None
 
     def initialize_map(self, filename=None):
-
-        # Resets everything
-        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
-        self.agents = []
+        # Resets everything (for next simulation run)
+        self.reset()
         self.chicken_coop = None
 
         if filename is None:
