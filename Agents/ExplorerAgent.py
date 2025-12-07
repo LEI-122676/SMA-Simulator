@@ -19,20 +19,18 @@ class ExplorerAgent(Agent):
         self.learn_mode = learn_mode
         self.steps = steps
         self.genotype = None
-        self.coop_vector = None            # Needed for neural network
+        self.coop_vector = None                 # Needed for neural network
 
         self.sensor = None
         self.observation = None
         self.step_index = 0
         self.inventory: list[Pickable] = []
-        self.communications = []            # Acho que não faz sentido para NN
+        self.communications = []                # Acho que não faz sentido para NN
 
         self.behavior = set()
         self.path = []
-        
         self.combined_fitness = 0.0
         self.reward = 0
-        #self.noveltyScore = 0.0
 
     @classmethod
     def create(cls, file_name: str):
@@ -63,7 +61,7 @@ class ExplorerAgent(Agent):
             return self.genotype[self.step_index]  # gene == action
         else:
             if self.is_in_CoopWorld():
-                return ChickenCoop.get_action((self.sensor.get_coop_position()), self.position)
+                return ChickenCoop.get_action(self.sensor.coop_position, self.position)
             else:
                 return Action.random_action()
 
@@ -74,7 +72,10 @@ class ExplorerAgent(Agent):
     def install(self, sensor: Sensor, world):
         self.sensor = sensor
         self.world = world
-        self.coop_vector = self.sensor.get_coop_position() # TODO - trocar esta funcao self.sensor.get_coop_position() & self.coop_vector tem de ser updated a cada passo (para a rede neuronal usar nos inputs)
+        self.update_coop_vector() # TODO - trocar esta funcao self.sensor.get_coop_position() & self.coop_vector tem de ser updated a cada passo (para a rede neuronal usar nos inputs)
+
+    def update_coop_vector(self):
+        self.coop_vector = self.sensor.get_coop_vector(self.position)
 
     def communicate(self, item: Item, from_agent: Agent):
         # Could check if it wants to accept the message or discard it according to who sent it

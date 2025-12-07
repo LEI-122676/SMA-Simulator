@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Evolves genotypes, should evolve NT">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Simplified single_run logic in Motor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,12 +122,13 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop/UNI/3ºANO/1ºSemestre/AA/exercicios/SMA-Simulator&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tigago/Documents/University/Ano3/Sem1/AA/project/SMA-Simulator/Levels&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Levels" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -545,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765125089562</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Simplified single_run logic in Motor">
+      <option name="closed" value="true" />
+      <created>1765126452383</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1765126452383</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Simplified single_run logic in Motor">
+      <option name="closed" value="true" />
+      <created>1765126611351</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1765126611351</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -585,7 +603,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/pedro" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
@@ -606,7 +624,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+8 directions" />
     <MESSAGE value="Item attributes tweaks" />
     <MESSAGE value="cleaned ExplorerAgent" />
     <MESSAGE value="+best_explorer.txt" />
@@ -631,7 +648,8 @@
     <MESSAGE value="+.pkl to ignore" />
     <MESSAGE value="P added Motor" />
     <MESSAGE value="Evolves genotypes, should evolve NT" />
-    <option name="LAST_COMMIT_MESSAGE" value="Evolves genotypes, should evolve NT" />
+    <MESSAGE value="Simplified single_run logic in Motor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplified single_run logic in Motor" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

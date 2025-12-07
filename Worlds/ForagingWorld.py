@@ -23,7 +23,7 @@ class ForagingWorld(World):
         self.nests = []
         self.stones = []
 
-        if file_name is None:
+        if file_name:
             self.read_foraging_file(file_name)
         else:
             # Certificar que a posição está livre

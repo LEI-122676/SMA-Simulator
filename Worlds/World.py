@@ -94,7 +94,7 @@ class World(Environment):
 
         return newx, newy
 
-    def add_agent(self,agent: ExplorerAgent, position):
+    def add_agent(self, agent: ExplorerAgent, position):
         agent.position = position                 # TODO - colocar o agente na posicao inicial?
         self.agents.append(agent)
         agent.install(Sensor(self.map), self)
