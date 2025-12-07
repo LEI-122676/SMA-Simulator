@@ -6,13 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="P added Motor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/Chicken.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/Chicken.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/best_explorer.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

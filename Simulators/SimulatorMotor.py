@@ -288,7 +288,6 @@ class SimulatorMotor(Simulator):
         
     @staticmethod
     def create_single(matrix_file, headless=False):
-
         """
         TESTING PURPOSES ONLY - RUNS A SINGLE SIMULATION WITHOUT EVOLUTION
         Create a simulator from a matrix file.
@@ -321,5 +320,6 @@ class SimulatorMotor(Simulator):
         else:
             print("Creating ForagingWorld")
             world = ForagingWorld(width, height)
+            # ForagingWorld has its own reader — delegate population to it and return early
             world.initialize_map(matrix_file)
             return SimulatorMotor(world, matrix_file, headless, single_run=True)

@@ -52,12 +52,9 @@ class World(Environment):
 
             for item in list(agent.inventory):
                 obj.put(item)
-                try:
-                    item.position = obj.position
-                except Exception:
-                    item.position = (x, y)
+                item.position = obj.position
 
-                totalReward += getattr(item, 'value', 0)
+                totalReward += item.value
                 agent.discardItem(item)
 
             # After depositing, check solved condition
