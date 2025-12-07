@@ -23,7 +23,7 @@ class ForagingWorld(World):
         self.nests = []
         self.stones = []
 
-        if file_name is None:
+        if file_name:
             self.read_foraging_file(file_name)
         else:
             # Certificar que a posição está livre
@@ -57,7 +57,7 @@ class ForagingWorld(World):
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
         if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
-            print("World is solved!")
+            #print("World is solved!")
             return True
         return False
 

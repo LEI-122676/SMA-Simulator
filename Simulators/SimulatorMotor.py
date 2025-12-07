@@ -10,6 +10,7 @@ from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
 from Simulators.Utilities import read_matrix_file_with_metadata
 
+
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
     POPULATION_SIZE = 50

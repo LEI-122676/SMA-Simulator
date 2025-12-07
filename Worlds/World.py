@@ -56,9 +56,9 @@ class World(Environment):
                     item.position = obj.position
                     totalReward += getattr(item, 'value', 0)
                     agent.discardItem(item)
-                    print(f"Deposited item {item.name} in Nest at {obj.position}")
-                    print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
-                    print(f"chicken has {len(agent.inventory)} items left in inventory.")
+                    #print(f"Deposited item {item.name} in Nest at {obj.position}")
+                    #print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
+                    #print(f"chicken has {len(agent.inventory)} items left in inventory.")
 
             # After depositing, check solved condition
             self.solved = self.is_solved()
@@ -94,7 +94,7 @@ class World(Environment):
 
         return newx, newy
 
-    def add_agent(self,agent: ExplorerAgent, position):
+    def add_agent(self, agent: ExplorerAgent, position):
         agent.position = position                 # TODO - colocar o agente na posicao inicial?
         self.agents.append(agent)
         agent.install(Sensor(self.map), self)
