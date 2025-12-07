@@ -17,16 +17,16 @@ class ForagingWorld(World):
         self.eggs = []
 
     def initialize_map(self, file_name=None, numEggs=1, numNests=1):
-
-        # Resets everything
-        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        # Resets everything (for next simulation run)
+        self.reset()
         self.eggs = []
         self.nests = []
         self.stones = []
-        self.agents = []
 
         if file_name is None:
-        # Certificar que a posição está livre
+            self.read_foraging_file(file_name)
+        else:
+            # Certificar que a posição está livre
             def place_unique():
                 while True:
                     x = random.randint(0, self.width - 1)
@@ -54,14 +54,12 @@ class ForagingWorld(World):
                 self.nests.append(nest)
                 self.map[y][x] = nest
 
-        else:
-            self.read_foraging_file(file_name)
-
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
         if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
             print("World is solved!")
             return True
+        return False
 
     def read_foraging_file(self, filename):
         with open(filename, 'r') as file:
@@ -97,9 +95,7 @@ class ForagingWorld(World):
                     self.map[y][x] = wall
                     id_counters["wall"] += 1
                 elif char == "C":
-                    chicken = Chicken()
-                    chicken.initialize_chicken_from_file(filename="Agents/example_agent.txt")
-                    print("chicken.steps:", chicken.steps)
+                    chicken = Chicken.create("Agents/chicken_compose.txt")
                     self.add_agent(chicken,(x, y))
                     id_counters["chicken"] += 1
                 else:

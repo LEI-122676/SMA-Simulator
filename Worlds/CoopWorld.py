@@ -14,13 +14,13 @@ class CoopWorld(World):
         self.chicken_coop = None
 
     def initialize_map(self, filename=None):
-
-        # Resets everything
-        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
-        self.agents = []
+        # Resets everything (for next simulation run)
+        self.reset()
         self.chicken_coop = None
 
-        if filename is None:
+        if filename:
+            self.read_coop_file(filename)
+        else:
             attempts = 0
             max_attempts = self.width * self.height
 
@@ -38,17 +38,6 @@ class CoopWorld(World):
                 self.chicken_coop = ChickenCoop(x,y)
                 self.map[y][x] = self.chicken_coop
                 break
-        else:
-            self.read_coop_file(filename)
-
-        """
-        # Colocar as galinhas -> todas lado a lado na primeira fila
-        for n in range(numChickens):
-            x, y = n, 0
-            chicken = Chicken(n, x, y)
-            self.agents.append(chicken)
-            self.map[y][x] = chicken
-        """
 
     def read_coop_file(self, filename):
         with open(filename, 'r') as file:
@@ -70,8 +59,7 @@ class CoopWorld(World):
                     self.chicken_coop = coop
                     id_counter["farol"] += 1
                 elif char == "C":
-                    chicken = Chicken()
-                    chicken.initialize_chicken_from_file(filename="Agents/example_agent.txt")
+                    chicken = Chicken.create("Agents/chicken_compose.txt")
                     self.add_agent(chicken,(x, y))
                     id_counter["chicken"] += 1
                 else:

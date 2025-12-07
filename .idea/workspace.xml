@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Change Euclidean to Jaccard" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Evolves genotypes, should evolve NT">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -514,7 +521,31 @@
       <option name="project" value="LOCAL" />
       <updated>1765027771231</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="+.pkl to ignore">
+      <option name="closed" value="true" />
+      <created>1765032465241</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1765032465241</updated>
+    </task>
+    <task id="LOCAL-00044" summary="P added Motor">
+      <option name="closed" value="true" />
+      <created>1765121199674</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1765121199674</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Evolves genotypes, should evolve NT">
+      <option name="closed" value="true" />
+      <created>1765125089562</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1765125089562</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -575,9 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+Action" />
-    <MESSAGE value="Phases 5-&gt;6" />
-    <MESSAGE value="+Move,Collect,Deposit&#10;+Phase5-7" />
     <MESSAGE value="+8 directions" />
     <MESSAGE value="Item attributes tweaks" />
     <MESSAGE value="cleaned ExplorerAgent" />
@@ -600,7 +628,10 @@
     <MESSAGE value="+GeneticUtils.py" />
     <MESSAGE value="+Motor with genes" />
     <MESSAGE value="Change Euclidean to Jaccard" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Euclidean to Jaccard" />
+    <MESSAGE value="+.pkl to ignore" />
+    <MESSAGE value="P added Motor" />
+    <MESSAGE value="Evolves genotypes, should evolve NT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Evolves genotypes, should evolve NT" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

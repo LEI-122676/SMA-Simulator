@@ -17,9 +17,13 @@ class World(Environment):
         self.width = width
         self.height = height
         self.solved = False
-
         self.map = [[None for _ in range(width)] for _ in range(height)]
         self.agents = []                                    # Phase 3
+
+    def reset(self):
+        self.solved = False
+        self.map = [[None for _ in range(self.width)] for _ in range(self.height)]
+        self.agents = []
 
     def observation_for(self, explorer: ExplorerAgent):      # Phase 5.2
         return explorer.sensor.get_observation(explorer.position)
@@ -47,6 +51,7 @@ class World(Environment):
             totalReward = 0
 
             for item in list(agent.inventory):
+
                 if obj.put(item):
                     item.position = obj.position
                     totalReward += getattr(item, 'value', 0)

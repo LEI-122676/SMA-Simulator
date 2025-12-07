@@ -8,9 +8,9 @@ from Actions.Sensor import Sensor
 
 class Agent(ABC):
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def create(fileNameArgs: str):
+    def create(cls, fileNameArgs: str):
         pass
 
     @abstractmethod
