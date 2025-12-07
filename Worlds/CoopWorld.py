@@ -18,7 +18,9 @@ class CoopWorld(World):
         self.reset()
         self.chicken_coop = None
 
-        if filename is None:
+        if filename:
+            self.read_coop_file(filename)
+        else:
             attempts = 0
             max_attempts = self.width * self.height
 
@@ -36,17 +38,6 @@ class CoopWorld(World):
                 self.chicken_coop = ChickenCoop(x,y)
                 self.map[y][x] = self.chicken_coop
                 break
-        else:
-            self.read_coop_file(filename)
-
-        """
-        # Colocar as galinhas -> todas lado a lado na primeira fila
-        for n in range(numChickens):
-            x, y = n, 0
-            chicken = Chicken(n, x, y)
-            self.agents.append(chicken)
-            self.map[y][x] = chicken
-        """
 
     def read_coop_file(self, filename):
         with open(filename, 'r') as file:

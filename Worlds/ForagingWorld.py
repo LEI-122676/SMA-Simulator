@@ -24,7 +24,9 @@ class ForagingWorld(World):
         self.stones = []
 
         if file_name is None:
-        # Certificar que a posição está livre
+            self.read_foraging_file(file_name)
+        else:
+            # Certificar que a posição está livre
             def place_unique():
                 while True:
                     x = random.randint(0, self.width - 1)
@@ -51,9 +53,6 @@ class ForagingWorld(World):
                 nest.position = (x, y)
                 self.nests.append(nest)
                 self.map[y][x] = nest
-
-        else:
-            self.read_foraging_file(file_name)
 
     def is_solved(self):
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
