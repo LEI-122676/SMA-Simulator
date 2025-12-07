@@ -51,11 +51,14 @@ class World(Environment):
             totalReward = 0
 
             for item in list(agent.inventory):
-                obj.put(item)
-                item.position = obj.position
 
-                totalReward += item.value
-                agent.discardItem(item)
+                if obj.put(item):
+                    item.position = obj.position
+                    totalReward += getattr(item, 'value', 0)
+                    agent.discardItem(item)
+                    print(f"Deposited item {item.name} in Nest at {obj.position}")
+                    print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
+                    print(f"chicken has {len(agent.inventory)} items left in inventory.")
 
             # After depositing, check solved condition
             self.solved = self.is_solved()
@@ -118,6 +121,7 @@ class World(Environment):
                 else:
                     row += ". "
             print(row)
+        print("\n")
 
     def broadcast(self, message, from_agent):
         for agent in self.agents:

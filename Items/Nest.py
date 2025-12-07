@@ -19,5 +19,9 @@ class Nest(Item):
         if self.num_of_items + 1 <= self.capacity:
             self.num_of_items += 1
             return True
-
+        
+        if self.num_of_items == self.capacity:
+            print("Nest is full!")
+            print("Capacity:", self.capacity)
+        
         return False

@@ -50,7 +50,7 @@ class CoopWorld(World):
                 if char == ".":
                     continue
                 elif char == "W":
-                    wall = Wall((id_counter["wall"]+1) * 100 )
+                    wall = Wall((id_counter["wall"]+1) * 100, x, y)
                     self.map[y][x] = wall
                     id_counter["wall"] += 1
                 elif char == "F":
