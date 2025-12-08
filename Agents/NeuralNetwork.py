@@ -1,10 +1,14 @@
 import numpy as np
 
+from Actions.Action import Action
+
 
 class NeuralNetwork:
 
-    def __init__(self, input_size, hidden_architecture, hidden_activation, output_activation):
+    def __init__(self, input_size, output_size, hidden_architecture, hidden_activation, output_activation):
         self.input_size = input_size #dado pelo sensor?
+        self.output_size = output_size
+
         self.hidden_architecture = hidden_architecture #tuple with the number of neurons in each hidden layer: (5, 2)-> 2 hidden layers, 1st has 5n and 2nd has 2n
         # The activations are functions
         self.hidden_activation = hidden_activation
@@ -13,14 +17,15 @@ class NeuralNetwork:
     def compute_num_weights(self):
         total = 0
         input_size = self.input_size
+        output_size = len(Action)
 
         for n in self.hidden_architecture:
             total += n  # Biases
             total += input_size * n
             input_size = n
 
-        total += 1  # Bias do output
-        total += input_size  # Pesos do output
+        total += output_size  # Bias do output
+        total += input_size * output_size  # Pesos do output
 
         return total
 
@@ -39,8 +44,8 @@ class NeuralNetwork:
             start_w = end_w
             input_size = n
 
-        self.output_bias = w[start_w]
-        self.output_weights = w[start_w + 1:]
+        self.output_bias = w[start_w:start_w + self.output_size]
+        self.output_weights = w[start_w + self.output_size:].reshape(input_size, self.output_size)
 
     def forward(self, x):
         a = np.array(x)
@@ -54,8 +59,10 @@ class NeuralNetwork:
 def create_network_architecture(input_size):
     # hidden_architecture = ()                      # () = 1 perceptrão (input -> output)
     # hidden_architecture = (3,)                      # (x,) = 1 camada escondida com x neurónios
-    hidden_architecture = (2,)  # (x, y) = 2 camadas escondidas (a primeira com x e a segunda com y neurónios)
+    hidden_architecture = (8,)
 
     hidden_fn = lambda x: 1 / (1 + np.exp(-x))  # Função logística
-    output_fn = lambda x: 1 if x > 0 else -1
-    return NeuralNetwork(input_size, hidden_architecture, hidden_fn, output_fn)
+    output_fn = lambda x: x
+
+    output_size = 4 # N, S, E, W
+    return NeuralNetwork(input_size, output_size, hidden_architecture, hidden_fn, output_fn)

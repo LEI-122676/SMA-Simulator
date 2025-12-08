@@ -12,7 +12,7 @@ from Items.Nest import Nest
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, learn_mode=True, steps=200, genotype=None):
+    def __init__(self, learn_mode=True, steps=200, genotype=None, nn=None):
         self.position = None
         self.world = None
 
@@ -32,6 +32,7 @@ class ExplorerAgent(Agent):
         self.path = []
         self.combined_fitness = 0.0
         self.reward = 0
+        self.nn = nn
 
     @classmethod
     def create(cls, file_name: str):
@@ -58,13 +59,67 @@ class ExplorerAgent(Agent):
         self.observation = observation
 
     def act(self) -> Action:
-        if not self.learn_mode:
-            return self.genotype[self.step_index]  # gene == action
+        if self.learn_mode:
+            if self.nn is not None:
+                return self.nn_decide_action()
+            else:
+                if self.coop_vector is not None:
+                    return ChickenCoop.get_action(self.coop_vector, self.position)
+                else:
+                    return Action.random_action()
         else:
-            if self.is_in_CoopWorld():
-                return ChickenCoop.get_action(self.sensor.coop_position, self.position)
+            return self.genotype[self.step_index]
+
+    def get_nn_inputs(self):
+        if self.observation is None:
+            return [0.0] * 10
+
+        inputs = []
+
+        max_range = self.sensor.max_range
+        directions = ["North", "NorthEast", "East", "SouthEast",
+                      "South", "SouthWest", "West", "NorthWest"]
+
+        for direction in directions:
+            distance = self.observation.possible_actions.get(direction, 0)
+            normalized_distance = distance / max_range
+            inputs.append(normalized_distance)
+
+        # se for foraging
+        has_item = 1.0 if len(self.inventory) > 0 else 0.0
+        inputs.append(has_item)
+
+        # normalizacao dist to cooop
+        if self.coop_vector is not None:
+            coop_x, coop_y = self.coop_vector
+            px, py = self.position
+
+            dx = abs(coop_x - px)
+            dy = abs(coop_y - py)
+            max_dist = self.world.width + self.world.height if self.world else 60
+
+            norm_distance = (dx + dy) / max_dist
+            inputs.append(norm_distance)
+        else:
+            inputs.append(0.5)  # Neutral value if coop position unknown
+
+        return inputs
+
+    def nn_decide_action(self):
+        inputs = self.get_nn_inputs()
+        output = self.nn.forward(inputs)
+
+        # Map neural network output to action
+        # Output is 1 or -1 from binary step function
+        if output > 0:
+            # Move towards coop
+            if self.coop_vector is not None:
+                return ChickenCoop.get_action(self.coop_vector, self.position)
             else:
                 return Action.random_action()
+        else:
+            # Explore randomly
+            return Action.random_action()
 
     def evaluateCurrentState(self, reward: float):
         """ Accumulates "raw" reward during an Agent's life. """
