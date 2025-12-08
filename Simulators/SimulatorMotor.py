@@ -235,7 +235,6 @@ class SimulatorMotor(Simulator):
                 agent.execute()
 
             if self.world.is_over():
-                print("World solved!")
                 self.running = False
 
             time_limit -= 0.05
