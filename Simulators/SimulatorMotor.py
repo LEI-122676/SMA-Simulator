@@ -1,6 +1,7 @@
 import time
 import random
 import pickle
+import numpy as np
 from . import GeneticUtils as GU
 from Actions.Action import Action
 
@@ -9,21 +10,24 @@ from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
 from Simulators.Utilities import read_matrix_file_with_metadata
+from Agents.NeuralNetwork import create_network_architecture  # Ensure this import works
 
 
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
     POPULATION_SIZE = 50
     NUM_GENERATIONS = 30
-    MUTATION_RATE = 0.02
+    MUTATION_RATE = 0.05  # Slightly higher for weights
+    MUTATION_SIGMA = 0.2  # Standard deviation for weight mutation
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.5                 # Weighting factor for fitness vs novelty!
+    P = 0.5  # Weighting factor for fitness vs novelty!
 
     # Simulation Settings
-    STEPS = 200             # Genome length (Number of actions per agent)
+    # STEPS is now just a timeout, not genome length
+    STEPS = 400
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
@@ -38,30 +42,26 @@ class SimulatorMotor(Simulator):
         """
         self.world = world
         self.map_file_path = map_file_path
-        self.running = False
+        self.running = True
 
         # Configuration for the simulation run
         self.config_headless = headless
-
-        # Dynamic state variable (toggled during execution)
-        self.headless = headless
-
-        # Single-run mode (skip evolutionary loop, execute one episode)
         self.single_run = single_run
 
-        # Evolutionary State (Instance variables for persistence)
+        # Evolutionary State
         self.population = []
         self.archive = []
         self.best_result_global = None
         self.current_generation = 0
 
+        # Determine Genome Size based on NN Architecture
+        # Input size must match ExplorerAgent.get_nn_inputs() -> 10 inputs
+        dummy_nn = create_network_architecture(10)
+        self.genome_size = dummy_nn.compute_num_weights()
+        print(f"Neuroevolution initialized. Genome Size (Weights): {self.genome_size}")
+
     @staticmethod
     def create(matrix_file, headless=False, single_run=False):
-        """
-        Factory method: Reads the file and returns a configured SimulatorMotor.
-        Accepts a headless boolean to control visualization.
-        """
-
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
         except Exception as e:
@@ -87,36 +87,30 @@ class SimulatorMotor(Simulator):
         The 'Black Box' method.
         Runs the full Evolutionary Algorithm process.
         """
-        # --- A. Start Evolution ---
         print(f"--- Starting Evolutionary Process ---")
         print(f"Generations: {self.NUM_GENERATIONS} | Population: {self.POPULATION_SIZE}")
 
-        # If configured for a single run, skip the EA loop and execute one episode.
-        if self.single_run:
-            print("--- Single-run mode: executing one episode (no training) ---")
-            # Ensure we have at least one genotype to run
-            if not self.population:
-                self.population = [[Action.random_action() for _ in range(self.STEPS)]]
+        # 1. Initialize Population (Weights instead of Actions)
+        if not self.population:
+            for _ in range(self.POPULATION_SIZE):
+                # Initialize random weights between -1 and 1
+                weights = np.random.uniform(-1, 1, self.genome_size).tolist()
+                self.population.append(weights)
 
-            genotype = self.population[0]
-            stats = self._run_single_episode(genotype, headless=self.config_headless)
+        # Single Run Mode
+        if self.single_run:
+            print("--- Single-run mode: executing one episode ---")
+            stats = self._run_single_episode(self.population[0], headless=self.config_headless)
             print(f"Single-run stats: {stats}")
             return
 
-        # 1. Setup Evolution
-        action_space = Action.get_all_actions()
-
-        # 2. Initialize Population (if not loaded from save)
-        if not self.population:
-            for _ in range(self.POPULATION_SIZE):
-                genes = [Action.random_action() for _ in range(self.STEPS)]
-                self.population.append(genes)
-
-        # 3. Main Generational Loop
+        # 2. Main Generational Loop
         for gen in range(self.current_generation, self.NUM_GENERATIONS):
-            self.current_generation = gen
+            if not self.running:  # Check if simulation was stopped externally
+                break
 
-            evaluated_results = []  # Stores {stats, genotype}
+            self.current_generation = gen
+            evaluated_results = []
 
             # --- A. Evaluation Phase ---
             print(f"Gen {gen + 1}/{self.NUM_GENERATIONS} evaluating...", end="\r")
@@ -125,19 +119,15 @@ class SimulatorMotor(Simulator):
                 # Run a simulation episode
                 team_stats = self._run_single_episode(genotype, headless=True)
 
-                # Calculate Team Novelty (Average of all agents for 1 episode)
+                # Novelty Calculation (Jaccard)
                 team_novelty = 0
-
-                # Convert archive to sets for Jaccard comparison
                 archive_sets = [set(p) for p in self.archive]
 
                 for pos in team_stats["final_positions"]:
-                    # Pass the position as a set {x, y}
                     team_novelty += GU.compute_novelty(set(pos), archive_sets)
 
                 avg_novelty = team_novelty / len(team_stats["final_positions"]) if team_stats["final_positions"] else 0
 
-                # Combined Fitness Calculation
                 combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 10.0))
 
                 result = {
@@ -149,47 +139,40 @@ class SimulatorMotor(Simulator):
                 }
                 evaluated_results.append(result)
 
-
-            # --- B. Archive Update ---
-            # Sort by Novelty descending
+            # --- B. Archive & Stats ---
             evaluated_results.sort(key=lambda x: x["novelty"], reverse=True)
             for i in range(min(self.N_ARCHIVE_ADD, len(evaluated_results))):
                 for pos in evaluated_results[i]["final_positions"]:
                     self.archive.append(pos)
 
-
-            # --- C. Statistics & Logging ---
-            # Sort by Combined Fitness descending for selection
             evaluated_results.sort(key=lambda x: x["combined"], reverse=True)
             best_gen_result = evaluated_results[0]
             avg_score = sum(r["combined"] for r in evaluated_results) / self.POPULATION_SIZE
 
-            # Update global best
             if self.best_result_global is None or best_gen_result["combined"] > self.best_result_global["combined"]:
                 self.best_result_global = best_gen_result
 
-            print(f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
+            print(
+                f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
 
-
-            # --- D. Artificial Selection & Reproduction ---
+            # --- C. Reproduction (Neuroevolution) ---
             new_population = []
 
             # Elitism
             sorted_genomes = [r["genotype"] for r in evaluated_results]
-            new_population.extend(sorted_genomes[:self.ELITISM_COUNT])      # Keeps the ELITISM_COUNT best individuals
+            new_population.extend(sorted_genomes[:self.ELITISM_COUNT])
 
             # Breeding
             while len(new_population) < self.POPULATION_SIZE:
-                # Choose the TOURNAMENT_SIZE best individuals from random samples
                 parent1 = GU.tournament_selection_dict(evaluated_results, self.TOURNAMENT_SIZE)
                 parent2 = GU.tournament_selection_dict(evaluated_results, self.TOURNAMENT_SIZE)
 
-                # Crossover
+                # Crossover (list of floats)
                 child1, child2 = GU.crossover_one_point(parent1["genotype"], parent2["genotype"])
 
-                # Mutation
-                GU.mutate_random_reset(child1, action_space, self.MUTATION_RATE)
-                GU.mutate_random_reset(child2, action_space, self.MUTATION_RATE)
+                # Mutation (Gaussian noise for weights)
+                GU.mutate_weights_gaussian(child1, self.MUTATION_RATE, self.MUTATION_SIGMA)
+                GU.mutate_weights_gaussian(child2, self.MUTATION_RATE, self.MUTATION_SIGMA)
 
                 new_population.append(child1)
                 if len(new_population) < self.POPULATION_SIZE:
@@ -201,46 +184,60 @@ class SimulatorMotor(Simulator):
 
     def _run_single_episode(self, genotype, headless=True):
         """
-        Helper: Sets up a world, applies the genotype, and runs it until completion.
-        Returns: Dictionary of collected statistics.
+        Runs one episode.
+        1. Creates Neural Network.
+        2. Loads 'genotype' (weights) into NN.
+        3. Installs NN into agents.
         """
         self.world.initialize_map(self.map_file_path)
-        self.headless = headless
 
-        # Inject Brain (Genotype)
+        # --- NEUROEVOLUTION SETUP ---
+        # Create the Brain and inject the Genome
         for agent in self.world.agents:
-            agent.genotype = genotype
-            agent.learn_mode = True
+            # 1. Create Brain (10 inputs)
+            nn = create_network_architecture(10)
+            # 2. Load Genome (Weights)
+            nn.load_weights(genotype)
+            # 3. Install Brain
+            agent.nn = nn
+            agent.learn_mode = True  # Use NN, not random fallback
 
-        # Execution Loop
-        self.running = True
+        # --- EPISODE LOOP ---
+        # Renamed variable to avoid conflict with Simulator's global state
+        episode_running = True
         time_limit = self.TIME_LIMIT
         time_step = self.TIME_PER_STEP_HEADLESS if headless else self.TIME_PER_STEP_VISUAL
 
-        while self.running:
-            if not self.headless:
+        # Also check self.running to allow global "Stop" button to kill the loop immediately
+        while episode_running and self.running:
+            if not headless:
                 self.world.show_world()
 
-            # Shuffle agents for fair cooperation
             agents = self.world.agents[:]
             random.shuffle(agents)
 
             for agent in agents:
                 agent.execute()
 
-            if self.world.solved:
-                self.running = False
+            # Check termination
+            if self.world.is_over():
+                if not headless:
+                    print(">>> EPISODE IS OVER! <<<")
+                episode_running = False
 
             time_limit -= 0.05
-
             if time_limit <= 0:
-                self.running = False
+                episode_running = False
 
-            if not self.headless:
+            if not headless:
                 time.sleep(time_step)
 
         total_reward = sum(a.reward for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
+
+        # Return stats
+        if not headless:
+            print(f"Episode ended. Total Reward: {total_reward:.2f}")
 
         return {
             "fitness": total_reward,
@@ -248,12 +245,10 @@ class SimulatorMotor(Simulator):
         }
 
     def _replay_best_strategy(self, genotype):
-        """ Replays the best genome visually. """
         print(">>> Replaying Best Strategy Visualized <<<")
         self._run_single_episode(genotype, headless=False)
 
     def _save_state(self):
-        """ Saves the current population, archive, and best result to a file. """
         state = {
             "population": self.population,
             "archive": self.archive,
@@ -268,16 +263,9 @@ class SimulatorMotor(Simulator):
             print(f"\n[System] Error saving state: {e}")
 
     def _shut_down(self):
-        """ Handles the end of the simulation execution. """
         print(f"\n--- Evolution Complete. Best Combined Score: {self.best_result_global['combined']:.2f} ---")
-
-        # Save state before closing
         self._save_state()
-
-        # Visual Replay if allowed
         if not self.config_headless and self.best_result_global:
             self._replay_best_strategy(self.best_result_global["genotype"])
-        elif self.config_headless:
-            print(">>> Replay skipped (Headless Mode) <<<")
-
+        self.running = False
         print("[System] Simulation shut down.")
