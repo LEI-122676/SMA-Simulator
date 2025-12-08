@@ -12,7 +12,7 @@ def main():
     foraging_level1 = "Levels/foraging_level1.txt"
     foraging_level2 = "Levels/foraging_level2.txt"
 
-    simulator_farol = SimulatorMotor.create(foraging_level2, headless=headless, single_run=single_run) # TODO - test_mode=True
+    simulator_farol = SimulatorMotor.create(simple_farol, headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
 
 if __name__ == "__main__":
