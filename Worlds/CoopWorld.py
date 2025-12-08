@@ -79,7 +79,6 @@ class CoopWorld(World):
 
     def is_over(self):
             # Checks if all agents are out of steps
-            print("Checking if world is over...") # DEBUG
             if all(agent.step_index >= agent.steps for agent in self.agents):
                 return True
 
