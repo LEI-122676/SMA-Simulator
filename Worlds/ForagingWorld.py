@@ -106,8 +106,6 @@ class ForagingWorld(World):
     
     def is_over(self):
         # Checks if all agents are out of steps
-        print("Checking if world is over...") # DEBUG
-        print("Agents' steps status:", [(agent.step_index, agent.steps) for agent in self.agents])
         if all(agent.step_index >= agent.steps for agent in self.agents):
             return True
 
