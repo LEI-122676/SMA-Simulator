@@ -18,7 +18,7 @@ class SimulatorMotor(Simulator):
     POPULATION_SIZE = 50
     NUM_GENERATIONS = 30
     MUTATION_RATE = 0.05  # Slightly higher for weights
-    MUTATION_SIGMA = 0.2  # Standard deviation for weight mutation
+    MUTATION_SIGMA = 0.5  # Standard deviation for weight mutation
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2

@@ -1,3 +1,4 @@
+import math
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -27,50 +28,33 @@ class World(Environment):
     def observation_for(self, explorer: ExplorerAgent):      # Phase 5.2
         return explorer.sensor.get_observation(explorer.position)
 
-    def act(self, action, agent: ExplorerAgent):            # Phase 7.1
-        future_pos = self.is_valid_action(action, agent)
-        if future_pos is None:
+    def act(self, action, agent: ExplorerAgent):
+        # CRITICAL: Prevent NoneType unpack crash
+        if agent.coop_vector is None:
             return
 
-        agent.position = future_pos
-        x, y = future_pos
-        obj = self.map[y][x]        
+        future_pos = self.is_valid_action(action, agent)
+        if future_pos:
+            agent.position = future_pos
+            agent.update_coop_vector()  # Refresh sensors immediately
 
-        reward = 0
-        
-        # Interaction with pickable objects
-        if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
-            agent.storeItem(obj, x, y)
-            reward += obj.value
+            dx, dy = agent.coop_vector
+            dist_now = math.sqrt(dx ** 2 + dy ** 2)
 
-        # Dropping items at nests (eggs/stones)
-        elif isinstance(obj, Nest):                                 # Only happens on foraging world
-            # TODO - informar outros agentes?
+            reward = 0
+            # POTENTIAL-BASED REWARD: No points for retreading tiles!
+            if dist_now < agent.min_dist_reached:
+                improvement = agent.min_dist_reached - dist_now
+                if agent.min_dist_reached != float('inf'):
+                    reward += improvement * 2.0
+                agent.min_dist_reached = dist_now
 
-            totalReward = 0
+            obj = self.map[agent.position[1]][agent.position[0]]
+            if isinstance(obj, ChickenCoop):
+                reward += 100
+                self.solved = self.is_over()
 
-            for item in list(agent.inventory):
-
-                if obj.put(item):
-                    item.position = obj.position
-                    totalReward += getattr(item, 'value', 0)
-                    agent.discardItem(item)
-                    #print(f"Deposited item {item.name} in Nest at {obj.position}")
-                    #print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
-                    #print(f"chicken has {len(agent.inventory)} items left in inventory.")
-
-            # After depositing, check solved condition
-            self.solved = self.is_over()
-
-            reward += totalReward
-
-        # Reached the coop -> big reward                            # Only happens on chicken coop world
-        elif isinstance(obj, ChickenCoop):
-            reward += 100
-            self.solved = self.is_over()
-
-
-        agent.evaluateCurrentState(reward)                  # Phase 7.3
+            agent.evaluateCurrentState(reward)              # Phase 7.3
 
     def is_valid_action(self, action_to_validate, explorer):
         """ Returns None if action is invalid, or new position (x,y) if valid """

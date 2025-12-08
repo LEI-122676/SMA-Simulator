@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 from Actions.Action import Action
 from Actions.Observation import Observation
@@ -35,6 +37,8 @@ class ExplorerAgent(Agent):
         self.path = []
         self.combined_fitness = 0.0
         self.reward = 0
+
+        self.min_dist_reached = float('inf')
 
     @classmethod
     def create(cls, file_name: str):
@@ -101,17 +105,12 @@ class ExplorerAgent(Agent):
 
         # 3. Goal Input: Distance to Coop
         if self.coop_vector is not None:
-            coop_x, coop_y = self.coop_vector
-            px, py = self.position
-
-            # Simple Normalized Distance calculation
-            dx = abs(coop_x - px)
-            dy = abs(coop_y - py)
-            max_dist = self.world.width + self.world.height if self.world else 60
-
-            # Invert so 1.0 is close/at goal, 0.0 is far away
-            norm_distance = 1.0 - (dx + dy) / max_dist
-            inputs.append(max(0.0, norm_distance))
+            dx, dy = self.coop_vector
+            dist = math.sqrt(dx ** 2 + dy ** 2)
+            # Use map diagonal as normalization factor
+            max_diagonal = math.sqrt(self.world.width ** 2 + self.world.height ** 2) if self.world else 50
+            norm_dist = 1.0 - (dist / max_diagonal)
+            inputs.append(max(0.0, norm_dist))
         else:
             # If we don't know where the coop is, input 0
             inputs.append(0.0)
@@ -119,28 +118,14 @@ class ExplorerAgent(Agent):
         return inputs
 
     def nn_decide_action(self):
-        """
-        Feeds inputs to the brain and converts output to an Action.
-        """
-        # 1. Get Inputs
-        inputs = self.get_nn_inputs()
+        inputs = self.get_nn_inputs()  # Fetches the 10 inputs
+        output_values = self.nn.forward(inputs)  # Now returns 4 floats
 
-        # 2. Forward Pass
-        # Returns an array of probabilities, e.g., [0.1, 0.8, 0.05, 0.05]
-        output_probs = self.nn.forward(inputs)
-
-        # 3. Select Action (Argmax)
-        # The index of the highest probability corresponds to the chosen action.
-        best_action_index = np.argmax(output_probs)
-
-        # Map indices to Actions.
-        # IMPORTANT: This order must match the output layer size of your NN (4 outputs).
+        # Pick the movement corresponding to the highest value
+        best_action_index = np.argmax(output_values)
         possible_actions = [Action.MOVE_NORTH, Action.MOVE_SOUTH, Action.MOVE_EAST, Action.MOVE_WEST]
 
-        if best_action_index < len(possible_actions):
-            return possible_actions[best_action_index]
-        else:
-            return Action.random_action()
+        return possible_actions[best_action_index]
 
     def evaluateCurrentState(self, reward: float):
         """ Accumulates "raw" reward during an Agent's life. """
