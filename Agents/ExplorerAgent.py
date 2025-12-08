@@ -61,7 +61,7 @@ class ExplorerAgent(Agent):
     def act(self) -> Action:
         if self.learn_mode:
             if self.nn is not None:
-                return self.nndecide_action()
+                return self.nn_decide_action()
             else:
                 if self.coop_vector is not None:
                     return ChickenCoop.get_action(self.coop_vector, self.position)
