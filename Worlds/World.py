@@ -3,7 +3,6 @@ from abc import abstractmethod
 from Actions.Sensor import Sensor
 from Agents.ExplorerAgent import ExplorerAgent
 from Items.ChickenCoop import ChickenCoop
-from Actions.Observation import Observation
 from Items.Egg import Egg
 from Items.Nest import Nest
 from Items.Pickable import Pickable
@@ -61,14 +60,14 @@ class World(Environment):
                     #print(f"chicken has {len(agent.inventory)} items left in inventory.")
 
             # After depositing, check solved condition
-            self.solved = self.is_solved()
+            self.solved = self.is_over()
 
             reward += totalReward
 
         # Reached the coop -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
             reward += 100
-            self.solved = self.is_solved()
+            self.solved = self.is_over()
 
 
         agent.evaluateCurrentState(reward)                  # Phase 7.3
@@ -133,7 +132,11 @@ class World(Environment):
         pass
 
     @abstractmethod
-    def is_solved(self) -> bool:
+    def is_over(self) -> bool:
+        """
+        Returns True if the world is over, False otherwise
+        Meaning it's over is not the same as it's solved! (all Agents could be out of steps, for example)
+        """
         pass
 
 

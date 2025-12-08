@@ -54,7 +54,11 @@ class ForagingWorld(World):
                 self.nests.append(nest)
                 self.map[y][x] = nest
 
-    def is_solved(self):
+    def is_over(self):
+        # Checks if all agents are out of steps
+        if all(agent.step_index >= agent.steps for agent in self.agents):
+            return True
+
         # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
         if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
             #print("World is solved!")

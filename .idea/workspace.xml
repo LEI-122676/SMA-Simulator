@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Fix XML encoding in workspace.xml for PropertiesComponent">
-      <change beforePath="$PROJECT_DIR$/Simulators/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/GeneticUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/GeneticUtils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,22 +112,22 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.ExplorerAgent.executor": "Run",
-    "Python.SimulatorMotor.executor": "Run",
-    "Python.demo.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "tigago",
-    "last_opened_file_path": "/home/tigago/Documents/University/Ano3/Sem1/AA/project/SMA-Simulator/Levels",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tigago/Documents/University/Ano3/Sem1/AA/project/SMA-Simulator/Levels&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Levels" />
@@ -565,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765128193697</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Runs again :D (no NN yet)">
+      <option name="closed" value="true" />
+      <created>1765195444915</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1765195444915</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -626,7 +642,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cleaned ExplorerAgent" />
     <MESSAGE value="+best_explorer.txt" />
     <MESSAGE value="pickables have value" />
     <MESSAGE value="Completed act() in World" />
@@ -651,7 +666,8 @@
     <MESSAGE value="Evolves genotypes, should evolve NT" />
     <MESSAGE value="Simplified single_run logic in Motor" />
     <MESSAGE value="Fix XML encoding in workspace.xml for PropertiesComponent" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix XML encoding in workspace.xml for PropertiesComponent" />
+    <MESSAGE value="Runs again :D (no NN yet)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Runs again :D (no NN yet)" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
