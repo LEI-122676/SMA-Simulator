@@ -227,7 +227,7 @@ class SimulatorMotor(Simulator):
 
             # Check termination
             if self.world.is_over():
-                # self.running = False
+                self.running = False
                 if not headless:
                     print(">>> EPISODE IS OVER! <<<")
                 episode_running = False
