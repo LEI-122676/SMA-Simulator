@@ -70,7 +70,6 @@ class World(Environment):
             reward += 100
             self.solved = self.is_solved()
 
-
         agent.evaluateCurrentState(reward)                  # Phase 7.3
 
     def is_valid_action(self, action_to_validate, explorer):

@@ -20,10 +20,10 @@ class SimulatorMotor(Simulator):
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.5                 # Weighting factor for fitness vs novelty!
+    P = 0.3                         # Weighting factor for fitness vs novelty!
 
     # Simulation Settings
-    STEPS = 200             # Genome length (Number of actions per agent)
+    STEPS = 200                     # Genome length (Number of actions per agent)
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
@@ -55,6 +55,8 @@ class SimulatorMotor(Simulator):
         self.best_result_global = None
         self.current_generation = 0
 
+        self.STEPS = world.agents[0].steps if world.agents else self.STEPS
+
     @staticmethod
     def create(matrix_file, headless=False, single_run=False):
         """
@@ -64,6 +66,7 @@ class SimulatorMotor(Simulator):
 
         try:
             matrix = read_matrix_file_with_metadata(matrix_file)
+            
         except Exception as e:
             raise ValueError(f"Error reading matrix file: {e}")
 
@@ -207,7 +210,10 @@ class SimulatorMotor(Simulator):
         self.world.initialize_map(self.map_file_path)
         self.headless = headless
 
-        # Inject Brain (Genotype)
+        # Recompute STEPS after re-initializing the world, when agents may have been (re)created
+        self.STEPS = self.world.agents[0].steps if self.world.agents else self.STEPS
+
+        # Inject Brain (Genotype) and normalize per-agent genotype lengths
         for agent in self.world.agents:
             agent.genotype = genotype
             agent.learn_mode = True
@@ -228,7 +234,8 @@ class SimulatorMotor(Simulator):
             for agent in agents:
                 agent.execute()
 
-            if self.world.solved:
+            if self.world.is_over():
+                print("World solved!")
                 self.running = False
 
             time_limit -= 0.05
