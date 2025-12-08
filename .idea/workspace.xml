@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Fix XML encoding in workspace.xml for PropertiesComponent">
-      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/Utilities.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#118 on tigago",
+    "git-widget-placeholder": "tigago",
     "last_opened_file_path": "/home/tigago/Documents/University/Ano3/Sem1/AA/project/SMA-Simulator/Levels",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
