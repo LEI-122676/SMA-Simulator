@@ -31,7 +31,7 @@ class World(Environment):
     def act(self, action, agent: ExplorerAgent):  # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
         if future_pos is None:
-            return
+            return -1
 
         agent.position = future_pos
         x, y = future_pos

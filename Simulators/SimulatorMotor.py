@@ -23,7 +23,7 @@ class SimulatorMotor(Simulator):
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.25  # Weighting factor for fitness vs novelty!
+    P = 0.6  # Weighting factor for fitness vs novelty!
     INPUT_SIZE = 9
 
     # Simulation Settings
@@ -127,7 +127,7 @@ class SimulatorMotor(Simulator):
 
                 avg_novelty = team_novelty / len(team_stats["final_positions"]) if team_stats["final_positions"] else 0
 
-                combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 10.0))
+                combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 100.0))
 
                 result = {
                     "genotype": genotype,
