@@ -7,7 +7,12 @@
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Fix XML encoding in workspace.xml for PropertiesComponent">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agents/chicken_compose.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/chicken_compose.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Levels/farol_level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/farol_level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +123,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "tigago",
     "last_opened_file_path": "/Users/catarinafigueiredo/Desktop",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
