@@ -1,6 +1,5 @@
 from Simulators.SimulatorMotor import SimulatorMotor
 
-
 def main():
     headless = False          # True == no graphics
     single_run = True         # True --> Debug 1 episode

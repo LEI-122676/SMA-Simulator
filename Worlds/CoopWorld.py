@@ -65,18 +65,6 @@ class CoopWorld(World):
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
 
-
-    def is_over(self):
-        # Checks if all agents are out of steps
-        if all(agent.step_index >= agent.steps for agent in self.agents):
-            return True
-
-        for explorer in self.agents:
-            if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.position:
-                return False
-
-        return True
-
     def is_over(self):
             # Checks if all agents are out of steps
             if all(agent.step_index >= agent.steps for agent in self.agents):
@@ -85,3 +73,5 @@ class CoopWorld(World):
             for explorer in self.agents:
                 if isinstance(explorer, ExplorerAgent) and explorer.position != self.chicken_coop.position:
                     return False
+                
+            return True
