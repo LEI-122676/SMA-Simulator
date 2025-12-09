@@ -23,12 +23,12 @@ class SimulatorMotor(Simulator):
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.5  # Weighting factor for fitness vs novelty!
+    P = 0.25  # Weighting factor for fitness vs novelty!
     INPUT_SIZE = 9
 
     # Simulation Settings
     # STEPS is now just a timeout, not genome length
-    STEPS = 400
+    STEPS = 200
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
