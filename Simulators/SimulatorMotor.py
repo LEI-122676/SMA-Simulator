@@ -15,8 +15,8 @@ from Agents.NeuralNetwork import create_network_architecture  # Ensure this impo
 
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
-    POPULATION_SIZE = 50
-    NUM_GENERATIONS = 30
+    POPULATION_SIZE = 80
+    NUM_GENERATIONS = 40
     MUTATION_RATE = 0.05  # Slightly higher for weights
     MUTATION_SIGMA = 0.5  # Standard deviation for weight mutation
     TOURNAMENT_SIZE = 4
@@ -24,6 +24,7 @@ class SimulatorMotor(Simulator):
     ELITISM_COUNT = 2
 
     P = 0.5  # Weighting factor for fitness vs novelty!
+    INPUT_SIZE = 9
 
     # Simulation Settings
     # STEPS is now just a timeout, not genome length
@@ -54,9 +55,7 @@ class SimulatorMotor(Simulator):
         self.best_result_global = None
         self.current_generation = 0
 
-        # Determine Genome Size based on NN Architecture
-        # Input size must match ExplorerAgent.get_nn_inputs() -> 10 inputs
-        dummy_nn = create_network_architecture(10)
+        dummy_nn = create_network_architecture(self.INPUT_SIZE)
         self.genome_size = dummy_nn.compute_num_weights()
         print(f"Neuroevolution initialized. Genome Size (Weights): {self.genome_size}")
 
@@ -195,7 +194,7 @@ class SimulatorMotor(Simulator):
         # Create the Brain and inject the Genome
         for agent in self.world.agents:
             # 1. Create Brain (10 inputs)
-            nn = create_network_architecture(10)
+            nn = create_network_architecture(self.INPUT_SIZE)
             # 2. Load Genome (Weights)
             nn.load_weights(genotype)
             # 3. Install Brain
