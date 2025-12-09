@@ -15,7 +15,7 @@ from Items.Nest import Nest
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, learn_mode=True, steps=200, nn=None):
+    def __init__(self, learn_mode=True, steps=400, nn=None):
         self.position = None
         self.world = None
 
@@ -80,7 +80,7 @@ class ExplorerAgent(Agent):
         Size: 8 (Raycast) + 1 (Has Item) + 1 (Coop Distance) = 10 inputs
         """
         if self.observation is None:
-            return [0.0] * 10
+            return [0.0] * 9
 
         inputs = []
 
@@ -99,11 +99,7 @@ class ExplorerAgent(Agent):
             normalized_distance = distance / max_range if max_range > 0 else 0
             inputs.append(normalized_distance)
 
-        # 2. State Input: Carrying Item?
-        has_item = 1.0 if len(self.inventory) > 0 else 0.0
-        inputs.append(has_item)
-
-        # 3. Goal Input: Distance to Coop
+        # 2. Goal Input: Distance to Coop
         if self.coop_vector is not None:
             dx, dy = self.coop_vector
             dist = math.sqrt(dx ** 2 + dy ** 2)

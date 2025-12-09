@@ -29,7 +29,6 @@ class World(Environment):
         return explorer.sensor.get_observation(explorer.position)
 
     def act(self, action, agent: ExplorerAgent):
-        # CRITICAL: Prevent NoneType unpack crash
         if agent.coop_vector is None:
             return
 
