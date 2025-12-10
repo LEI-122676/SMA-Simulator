@@ -12,6 +12,8 @@ from Items.Wall import Wall
 from Worlds.Environment import Environment
 
 class World(Environment):
+    
+    FACTOR = 5   # used to scale the closeness reward (calculate_closeness_reward)
 
     def __init__(self, width=30, height=30):
         self.width = width
@@ -29,15 +31,19 @@ class World(Environment):
         return explorer.sensor.get_observation(explorer.position)
 
     def act(self, action, agent: ExplorerAgent):  # Phase 7.1
+        reward = 0
+        
         future_pos = self.is_valid_action(action, agent)
         if future_pos is None:
-            return -1
+            reward = -1
+            agent.evaluateCurrentState(reward)  
+            return
 
         agent.position = future_pos
         x, y = future_pos
         obj = self.map[y][x]
-
-        reward = 0
+        
+        reward += self.calculate_closeness_reward(agent) * FACTOR
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:  # Only happens on foraging world
@@ -138,5 +144,22 @@ class World(Environment):
         Meaning it's over is not the same as it's solved! (all Agents could be out of steps, for example)
         """
         pass
+
+    def calculate_closeness_reward(self, agent: ExplorerAgent) -> float:
+        """ Returns a small reward based on how close the agent is to the goal """
+        if not agent.coop_vector:           # Foraging
+            return 0.0
+
+        distance = math.sqrt(agent.coop_vector[0]**2 + agent.coop_vector[1]**2)
+        if distance == 0:
+            return 0.0
+
+        # Normalize distance to a reward between 0 and 1
+        max_distance = math.sqrt(self.width**2 + self.height**2)
+        normalized_distance = distance / max_distance
+
+        # Invert so closer means higher reward
+        reward = 1.0 - normalized_distance
+        return reward
 
 
