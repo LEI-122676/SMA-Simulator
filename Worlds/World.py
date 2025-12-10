@@ -1,3 +1,4 @@
+import math
 from abc import abstractmethod
 
 from Actions.Sensor import Sensor
@@ -27,26 +28,24 @@ class World(Environment):
     def observation_for(self, explorer: ExplorerAgent):      # Phase 5.2
         return explorer.sensor.get_observation(explorer.position)
 
-    def act(self, action, agent: ExplorerAgent):            # Phase 7.1
+    def act(self, action, agent: ExplorerAgent):  # Phase 7.1
         future_pos = self.is_valid_action(action, agent)
         if future_pos is None:
-            return
+            return -1
 
         agent.position = future_pos
         x, y = future_pos
-        obj = self.map[y][x]        
+        obj = self.map[y][x]
 
         reward = 0
-        
+
         # Interaction with pickable objects
-        if isinstance(obj, Pickable) and not obj.picked_up:         # Only happens on foraging world
+        if isinstance(obj, Pickable) and not obj.picked_up:  # Only happens on foraging world
             agent.storeItem(obj, x, y)
             reward += obj.value
 
         # Dropping items at nests (eggs/stones)
-        elif isinstance(obj, Nest):                                 # Only happens on foraging world
-            # TODO - informar outros agentes?
-
+        elif isinstance(obj, Nest):  # Only happens on foraging world
             totalReward = 0
 
             for item in list(agent.inventory):
@@ -55,9 +54,9 @@ class World(Environment):
                     item.position = obj.position
                     totalReward += getattr(item, 'value', 0)
                     agent.discardItem(item)
-                    #print(f"Deposited item {item.name} in Nest at {obj.position}")
-                    #print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
-                    #print(f"chicken has {len(agent.inventory)} items left in inventory.")
+                    # print(f"Deposited item {item.name} in Nest at {obj.position}")
+                    # print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
+                    # print(f"chicken has {len(agent.inventory)} items left in inventory.")
 
             # After depositing, check solved condition
             self.solved = self.is_over()
@@ -69,7 +68,7 @@ class World(Environment):
             reward += 100
             self.solved = self.is_over()
 
-        agent.evaluateCurrentState(reward)                  # Phase 7.3
+        agent.evaluateCurrentState(reward)  # Phase 7.3
 
     def is_valid_action(self, action_to_validate, explorer):
         """ Returns None if action is invalid, or new position (x,y) if valid """
