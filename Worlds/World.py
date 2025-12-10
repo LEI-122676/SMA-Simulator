@@ -43,7 +43,7 @@ class World(Environment):
         x, y = future_pos
         obj = self.map[y][x]
         
-        reward += self.calculate_closeness_reward(agent) * FACTOR
+        reward += self.calculate_closeness_reward(agent) * self.FACTOR
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:  # Only happens on foraging world
@@ -71,7 +71,7 @@ class World(Environment):
 
         # Reached the coop -> big reward                            # Only happens on chicken coop world
         elif isinstance(obj, ChickenCoop):
-            reward += 100
+            reward += 1000
             self.solved = self.is_over()
 
         agent.evaluateCurrentState(reward)  # Phase 7.3
