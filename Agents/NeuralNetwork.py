@@ -46,7 +46,7 @@ class NeuralNetwork:
 
 
 def create_network_architecture(input_size):
-    hidden_architecture = (10,2)
+    hidden_architecture = (3,)
     hidden_fn = lambda x: 1 / (1 + np.exp(-x))
 
     # Map to continuous range [-1, 1] instead of binary [1, -1]

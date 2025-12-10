@@ -15,7 +15,7 @@ from Items.Nest import Nest
 
 class ExplorerAgent(Agent):
 
-    def __init__(self, learn_mode=True, steps=400, nn=None):
+    def __init__(self, learn_mode=True, steps=200, nn=None):
         self.position = None
         self.world = None
 

@@ -3,7 +3,6 @@ import random
 import pickle
 import numpy as np
 from . import GeneticUtils as GU
-from Actions.Action import Action
 
 # --- Imports for World/Agent Management ---
 from Worlds.CoopWorld import CoopWorld
@@ -15,20 +14,18 @@ from Agents.NeuralNetwork import create_network_architecture  # Ensure this impo
 
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
-    POPULATION_SIZE = 80
+    POPULATION_SIZE = 50
     NUM_GENERATIONS = 40
-    MUTATION_RATE = 0.05  # Slightly higher for weights
+    MUTATION_RATE = 0.1  # Slightly higher for weights
     MUTATION_SIGMA = 0.5  # Standard deviation for weight mutation
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.6  # Weighting factor for fitness vs novelty!
+    P = 0.8  # Weighting factor for fitness vs novelty!
     INPUT_SIZE = 9
 
     # Simulation Settings
-    # STEPS is now just a timeout, not genome length
-    STEPS = 200
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
@@ -71,11 +68,11 @@ class SimulatorMotor(Simulator):
         has_farol = any('F' in row for row in matrix)
 
         if has_farol:
-            print(f"--- Initializing CoopWorld ({width}x{height}) ---")
+            print(f"--- Initializing CoopWorld ({width}x{height}) --- MAP: {matrix_file}")
             world = CoopWorld(width, height)
             world.initialize_map(matrix_file)
         else:
-            print(f"--- Initializing ForagingWorld ({width}x{height}) ---")
+            print(f"--- Initializing ForagingWorld ({width}x{height}) --- MAP: {matrix_file}")
             world = ForagingWorld(width, height)
             world.initialize_map(matrix_file)
 
@@ -129,6 +126,7 @@ class SimulatorMotor(Simulator):
 
                 combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 100.0))
 
+                # TODO - agent.path
                 result = {
                     "genotype": genotype,
                     "fitness": team_stats["fitness"],
@@ -151,8 +149,7 @@ class SimulatorMotor(Simulator):
             if self.best_result_global is None or best_gen_result["combined"] > self.best_result_global["combined"]:
                 self.best_result_global = best_gen_result
 
-            print(
-                f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
+            print(f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
 
             # --- C. Reproduction (Neuroevolution) ---
             new_population = []
@@ -207,12 +204,11 @@ class SimulatorMotor(Simulator):
         time_limit = self.TIME_LIMIT
         time_step = self.TIME_PER_STEP_HEADLESS if headless else self.TIME_PER_STEP_VISUAL
 
-        # Also check self.running to allow global "Stop" button to kill the loop immediately
         game_steps = []
+        # Also check self.running to allow global "Stop" button to kill the loop immediately
         while episode_running and self.running:
             
-            if not headless:
-                game_steps.append(self.world.show_world())
+            game_steps.append(self.world.show_world())
 
             agents = self.world.agents[:]
             random.shuffle(agents)
@@ -229,14 +225,14 @@ class SimulatorMotor(Simulator):
             time_limit -= 0.05
             if time_limit <= 0:
                 episode_running = False
-        
+
         if not headless:
             for step in game_steps:
+                time.sleep(time_step)
                 print(step)
                 print("\n")
-                time.sleep(time_step)
-            
-        total_reward = sum(a.reward for a in self.world.agents)
+
+        total_reward = sum((a.reward + (1 / a.step_index)*10) for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
 
         # Return stats
