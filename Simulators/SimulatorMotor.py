@@ -15,19 +15,17 @@ from Agents.NeuralNetwork import create_network_architecture  # Ensure this impo
 class SimulatorMotor(Simulator):
     # --- EA Hyperparameters (Config) ---
     POPULATION_SIZE = 50
-    NUM_GENERATIONS = 30
-    MUTATION_RATE = 0.05  # Slightly higher for weights
+    NUM_GENERATIONS = 40
+    MUTATION_RATE = 0.1  # Slightly higher for weights
     MUTATION_SIGMA = 0.5  # Standard deviation for weight mutation
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3
     ELITISM_COUNT = 2
 
-    P = 0.5  # Weighting factor for fitness vs novelty!
+    P = 0.8  # Weighting factor for fitness vs novelty!
     INPUT_SIZE = 9
 
     # Simulation Settings
-    # STEPS is now just a timeout, not genome length
-    STEPS = 200
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
     TIME_PER_STEP_VISUAL = 0.05
@@ -70,11 +68,11 @@ class SimulatorMotor(Simulator):
         has_farol = any('F' in row for row in matrix)
 
         if has_farol:
-            print(f"--- Initializing CoopWorld ({width}x{height}) ---")
+            print(f"--- Initializing CoopWorld ({width}x{height}) --- MAP: {matrix_file}")
             world = CoopWorld(width, height)
             world.initialize_map(matrix_file)
         else:
-            print(f"--- Initializing ForagingWorld ({width}x{height}) ---")
+            print(f"--- Initializing ForagingWorld ({width}x{height}) --- MAP: {matrix_file}")
             world = ForagingWorld(width, height)
             world.initialize_map(matrix_file)
 
@@ -128,6 +126,7 @@ class SimulatorMotor(Simulator):
 
                 combined_score = (self.P * team_stats["fitness"]) + ((1 - self.P) * (avg_novelty * 100.0))
 
+                # TODO - agent.path
                 result = {
                     "genotype": genotype,
                     "fitness": team_stats["fitness"],

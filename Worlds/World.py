@@ -13,7 +13,7 @@ from Worlds.Environment import Environment
 
 class World(Environment):
     
-    FACTOR = 5   # used to scale the closeness reward (calculate_closeness_reward)
+    FACTOR = 1   # used to scale the closeness reward (calculate_closeness_reward)
 
     def __init__(self, width=30, height=30):
         self.width = width
