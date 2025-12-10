@@ -207,11 +207,12 @@ class SimulatorMotor(Simulator):
         time_limit = self.TIME_LIMIT
         time_step = self.TIME_PER_STEP_HEADLESS if headless else self.TIME_PER_STEP_VISUAL
 
-        game_steps = []
         # Also check self.running to allow global "Stop" button to kill the loop immediately
         while episode_running and self.running:
             
-            game_steps.append(self.world.show_world())
+            if not headless:
+                game_steps = []
+                game_steps.append(self.world.show_world())
 
             agents = self.world.agents[:]
             random.shuffle(agents)
@@ -228,13 +229,13 @@ class SimulatorMotor(Simulator):
             time_limit -= 0.05
             if time_limit <= 0:
                 episode_running = False
-
+        
         if not headless:
             for step in game_steps:
                 time.sleep(time_step)
                 print(step)
                 print("\n")
-        
+            
         total_reward = sum(a.reward for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
 
