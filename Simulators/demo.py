@@ -2,7 +2,7 @@ from Simulators.SimulatorMotor import SimulatorMotor
 
 def main():
     headless = False          # True == no graphics
-    single_run = False        # True --> Debug 1 episode
+    single_run = True        # True --> Debug 1 episode
 
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"
