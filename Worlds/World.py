@@ -98,6 +98,7 @@ class World(Environment):
 
     def show_world(self):
         # Show the world map, agents, eggs, stones, and nests
+        map_representation = []
         for y in range(self.height):
             row = ""
             for x in range(self.width):
@@ -117,8 +118,9 @@ class World(Environment):
                     row += "F "
                 else:
                     row += ". "
-            print(row)
-        print("\n")
+            map_representation.append(row.strip())
+            
+        return "\n".join(map_representation)
 
     def broadcast(self, message, from_agent):
         for agent in self.agents:
