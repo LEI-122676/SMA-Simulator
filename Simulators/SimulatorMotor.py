@@ -233,9 +233,8 @@ class SimulatorMotor(Simulator):
                 print(step)
                 print("\n")
 
-        total_reward = sum(a.reward for a in self.world.agents)
+        total_reward = sum((a.reward + (1 / a.step_index)*10) for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
-
 
         # Return stats
         if not headless:
