@@ -208,10 +208,10 @@ class SimulatorMotor(Simulator):
         time_step = self.TIME_PER_STEP_HEADLESS if headless else self.TIME_PER_STEP_VISUAL
 
         # Also check self.running to allow global "Stop" button to kill the loop immediately
+        game_steps = []
         while episode_running and self.running:
             
             if not headless:
-                game_steps = []
                 game_steps.append(self.world.show_world())
 
             agents = self.world.agents[:]
@@ -235,7 +235,6 @@ class SimulatorMotor(Simulator):
                 print(step)
                 print("\n")
                 time.sleep(time_step)
-
             
         total_reward = sum(a.reward for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
