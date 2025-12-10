@@ -232,9 +232,10 @@ class SimulatorMotor(Simulator):
         
         if not headless:
             for step in game_steps:
-                time.sleep(time_step)
                 print(step)
                 print("\n")
+                time.sleep(time_step)
+
             
         total_reward = sum(a.reward for a in self.world.agents)
         final_positions = [a.position for a in self.world.agents]
