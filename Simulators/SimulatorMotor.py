@@ -2,6 +2,7 @@ import time
 import random
 import pickle
 import numpy as np
+from pathlib import Path
 from . import GeneticUtils as GU
 from Actions.Action import Action
 
@@ -275,7 +276,15 @@ class SimulatorMotor(Simulator):
         self._run_single_episode(genotype, headless=False)
 
     def _save_state(self):
+        # Try to save the resolved absolute map path so GUI/visualizers can
+        # reliably locate the original map used for this run.
+        try:
+            map_path = str(Path(self.map_file_path).resolve()) if self.map_file_path else None
+        except Exception:
+            map_path = self.map_file_path
+
         state = {
+            "map": map_path,
             "population": self.population,
             "archive": self.archive,
             "best_result": self.best_result_global,
