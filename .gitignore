@@ -19,4 +19,6 @@ env/
 # --- Mac OS (if you or teammates use Mac) ---
 .DS_Store
 evolution_state.pkl
-evolution_state.pkl
+results/avg_fitness.png
+results/heatmap.png
+results/paths.png

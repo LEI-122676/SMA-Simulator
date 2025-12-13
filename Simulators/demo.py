@@ -1,4 +1,5 @@
 from Simulators.SimulatorMotor import SimulatorMotor
+from visualization.visualize import visualize_graphs
 
 def main():
     headless = False          # True == no graphics
@@ -16,6 +17,7 @@ def main():
     simulator_farol = SimulatorMotor.create(farol_level3, headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
     #simulator_farol.test()
+    visualize_graphs(simulator_farol, outdir="results")
 
 if __name__ == "__main__":
     main()
