@@ -204,3 +204,35 @@ if __name__ == "__main__":
 
 # example run : 
 # python3 -m visualization.visualize --map Levels/farol_level2.txt --pop 40 --gens 40 --outdir results
+
+def visualize_graphs(motor, outdir: Optional[Path] = "results"):
+    """Visualize graphs from a SimulatorMotor instance.
+
+    outdir may be a string or a Path; if provided it will be created.
+    This function also computes and passes start/goal positions so markers
+    appear on both the heatmap and path plots.
+    """
+    # normalize outdir to Path | None
+    if outdir:
+        outdir = Path(outdir)
+        outdir.mkdir(parents=True, exist_ok=True)
+
+    env = motor.world
+
+    # Collected history
+    best_paths = getattr(motor, "best_paths_per_gen", [])
+    avg_fitness = getattr(motor, "avg_fitness_per_gen", [])
+    best_behaviors = getattr(motor, "best_behaviors", [])
+
+    # compute starts/goals from the environment so they are shown on plots
+    starts = [agent.position for agent in env.agents]
+    goals = None
+    if isinstance(env, CoopWorld):
+        goals = env.chicken_coop.position if env.chicken_coop else None
+    else:
+        goals = [n.position for n in getattr(env, "nests", [])]
+
+    # Produce plots (pass starts/goals)
+    plot_heatmap(best_behaviors, env, generations=len(best_paths), outdir=outdir, start_positions=starts, goal_positions=goals)
+    plot_paths(best_paths, avg_fitness, env, outdir=outdir, start_positions=starts, goal_positions=goals)
+    plot_avg_fitness(avg_fitness, outdir=outdir)
