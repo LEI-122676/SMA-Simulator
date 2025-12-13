@@ -6,7 +6,7 @@ from Items.Stone import Stone
 from Items.Wall import Wall
 from Worlds.World import World
 from Agents.Chicken import Chicken
-from Actions.Sensor import Sensor
+
 
 class ForagingWorld(World):
 
@@ -26,7 +26,7 @@ class ForagingWorld(World):
         if file_name:
             self.read_foraging_file(file_name)
         else:
-            # Certificar que a posição está livre
+            # Helper to find empty spot
             def place_unique():
                 while True:
                     x = random.randint(0, self.width - 1)
@@ -34,23 +34,21 @@ class ForagingWorld(World):
                     if self.map[y][x] is None:
                         return x, y
 
-            # Colocar os ovos
+            # Place Eggs
             for n in range(numEggs):
                 x, y = place_unique()
-                egg = Egg(n)
-                egg.position = (x, y)
+                # Pass x, y to constructor
+                egg = Egg(n, x, y)
                 self.eggs.append(egg)
                 self.map[y][x] = egg
 
-            # Colocar os ninhos -> calcular primeiro a sua capacidade
+            # Place Nests
             capacity = (numEggs // numNests) + (1 if numEggs % numNests > 0 else 0)
 
             for n in range(numNests):
                 x, y = place_unique()
-                nest = Nest(n)
-                # set_capacity is the defined method on Nest
+                nest = Nest(n, x, y)
                 nest.set_capacity(capacity)
-                nest.position = (x, y)
                 self.nests.append(nest)
                 self.map[y][x] = nest
 
@@ -65,52 +63,52 @@ class ForagingWorld(World):
                 if char == ".":
                     continue
                 elif char == "E":
-                    egg = Egg(id_counters["egg"])
-                    egg.position = (x, y)
+                    egg = Egg(id_counters["egg"], x, y)
                     self.eggs.append(egg)
                     self.map[y][x] = egg
                     id_counters["egg"] += 1
                 elif char == "N":
-                    nest = Nest(id_counters["nest"])
-                    nest.position = (x, y)
+                    nest = Nest(id_counters["nest"], x, y)
                     self.nests.append(nest)
                     self.map[y][x] = nest
                     id_counters["nest"] += 1
                 elif char == "S":
-                    stone = Stone(id_counters["stone"])
-                    stone.position = (x, y)
+                    stone = Stone(id_counters["stone"], x, y)
                     self.stones.append(stone)
                     self.map[y][x] = stone
                     id_counters["stone"] += 1
                 elif char == "W":
-                    wall = Wall(id_counters["wall"])
-                    wall.position = (x, y)
+                    wall = Wall(id_counters["wall"], x, y)
                     self.map[y][x] = wall
                     id_counters["wall"] += 1
                 elif char == "C":
+                    # Create Chicken Agent
                     chicken = Chicken.create("Agents/chicken_compose.txt")
-                    self.add_agent(chicken,(x, y))
+                    self.add_agent(chicken, (x, y))
                     id_counters["chicken"] += 1
                 else:
                     raise ValueError(f"Unknown character '{char}' at ({x},{y})")
-                
-        for nest in self.nests:
-            nest.set_capacity((len(self.eggs) // len(self.nests)) + (1 if len(self.eggs) % len(self.nests) > 0 else 0))
-            
+
+        # Set capacities for nests after counting eggs
+        if self.nests:
+            capacity = (len(self.eggs) // len(self.nests)) + (1 if len(self.eggs) % len(self.nests) > 0 else 0)
+            for nest in self.nests:
+                nest.set_capacity(capacity)
+
     def is_solved(self):
-        # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
+        # World is solved if all eggs are in nests
+        if not self.eggs:
+            return False
+
         if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
-            #print("World is solved!")
             return True
         return False
-    
+
     def is_over(self):
-        # Checks if all agents are out of steps
+        # 1. All agents out of steps
         if all(agent.step_index >= agent.steps for agent in self.agents):
             return True
-
-        # cada ovo tem que estar not picked_up e tem de estar num ninho da lista de ninhos para o mundo ser resolvido
-        if all((not egg.picked_up) and any(nest.position == egg.position for nest in self.nests) for egg in self.eggs):
-            #print("World is solved!")
+        # 2. Solved
+        if self.is_solved():
             return True
         return False

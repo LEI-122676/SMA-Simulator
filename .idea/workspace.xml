@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Added NN files">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Runs with bad NNs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkCoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,14 +223,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761237330068</updated>
-    </task>
-    <task id="LOCAL-00004" summary="removed a class">
-      <option name="closed" value="true" />
-      <created>1761240076457</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1761240076457</updated>
     </task>
     <task id="LOCAL-00005" summary="some Sensor logic">
       <option name="closed" value="true" />
@@ -611,7 +608,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765656073918</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Runs with bad NNs">
+      <option name="closed" value="true" />
+      <created>1765663654408</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1765663654408</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -672,7 +677,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Completed act() in World" />
     <MESSAGE value="-numChickens" />
     <MESSAGE value="Modified Nest capacity" />
     <MESSAGE value="-import problems" />
@@ -697,7 +701,8 @@
     <MESSAGE value="Runs again :D (no NN yet)" />
     <MESSAGE value="Running again" />
     <MESSAGE value="Added NN files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added NN files" />
+    <MESSAGE value="Runs with bad NNs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Runs with bad NNs" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

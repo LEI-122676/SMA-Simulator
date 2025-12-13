@@ -15,6 +15,7 @@ def main():
 
     simulator_farol = SimulatorMotor.create(farol_level3, headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
+    #simulator_farol.test()
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,10 @@ from Actions.Direction import Direction
 from Actions.Observation import Observation
 from Items.ChickenCoop import ChickenCoop
 from Items.Wall import Wall
+from Items.Egg import Egg
+from Items.Nest import Nest
+from Items.Stone import Stone
+
 
 class Sensor:
 
@@ -16,17 +20,19 @@ class Sensor:
         observation = Observation()
 
         for direction in Direction:
-            distance = self._cast_ray(explorer_position, direction.value)
-            key_name = direction.name.title()  # 8 directions: "North", "NorthEast", "East"...
+            # Returns (dist, obj_instance)
+            distance, obj_hit = self._cast_ray(explorer_position, direction.value)
 
-            # print("distance:", distance, "key_name:", key_name)      # Debug: Shows the distances for each direction
+            key_name = direction.name.title()
+            # Store Type (Class) for generic identification
+            obj_type = type(obj_hit) if obj_hit is not None else None
 
-            if key_name in observation.possible_actions:
-                observation.possible_actions[key_name] = distance
+            observation.add_ray(key_name, distance, obj_type)
 
         return observation
 
-    def _cast_ray(self, start_pos, step_vector) -> int:
+    def _cast_ray(self, start_pos, step_vector):
+        """ Returns (distance, object_hit) """
         current_x, current_y = start_pos
         dx, dy = step_vector
         dist = 0
@@ -35,35 +41,26 @@ class Sensor:
             current_x += dx
             current_y += dy
 
-            # Check bounds
+            # Check bounds (World Edge acts as a Wall)
             if not (0 <= current_x < self.width and 0 <= current_y < self.height):
-                return dist
+                # Return a Wall instance with dummy ID and coordinates
+                return dist, Wall(0, current_x, current_y)
 
-            # Check for Wall
-            if isinstance(self.world_map[current_y][current_x], Wall):
-                return dist
+            obj = self.world_map[current_y][current_x]
+
+            # Stop at physical objects
+            if isinstance(obj, (Wall, ChickenCoop, Nest, Stone, Egg)):
+                return dist, obj
 
             dist += 1
 
-        return dist
+        return dist, None
 
     def _get_coop_position(self):
         for y in range(self.height):
             for x in range(self.width):
                 if isinstance(self.world_map[y][x], ChickenCoop):
                     return x, y
-
-        return None, None
-
-    def get_item_position(self, item):
-        #target = (item if isinstance(item, type) else item.__class__,)
-        target = type(item)
-
-        for y in range(self.height):
-            for x in range(self.width):
-                if isinstance(self.world_map[y][x], target):
-                    return x, y
-
         return None, None
 
     def get_goal_vector(self, explorer_position):
