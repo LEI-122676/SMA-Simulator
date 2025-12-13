@@ -2,6 +2,9 @@ import time
 import random
 import pickle
 import numpy as np
+
+from NeuralNetworks.NeuralNetworkCoop import create_coop_network, NeuralNetworkCoop
+from NeuralNetworks.NeuralNetworkForaging import create_foraging_network, NeuralNetworkForaging
 from . import GeneticUtils as GU
 from Actions.Action import Action
 
@@ -10,7 +13,6 @@ from Worlds.CoopWorld import CoopWorld
 from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
 from Simulators.Utilities import read_matrix_file_with_metadata
-from Agents.NeuralNetwork import create_network_architecture  # Ensure this import works
 
 
 class SimulatorMotor(Simulator):
@@ -24,7 +26,6 @@ class SimulatorMotor(Simulator):
     ELITISM_COUNT = 2
 
     P = 0.6  # Weighting factor for fitness vs novelty!
-    INPUT_SIZE = 9
 
     # Simulation Settings
     # STEPS is now just a timeout, not genome length
@@ -60,8 +61,11 @@ class SimulatorMotor(Simulator):
         self.avg_fitness_per_gen = []    # average combined score per generation
         self.best_behaviors = []         # set of visited positions for best agent per generation
 
-        dummy_nn = create_network_architecture(self.INPUT_SIZE)
-        self.genome_size = dummy_nn.compute_num_weights()
+        if isinstance(self.world, CoopWorld):
+            self.genome_size = NeuralNetworkCoop.INPUT_SIZE
+        else:
+            self.genome_size = NeuralNetworkForaging.INPUT_SIZE
+
         print(f"Neuroevolution initialized. Genome Size (Weights): {self.genome_size}")
 
     @staticmethod
@@ -215,9 +219,14 @@ class SimulatorMotor(Simulator):
         # Create the Brain and inject the Genome
         for agent in self.world.agents:
             # 1. Create Brain (10 inputs)
-            nn = create_network_architecture(self.INPUT_SIZE)
+            if isinstance(self.world, CoopWorld):
+                nn = create_coop_network()
+            else:
+                nn = create_foraging_network()
+
             # 2. Load Genome (Weights)
             nn.load_weights(genotype)
+
             # 3. Install Brain
             agent.nn = nn
             agent.learn_mode = True  # Use NN, not random fallback
