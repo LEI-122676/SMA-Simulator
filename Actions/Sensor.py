@@ -66,7 +66,7 @@ class Sensor:
 
         return None, None
 
-    def get_coop_vector(self, explorer_position):
+    def get_goal_vector(self, explorer_position):
         if self.coop_position == (None, None):
             return None
 

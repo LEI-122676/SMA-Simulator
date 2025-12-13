@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class NeuralNetwork(ABC):
 
     def __init__(self, input_size, hidden_architecture, hidden_activation, output_activation):
-        self.input_size = input_size #dado pelo sensor?
+        self.input_size = input_size
         self.hidden_architecture = hidden_architecture #tuple with the number of neurons in each hidden layer: (5, 2)-> 2 hidden layers, 1st has 5n and 2nd has 2n
         # The activations are functions
         self.hidden_activation = hidden_activation

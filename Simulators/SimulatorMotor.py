@@ -62,9 +62,11 @@ class SimulatorMotor(Simulator):
         self.best_behaviors = []         # set of visited positions for best agent per generation
 
         if isinstance(self.world, CoopWorld):
-            self.genome_size = NeuralNetworkCoop.INPUT_SIZE
+            dummy_nn = create_coop_network()
         else:
-            self.genome_size = NeuralNetworkForaging.INPUT_SIZE
+            dummy_nn = create_foraging_network()
+
+        self.genome_size = dummy_nn.compute_num_weights()
 
         print(f"Neuroevolution initialized. Genome Size (Weights): {self.genome_size}")
 

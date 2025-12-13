@@ -5,8 +5,6 @@ from Actions.Action import Action
 from Actions.Observation import Observation
 from Actions.Sensor import Sensor
 from Agents.Agent import Agent
-from Agents.NeuralNetwork import NeuralNetwork
-from Items.ChickenCoop import ChickenCoop
 from Items.Item import Item
 from Items.Pickable import Pickable
 from Simulators.Utilities import read_agent_config
@@ -22,9 +20,9 @@ class ExplorerAgent(Agent):
         self.learn_mode = learn_mode
         self.steps = steps
 
-        # Neural Network (The Brain)
-        self.nn = nn
-        self.coop_vector = None  # Vector to goal (dx, dy)
+
+        self.nn = nn                # Neural Network (The Brain)
+        self.goal_vector = None     # Vector to goal (dx, dy)
 
         self.sensor = None
         self.observation = None
@@ -80,7 +78,7 @@ class ExplorerAgent(Agent):
         Size: 8 (Raycast) + 1 (Has Item) + 1 (Coop Distance) = 10 inputs
         """
         if self.observation is None:
-            return [0.0] * 9
+            return [0.0] * 10
 
         inputs = []
 
@@ -100,16 +98,19 @@ class ExplorerAgent(Agent):
             inputs.append(normalized_distance)
 
         # 2. Goal Input: Distance to Coop
-        if self.coop_vector is not None:
-            dx, dy = self.coop_vector
-            dist = math.sqrt(dx ** 2 + dy ** 2)
-            # Use map diagonal as normalization factor
-            max_diagonal = math.sqrt(self.world.width ** 2 + self.world.height ** 2) if self.world else 50
-            norm_dist = 1.0 - (dist / max_diagonal)
-            inputs.append(max(0.0, norm_dist))
-        else:
-            # If we don't know where the coop is, input 0
-            inputs.append(0.0)
+        if self.is_in_CoopWorld():
+            if self.goal_vector is not None:
+                dx, dy = self.goal_vector
+
+                # Normalize direction to [-1, 1] range based on world dimensions
+                max_x = self.world.width if self.world else 30
+                max_y = self.world.height if self.world else 30
+                norm_dx = dx / max_x
+                norm_dy = dy / max_y
+
+                inputs.extend([norm_dx, norm_dy])
+            else:
+                inputs.extend([0.0, 0.0])
 
         return inputs
 
@@ -131,12 +132,12 @@ class ExplorerAgent(Agent):
         self.sensor = sensor
         self.world = world
         # Initial update of vector so inputs are ready immediately
-        self.update_coop_vector()
+        self.update_goal_vector()
 
-    def update_coop_vector(self):
+    def update_goal_vector(self):
         if self.sensor:
             # Updates the vector pointing to the shared goal (Coop or otherwise)
-            self.coop_vector = self.sensor.get_coop_vector(self.position)
+            self.goal_vector = self.sensor.get_goal_vector(self.position)
 
     def communicate(self, item: Item, from_agent: Agent):
         message = {
@@ -174,7 +175,7 @@ class ExplorerAgent(Agent):
         self.path.append(self.position)
 
         # IMPORTANT: Update vector every step so NN has fresh goal data
-        self.update_coop_vector()
+        self.update_goal_vector()
 
     def storeItem(self, item: Pickable, x, y):
         self.sensor.world_map[y][x] = None
@@ -187,7 +188,7 @@ class ExplorerAgent(Agent):
             self.inventory.remove(item)
 
     def is_in_CoopWorld(self):
-        return self.coop_vector is not None
+        return self.goal_vector is not None
 
     def update_found_nest(self):
         """
