@@ -9,11 +9,11 @@ def main():
     farol_level1 = "Levels/farol_level1.txt"
     farol_level2 = "Levels/farol_level2.txt"
     farol_level3 = "Levels/farol_level3.txt"
-    farol_level_b = "Levels/farol_level_basic.txt"
+    farol_level4 = "Levels/farol_level4.txt"
     foraging_level1 = "Levels/foraging_level1.txt"
     foraging_level2 = "Levels/foraging_level2.txt"
 
-    simulator_farol = SimulatorMotor.create(farol_level3, headless=headless, single_run=single_run) # TODO - test_mode=True
+    simulator_farol = SimulatorMotor.create(farol_level4, headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
 
 if __name__ == "__main__":

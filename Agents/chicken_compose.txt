@@ -1,4 +1,4 @@
 # ExplorerAgent configuration
 learn_mode=False
-steps=200
+steps=100
 genotype_file=None
