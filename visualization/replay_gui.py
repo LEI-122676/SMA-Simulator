@@ -28,6 +28,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.patches import Circle, Polygon
 
 
 def parse_map_file(map_path: Path) -> Tuple[List[str], int, int]:
@@ -60,6 +61,9 @@ class ReplayGUI:
         self.frame_index = 0
         self.playing = False
         self.after_id = None
+        # We'll draw a simple stylized chicken using matplotlib patches
+        # (yellow circle + small triangle beak + eye) to avoid font/emoji issues.
+        self._agent_patches = []
 
         self._build_ui()
 
@@ -340,9 +344,33 @@ class ReplayGUI:
         ys = [p[1] for p in path]
         if xs and ys:
             self.ax.plot(xs, ys, color='cyan', linewidth=2, marker='o')
-            # draw moving agent marker
+            # draw moving agent marker as stylized chicken (circle + beak + eye)
             if 0 <= self.frame_index < len(xs):
-                self.ax.scatter([xs[self.frame_index]], [ys[self.frame_index]], color='red', s=80, zorder=5)
+                axx = xs[self.frame_index]
+                ayy = ys[self.frame_index]
+                # remove previous patches
+                try:
+                    for p in getattr(self, '_agent_patches', []):
+                        try:
+                            p.remove()
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+                self._agent_patches = []
+                try:
+                    # body
+                    body = Circle((axx, ayy), 0.25, facecolor='gold', edgecolor='k', zorder=7)
+                    self._agent_patches.append(self.ax.add_patch(body))
+                    # beak (triangle pointing right)
+                    beak = Polygon([(axx + 0.35, ayy), (axx + 0.05, ayy + 0.08), (axx + 0.05, ayy - 0.08)], closed=True, facecolor='orange', edgecolor='darkorange', zorder=8)
+                    self._agent_patches.append(self.ax.add_patch(beak))
+                    # eye
+                    eye = self.ax.scatter([axx + 0.08], [ayy + 0.08], color='k', s=10, zorder=9)
+                    self._agent_patches.append(eye)
+                except Exception:
+                    # fallback: simple red dot
+                    self._agent_patches.append(self.ax.scatter([axx], [ayy], color='red', s=80, zorder=7))
 
         self.ax.set_aspect('equal')
         self.ax.invert_yaxis()
