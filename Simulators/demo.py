@@ -14,7 +14,7 @@ def main():
     foraging_level1 = "Levels/foraging_level1.txt"
     foraging_level2 = "Levels/foraging_level2.txt"
 
-    simulator_farol = SimulatorMotor.create(farol_level2, headless=headless, single_run=single_run) # TODO - test_mode=True
+    simulator_farol = SimulatorMotor.create(farol_level4, headless=headless, single_run=single_run) # TODO - test_mode=True
     simulator_farol.execute()
     visualize_graphs(simulator_farol, outdir="results")
 

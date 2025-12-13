@@ -16,10 +16,30 @@ from typing import List, Optional
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+from matplotlib.patches import Rectangle
 import seaborn as sns
 
 from Simulators.SimulatorMotor import SimulatorMotor
 from Worlds.CoopWorld import CoopWorld
+
+
+def parse_start_positions(map_file_path: Optional[str]) -> List[tuple]:
+    """Read the map file and return a list of coordinates where 'C' appears.
+
+    Returns list of (x,y). If file is None or unreadable, returns empty list.
+    """
+    if not map_file_path:
+        return []
+    try:
+        starts = []
+        with open(map_file_path, "r") as f:
+            for y, line in enumerate(f.readlines()):
+                for x, ch in enumerate(line.rstrip("\n")):
+                    if ch == "C":
+                        starts.append((x, y))
+        return starts
+    except Exception:
+        return []
 
 
 def run_evolution(map_file: str, pop: int, gens: int, headless: bool) -> SimulatorMotor:
@@ -56,36 +76,59 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
 
-    # Add world labels (eggs/nests/coop) if available
-    if hasattr(env, "eggs"):
-        for egg in getattr(env, "eggs", []):
-            x, y = egg.position
-            ax.text(x + 0.3, y + 0.3, "E", color="black", fontsize=8, weight="bold", ha="center", va="center")
-    if hasattr(env, "nests"):
-        for nest in getattr(env, "nests", []):
-            x, y = nest.position
-            ax.text(x + 0.3, y + 0.3, "N", color="purple", fontsize=8, weight="bold", ha="center", va="center")
-    coop = getattr(env, "chicken_coop", None)
-    if coop is not None:
-        x, y = coop.position
-        ax.text(x + 0.3, y + 0.3, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center")
+    # Draw map items from the world's grid so the visualization matches
+    # the original map file: walls (W), eggs (E), nests (N), stones (S), coop (F)
+    from Items.Wall import Wall
+    from Items.Egg import Egg
+    from Items.Nest import Nest
+    from Items.Stone import Stone
+    from Items.ChickenCoop import ChickenCoop
 
-    # Plot start positions
+    for y in range(height):
+        for x in range(width):
+            tile = env.map[y][x]
+            if tile is None:
+                continue
+            if isinstance(tile, Wall):
+                # Draw walls as solid dark blocks on top of the heatmap
+                rect = Rectangle((x - 0.5, y - 0.5), 1, 1, facecolor="#888888", edgecolor="#444444", linewidth=0.5, zorder=6)
+                ax.add_patch(rect)
+            elif isinstance(tile, Egg):
+                ax.text(x + 0.0, y + 0.0, "E", color="black", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+            elif isinstance(tile, Nest):
+                ax.text(x + 0.0, y + 0.0, "N", color="purple", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+            elif isinstance(tile, Stone):
+                ax.text(x + 0.0, y + 0.0, "S", color="saddlebrown", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+            elif isinstance(tile, ChickenCoop):
+                ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=3)
+
+    # Start positions will be drawn from the provided `start_positions` argument
+    # (these are parsed from the map file so they reflect the original map layout)
+    # Plot start positions (from map file)
     if start_positions:
         sx = [p[0] for p in start_positions]
         sy = [p[1] for p in start_positions]
-        ax.scatter(sx, sy, marker="^", color="green", s=80, edgecolor="k", label="start(s)")
+        ax.scatter(sx, sy, marker="^", color="green", s=120, edgecolor="k", label="start(s)", zorder=5)
 
-    # Plot goal positions
+    # Plot goal positions (nests or coop)
     if goal_positions:
         if isinstance(goal_positions, tuple):
             goal_positions = [goal_positions]
         gx = [p[0] for p in goal_positions]
         gy = [p[1] for p in goal_positions]
-        ax.scatter(gx, gy, marker="s", color="red", s=100, edgecolor="k", label="goal(s)")
+        ax.scatter(gx, gy, marker="s", color="red", s=140, edgecolor="k", label="goal(s)", zorder=5)
 
     if start_positions or goal_positions:
         ax.legend(loc="upper right", fontsize="small")
+
+    # Force integer 0-based ticks so coordinates shown match map indices
+    ax.set_xticks(np.arange(0, width))
+    ax.set_yticks(np.arange(0, height))
+    ax.set_xticklabels([str(i) for i in range(0, width)])
+    ax.set_yticklabels([str(i) for i in range(0, height)])
+    ax.set_xlim(-0.5, width - 0.5)
+    ax.set_ylim(-0.5, height - 0.5)
+    ax.invert_yaxis()
 
     save_or_show(fig, outdir, "heatmap")
 
@@ -98,6 +141,36 @@ def plot_paths(best_paths: List[List[tuple]], avg_fitness: List[float], env, out
         return
 
     fig, ax = plt.subplots(figsize=(7, 7))
+
+    # Draw map items (walls, eggs, nests, stones, coop) behind the paths
+    from Items.Wall import Wall
+    from Items.Egg import Egg
+    from Items.Nest import Nest
+    from Items.Stone import Stone
+    from Items.ChickenCoop import ChickenCoop
+
+    for y in range(height):
+        for x in range(width):
+            tile = env.map[y][x]
+            if tile is None:
+                continue
+            if isinstance(tile, Wall):
+                rect = Rectangle((x - 0.5, y - 0.5), 1, 1, facecolor="#888888", edgecolor="#444444", linewidth=0.5, zorder=0)
+                ax.add_patch(rect)
+            elif isinstance(tile, Egg):
+                ax.text(x + 0.0, y + 0.0, "E", color="black", fontsize=8, weight="bold", ha="center", va="center", zorder=2)
+            elif isinstance(tile, Nest):
+                ax.text(x + 0.0, y + 0.0, "N", color="purple", fontsize=8, weight="bold", ha="center", va="center", zorder=2)
+            elif isinstance(tile, Stone):
+                ax.text(x + 0.0, y + 0.0, "S", color="saddlebrown", fontsize=8, weight="bold", ha="center", va="center", zorder=2)
+            elif isinstance(tile, ChickenCoop):
+                ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=2)
+
+    # NOTE: Do not render live agent positions from `env.agents` here —
+    # those reflect current positions after simulation. Start markers
+    # come from the map file and are plotted below using the
+    # `start_positions` argument supplied by the caller.
+
     colors = cm.viridis(np.linspace(0, 1, min(8, n)))
 
     # pick up to 4 generations evenly spaced
@@ -117,22 +190,8 @@ def plot_paths(best_paths: List[List[tuple]], avg_fitness: List[float], env, out
         if i < len(avg_fitness):
             avg_label = f" (avg {avg_fitness[i]:.1f})"
         ax.plot(xs, ys, lw=2.2, color=color, alpha=0.9, label=f"Gen {i+1}{avg_label}")
-        ax.scatter(xs[0], ys[0], marker="o", color=color, edgecolor="k", s=80)
-        ax.scatter(xs[-1], ys[-1], marker="X", color=color, edgecolor="k", s=100)
-
-    # plot starts (distinct marker)
-    if start_positions:
-        sx = [p[0] for p in start_positions]
-        sy = [p[1] for p in start_positions]
-        ax.scatter(sx, sy, marker="^", color="green", s=90, edgecolor="k", label="start(s)")
-
-    # plot goals
-    if goal_positions:
-        if isinstance(goal_positions, tuple):
-            goal_positions = [goal_positions]
-        gx = [p[0] for p in goal_positions]
-        gy = [p[1] for p in goal_positions]
-        ax.scatter(gx, gy, marker="s", color="red", s=110, edgecolor="k", label="goal(s)")
+        ax.scatter(xs[0], ys[0], marker="o", color=color, edgecolor="k", s=80, zorder=4)
+        ax.scatter(xs[-1], ys[-1], marker="X", color=color, edgecolor="k", s=100, zorder=4)
 
     ax.set_xlim(-0.5, width - 0.5)
     ax.set_ylim(-0.5, height - 0.5)
@@ -143,6 +202,29 @@ def plot_paths(best_paths: List[List[tuple]], avg_fitness: List[float], env, out
     ax.set_ylabel("Y")
     ax.legend(loc="best", fontsize="small")
     ax.grid(alpha=0.25)
+
+    # plot starts (distinct marker)
+    if start_positions:
+        sx = [p[0] for p in start_positions]
+        sy = [p[1] for p in start_positions]
+        ax.scatter(sx, sy, marker="^", color="green", s=120, edgecolor="k", label="start(s)", zorder=6)
+
+    # plot goals
+    if goal_positions:
+        if isinstance(goal_positions, tuple):
+            goal_positions = [goal_positions]
+        gx = [p[0] for p in goal_positions]
+        gy = [p[1] for p in goal_positions]
+        ax.scatter(gx, gy, marker="s", color="red", s=140, edgecolor="k", label="goal(s)", zorder=6)
+
+    if start_positions or goal_positions:
+        ax.legend(loc="best", fontsize="small")
+
+    # Force integer 0-based ticks so coordinates shown match map indices
+    ax.set_xticks(np.arange(0, width))
+    ax.set_yticks(np.arange(0, height))
+    ax.set_xticklabels([str(i) for i in range(0, width)])
+    ax.set_yticklabels([str(i) for i in range(0, height)])
 
     save_or_show(fig, outdir, "paths")
 
@@ -176,9 +258,9 @@ def main():
     motor.POPULATION_SIZE = args.pop
     motor.NUM_GENERATIONS = args.gens
 
-    # capture initial starts (before any simulation moves agents)
+    # capture initial starts (read from map file so they reflect the map)
     env = motor.world
-    starts = [agent.position for agent in env.agents]
+    starts = parse_start_positions(motor.map_file_path if hasattr(motor, 'map_file_path') else args.map)
     goals = None
     if isinstance(env, CoopWorld):
         goals = env.chicken_coop.position if env.chicken_coop else None
@@ -192,6 +274,7 @@ def main():
     best_paths = getattr(motor, "best_paths_per_gen", [])
     avg_fitness = getattr(motor, "avg_fitness_per_gen", [])
     best_behaviors = getattr(motor, "best_behaviors", [])
+
 
     # Produce plots (pass starts/goals captured before execution)
     plot_heatmap(best_behaviors, env, generations=len(best_paths), outdir=outdir, start_positions=starts, goal_positions=goals)
@@ -224,8 +307,8 @@ def visualize_graphs(motor, outdir: Optional[Path] = "results"):
     avg_fitness = getattr(motor, "avg_fitness_per_gen", [])
     best_behaviors = getattr(motor, "best_behaviors", [])
 
-    # compute starts/goals from the environment so they are shown on plots
-    starts = [agent.position for agent in env.agents]
+    # compute starts/goals: prefer positions parsed from the original map file
+    starts = parse_start_positions(motor.map_file_path if hasattr(motor, 'map_file_path') else None)
     goals = None
     if isinstance(env, CoopWorld):
         goals = env.chicken_coop.position if env.chicken_coop else None
