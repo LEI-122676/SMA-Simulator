@@ -125,7 +125,9 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
     ax.set_xticks(np.arange(0, width))
     ax.set_yticks(np.arange(0, height))
     ax.set_xticklabels([str(i) for i in range(0, width)])
-    ax.set_yticklabels([str(i) for i in range(0, height)])
+    # Keep the visual orientation but invert the numeric labels so the
+    # top row shows the highest index and the bottom row shows 0.
+    ax.set_yticklabels([str(i) for i in range(height - 1, -1, -1)])
     ax.set_xlim(-0.5, width - 0.5)
     ax.set_ylim(-0.5, height - 0.5)
     ax.invert_yaxis()
@@ -220,11 +222,11 @@ def plot_paths(best_paths: List[List[tuple]], avg_fitness: List[float], env, out
     if start_positions or goal_positions:
         ax.legend(loc="best", fontsize="small")
 
-    # Force integer 0-based ticks so coordinates shown match map indices
     ax.set_xticks(np.arange(0, width))
     ax.set_yticks(np.arange(0, height))
     ax.set_xticklabels([str(i) for i in range(0, width)])
-    ax.set_yticklabels([str(i) for i in range(0, height)])
+
+    ax.set_yticklabels([str(i) for i in range(height - 1, -1, -1)])
 
     save_or_show(fig, outdir, "paths")
 
