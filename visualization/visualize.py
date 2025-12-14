@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from matplotlib.patches import Rectangle
 import seaborn as sns
+from matplotlib import patheffects as path_effects
 
 from Simulators.SimulatorMotor import SimulatorMotor
 from Worlds.CoopWorld import CoopWorld
@@ -70,7 +71,10 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
                 heatmap[int(y), int(x)] += 1
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    sns.heatmap(heatmap, ax=ax, cmap="YlOrRd", cbar_kws={"label": "visits"})
+    # Draw heatmap first at a low zorder so map item labels/text can be
+    # drawn on top. Also disable axis-below so text/patches are not hidden.
+    sns.heatmap(heatmap, ax=ax, cmap="YlOrRd", cbar_kws={"label": "visits"}, zorder=0)
+    ax.set_axisbelow(False)
     ax.invert_yaxis()
     ax.set_title(f"Visited Areas Heatmap — {generations} gens")
     ax.set_xlabel("X")
@@ -93,14 +97,18 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
                 # Draw walls as solid dark blocks on top of the heatmap
                 rect = Rectangle((x - 0.5, y - 0.5), 1, 1, facecolor="#888888", edgecolor="#444444", linewidth=0.5, zorder=6)
                 ax.add_patch(rect)
-            elif isinstance(tile, Egg):
-                ax.text(x + 0.0, y + 0.0, "E", color="black", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+            if isinstance(tile, Egg):
+                t = ax.text(x + 0.0, y + 0.0, "E", color="black", fontsize=8, weight="bold", ha="center", va="center", zorder=12)
+                t.set_path_effects([path_effects.Stroke(linewidth=1.5, foreground='white'), path_effects.Normal()])
             elif isinstance(tile, Nest):
-                ax.text(x + 0.0, y + 0.0, "N", color="purple", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+                t = ax.text(x + 0.0, y + 0.0, "N", color="purple", fontsize=8, weight="bold", ha="center", va="center", zorder=12)
+                t.set_path_effects([path_effects.Stroke(linewidth=1.5, foreground='white'), path_effects.Normal()])
             elif isinstance(tile, Stone):
-                ax.text(x + 0.0, y + 0.0, "S", color="saddlebrown", fontsize=8, weight="bold", ha="center", va="center", zorder=3)
+                t = ax.text(x + 0.0, y + 0.0, "S", color="saddlebrown", fontsize=8, weight="bold", ha="center", va="center", zorder=12)
+                t.set_path_effects([path_effects.Stroke(linewidth=1.5, foreground='white'), path_effects.Normal()])
             elif isinstance(tile, ChickenCoop):
-                ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=3)
+                t = ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=12)
+                t.set_path_effects([path_effects.Stroke(linewidth=1.5, foreground='white'), path_effects.Normal()])
 
     # Start positions will be drawn from the provided `start_positions` argument
     # (these are parsed from the map file so they reflect the original map layout)
