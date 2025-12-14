@@ -147,10 +147,10 @@ class World(Environment):
 
     def calculate_closeness_reward(self, agent: ExplorerAgent) -> float:
         """ Returns a small reward based on how close the agent is to the goal """
-        if not agent.coop_vector:           # Foraging
+        if not agent.goal_vector:           # Foraging
             return 0.0
 
-        distance = math.sqrt(agent.coop_vector[0]**2 + agent.coop_vector[1]**2)
+        distance = math.sqrt(agent.goal_vector[0]**2 + agent.goal_vector[1]**2)
         if distance == 0:
             return 0.0
 
