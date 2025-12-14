@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Running again">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/avg_fitness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/heatmap.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/paths.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="tigago" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,24 +110,28 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ExplorerAgent.executor": "Run",
+    "Python.Sensor.executor": "Run",
+    "Python.SimulatorMotor.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.replay_gui.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.visualize.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "#145 on tigago",
+    "last_opened_file_path": "C:/Users/newli/PycharmProjects/SMA-Simulator/Levels",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\newli\PycharmProjects\SMA-Simulator\Levels" />
       <recent name="$PROJECT_DIR$/../../../../../.." />
       <recent name="$PROJECT_DIR$/Levels" />
       <recent name="$PROJECT_DIR$" />
@@ -183,22 +192,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761237330068</updated>
-    </task>
-    <task id="LOCAL-00003" summary="base classes added">
-      <option name="closed" value="true" />
-      <created>1761239266315</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1761239266315</updated>
-    </task>
-    <task id="LOCAL-00004" summary="removed a class">
-      <option name="closed" value="true" />
-      <created>1761240076457</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1761240076457</updated>
     </task>
     <task id="LOCAL-00005" summary="some Sensor logic">
       <option name="closed" value="true" />
@@ -576,7 +569,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765291683345</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Added NN files">
+      <option name="closed" value="true" />
+      <created>1765656073918</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1765656073918</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Runs with bad NNs">
+      <option name="closed" value="true" />
+      <created>1765663654408</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1765663654408</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -616,7 +625,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="tigago" />
                       </list>
                     </value>
                   </entry>
@@ -637,8 +646,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pickables have value" />
-    <MESSAGE value="Completed act() in World" />
     <MESSAGE value="-numChickens" />
     <MESSAGE value="Modified Nest capacity" />
     <MESSAGE value="-import problems" />
@@ -662,7 +669,9 @@
     <MESSAGE value="Fix XML encoding in workspace.xml for PropertiesComponent" />
     <MESSAGE value="Runs again :D (no NN yet)" />
     <MESSAGE value="Running again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Running again" />
+    <MESSAGE value="Added NN files" />
+    <MESSAGE value="Runs with bad NNs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Runs with bad NNs" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
