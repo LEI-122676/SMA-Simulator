@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Runs with bad NNs">
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Running again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Observation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Observation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actions/Sensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Sensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkCoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkCoop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/CoopWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/CoopWorld.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worlds/ForagingWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/ForagingWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/avg_fitness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/heatmap.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/paths.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="tigago" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,26 +110,28 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Sensor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visualize.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tigago&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.ExplorerAgent.executor": "Run",
+    "Python.Sensor.executor": "Run",
+    "Python.SimulatorMotor.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.replay_gui.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.visualize.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "#145 on tigago",
+    "last_opened_file_path": "C:/Users/newli/PycharmProjects/SMA-Simulator/Levels",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\newli\PycharmProjects\SMA-Simulator\Levels" />
       <recent name="$PROJECT_DIR$/../../../../../.." />
       <recent name="$PROJECT_DIR$/Levels" />
       <recent name="$PROJECT_DIR$" />
@@ -147,7 +144,7 @@
       <recent name="$PROJECT_DIR$/Items" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
+  <component name="RunManager">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SMA-Simulator" />
       <option name="ENV_FILES" value="" />
@@ -171,34 +168,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="visualize" type="PythonConfigurationType" factoryName="Python">
-      <module name="SMA-Simulator" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.visualize" />
-      <item itemvalue="Python.demo" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.demo" />

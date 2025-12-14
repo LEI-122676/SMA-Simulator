@@ -164,15 +164,19 @@ class SimulatorMotor(Simulator):
 
             evaluated_results.sort(key=lambda x: x["combined"], reverse=True)
             best_gen_result = evaluated_results[0]
+            avg_score = sum(r["combined"] for r in evaluated_results) / self.POPULATION_SIZE
+
+            # Stats collection
+            rep_path = best_gen_result.get("paths", [[]])[0]
+            self.best_paths_per_gen.append(rep_path)
+            self.avg_fitness_per_gen.append(avg_score)
+            self.best_behaviors.append(set(rep_path))
 
             if self.best_result_global is None or best_gen_result["combined"] > self.best_result_global["combined"]:
                 self.best_result_global = best_gen_result
 
-            avg = sum(r["combined"] for r in evaluated_results) / self.POPULATION_SIZE
-
             # --- RESTORED LOGGING ---
-            print(
-                f"Gen {gen + 1} | Avg: {avg:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
+            print(f"Gen {gen + 1} | Avg: {avg_score:.2f} | Best: {best_gen_result['combined']:.2f} (Fit: {best_gen_result['fitness']:.0f}, Nov: {best_gen_result['novelty']:.2f})")
 
             # Selection
             new_population = []
@@ -296,9 +300,6 @@ class SimulatorMotor(Simulator):
             print(f"\n[System] State saved successfully to {self.SAVE_FILE}")
         except Exception as e:
             print(f"\n[System] Error saving state: {e}")
-        
-    def get_paths(self):
-        return self.best_paths_per_gen
 
     def get_history(self):
         return {
