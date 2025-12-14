@@ -9,8 +9,6 @@ from . import GeneticUtils as GU
 from NeuralNetworks.NeuralNetworkCoop import create_coop_network
 from NeuralNetworks.NeuralNetworkForaging import create_foraging_network
 
-import GeneticUtils as GU
-
 from Actions.Action import Action
 
 from Worlds.CoopWorld import CoopWorld
@@ -21,8 +19,8 @@ from Simulators.Utilities import read_matrix_file_with_metadata
 
 class SimulatorMotor(Simulator):
     POPULATION_SIZE = 80
-    NUM_GENERATIONS = 50
-    MUTATION_RATE = 0.05
+    NUM_GENERATIONS = 30
+    MUTATION_RATE = 0.01
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3

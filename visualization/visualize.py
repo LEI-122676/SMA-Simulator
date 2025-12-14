@@ -24,6 +24,12 @@ from Simulators.SimulatorMotor import SimulatorMotor
 from Worlds.CoopWorld import CoopWorld
 
 
+from Items.Wall import Wall
+from Items.Egg import Egg
+from Items.Nest import Nest
+from Items.Stone import Stone
+from Items.ChickenCoop import ChickenCoop
+
 def parse_start_positions(map_file_path: Optional[str]) -> List[tuple]:
     """Read the map file and return a list of coordinates where 'C' appears.
 
@@ -71,8 +77,7 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
                 heatmap[int(y), int(x)] += 1
 
     fig, ax = plt.subplots(figsize=(6, 6))
-    # Draw heatmap first at a low zorder so map item labels/text can be
-    # drawn on top. Also disable axis-below so text/patches are not hidden.
+
     sns.heatmap(heatmap, ax=ax, cmap="YlOrRd", cbar_kws={"label": "visits"}, zorder=0)
     ax.set_axisbelow(False)
     ax.invert_yaxis()
@@ -80,21 +85,12 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
 
-    # Draw map items from the world's grid so the visualization matches
-    # the original map file: walls (W), eggs (E), nests (N), stones (S), coop (F)
-    from Items.Wall import Wall
-    from Items.Egg import Egg
-    from Items.Nest import Nest
-    from Items.Stone import Stone
-    from Items.ChickenCoop import ChickenCoop
-
     for y in range(height):
         for x in range(width):
             tile = env.map[y][x]
             if tile is None:
                 continue
             if isinstance(tile, Wall):
-                # Draw walls as solid dark blocks on top of the heatmap
                 rect = Rectangle((x - 0.5, y - 0.5), 1, 1, facecolor="#888888", edgecolor="#444444", linewidth=0.5, zorder=6)
                 ax.add_patch(rect)
             if isinstance(tile, Egg):
@@ -110,15 +106,11 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
                 t = ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=12)
                 t.set_path_effects([path_effects.Stroke(linewidth=1.5, foreground='white'), path_effects.Normal()])
 
-    # Start positions will be drawn from the provided `start_positions` argument
-    # (these are parsed from the map file so they reflect the original map layout)
-    # Plot start positions (from map file)
     if start_positions:
         sx = [p[0] for p in start_positions]
         sy = [p[1] for p in start_positions]
         ax.scatter(sx, sy, marker="^", color="green", s=120, edgecolor="k", label="start(s)", zorder=5)
 
-    # Plot goal positions (nests or coop)
     if goal_positions:
         if isinstance(goal_positions, tuple):
             goal_positions = [goal_positions]
@@ -129,12 +121,10 @@ def plot_heatmap(best_behaviors: List[set], env, generations: int, outdir: Optio
     if start_positions or goal_positions:
         ax.legend(loc="upper right", fontsize="small")
 
-    # Force integer 0-based ticks so coordinates shown match map indices
     ax.set_xticks(np.arange(0, width))
     ax.set_yticks(np.arange(0, height))
     ax.set_xticklabels([str(i) for i in range(0, width)])
-    # Keep the visual orientation but invert the numeric labels so the
-    # top row shows the highest index and the bottom row shows 0.
+
     ax.set_yticklabels([str(i) for i in range(height - 1, -1, -1)])
     ax.set_xlim(-0.5, width - 0.5)
     ax.set_ylim(-0.5, height - 0.5)
@@ -176,32 +166,42 @@ def plot_paths(best_paths: List[List[tuple]], avg_fitness: List[float], env, out
             elif isinstance(tile, ChickenCoop):
                 ax.text(x + 0.0, y + 0.0, "F", color="blue", fontsize=10, weight="bold", ha="center", va="center", zorder=2)
 
-    # NOTE: Do not render live agent positions from `env.agents` here —
-    # those reflect current positions after simulation. Start markers
-    # come from the map file and are plotted below using the
-    # `start_positions` argument supplied by the caller.
+    max_lines = min(n, 3)
+    if n <= max_lines:
+        indices = list(range(n))
+    else:
+        indices = sorted({int(round(i * (n - 1) / (max_lines - 1))) for i in range(max_lines)})
 
-    colors = cm.viridis(np.linspace(0, 1, min(8, n)))
+    cmap = plt.get_cmap('tab20')
+    colors = [cmap(i / max(1, len(indices) - 1)) for i in range(len(indices))]
 
-    # pick up to 4 generations evenly spaced
-    indices = [0]
-    if n > 1:
-        indices = [0, n // 3, 2 * n // 3, n - 1]
-        indices = sorted(set(i for i in indices if i < n))
-
-    for idx, i in enumerate(indices):
-        path = best_paths[i]
+    for draw_idx, gen_idx in enumerate(indices):
+        path = best_paths[gen_idx]
         if not path:
             continue
         xs = [p[0] for p in path]
         ys = [p[1] for p in path]
-        color = colors[idx % len(colors)]
-        avg_label = ""
-        if i < len(avg_fitness):
-            avg_label = f" (avg {avg_fitness[i]:.1f})"
-        ax.plot(xs, ys, lw=2.2, color=color, alpha=0.9, label=f"Gen {i+1}{avg_label}")
-        ax.scatter(xs[0], ys[0], marker="o", color=color, edgecolor="k", s=80, zorder=4)
-        ax.scatter(xs[-1], ys[-1], marker="X", color=color, edgecolor="k", s=100, zorder=4)
+
+        t = draw_idx / max(1, len(indices) - 1)
+        linewidth = 1.0 + 2.0 * t
+        alpha = 0.35 + 0.65 * t
+        color = colors[draw_idx % len(colors)]
+
+        pe = [path_effects.Stroke(linewidth=linewidth + 1.2, foreground='black'), path_effects.Normal()]
+        line, = ax.plot(xs, ys, lw=linewidth, color=color, alpha=alpha, label=f"Gen {gen_idx+1}", zorder=3 + draw_idx)
+        try:
+            line.set_path_effects(pe)
+        except Exception:
+            pass
+
+        # Start marker (small filled circle) and end marker (larger X)
+        if xs and ys:
+            ax.scatter(xs[0], ys[0], marker='o', color=color, edgecolor='k', s=50, zorder=4 + draw_idx)
+            ax.scatter(xs[-1], ys[-1], marker='X', color=color, edgecolor='k', s=70, zorder=4 + draw_idx)
+
+    # Provide a legend that doesn't overcrowd the figure: show only the sampled gens
+    if len(indices) > 0:
+        ax.legend(loc='best', fontsize='small')
 
     ax.set_xlim(-0.5, width - 0.5)
     ax.set_ylim(-0.5, height - 0.5)
