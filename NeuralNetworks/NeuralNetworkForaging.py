@@ -83,7 +83,7 @@ class NeuralNetworkForaging(NeuralNetwork):
 
 # --- FACTORY FUNCTION ---
 def create_foraging_network():
-    hidden_architecture = (8, 6)
+    hidden_architecture = (6,)
     hidden_fn = lambda x: np.maximum(0, x)
     output_fn = lambda x: np.tanh(x)
 

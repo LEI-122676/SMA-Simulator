@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="Also runs well on Foraging :)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Levels/example_file_foraging.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/foraging_level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Egg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Egg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Items/Stone.py" beforeDir="false" afterPath="$PROJECT_DIR$/Items/Stone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Levels/foraging_level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Levels/foraging_level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetworks/NeuralNetworkForaging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/SimulatorMotor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worlds/World.py" beforeDir="false" afterPath="$PROJECT_DIR$/Worlds/World.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +147,7 @@
       <recent name="$PROJECT_DIR$/Items" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
+  <component name="RunManager" selected="Python.ReplayGUI">
     <configuration name="ReplayGUI" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SMA-Simulator" />
       <option name="ENV_FILES" value="" />
@@ -196,10 +200,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.demo" />
         <item itemvalue="Python.ReplayGUI" />
         <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
+        <item itemvalue="Python.ReplayGUI" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -218,14 +222,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761237330068</updated>
-    </task>
-    <task id="LOCAL-00005" summary="some Sensor logic">
-      <option name="closed" value="true" />
-      <created>1761342442027</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1761342442027</updated>
     </task>
     <task id="LOCAL-00006" summary="some Sensor logic">
       <option name="closed" value="true" />
@@ -611,7 +607,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765663654408</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="100%">
+      <option name="closed" value="true" />
+      <created>1765825649765</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1765825649765</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -672,7 +676,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="-numChickens" />
     <MESSAGE value="Modified Nest capacity" />
     <MESSAGE value="-import problems" />
     <MESSAGE value="-problems" />
@@ -697,7 +700,8 @@
     <MESSAGE value="Running again" />
     <MESSAGE value="Added NN files" />
     <MESSAGE value="Runs with bad NNs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Runs with bad NNs" />
+    <MESSAGE value="100%" />
+    <option name="LAST_COMMIT_MESSAGE" value="100%" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

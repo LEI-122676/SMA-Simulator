@@ -58,7 +58,7 @@ class World(Environment):
 
                 if obj.put(item):
                     item.position = obj.position
-                    totalReward += getattr(item, 'value', 0)
+                    totalReward += item.value * 2
                     agent.discardItem(item)
                     # print(f"Deposited item {item.name} in Nest at {obj.position}")
                     # print(f"Nest now has {obj.num_of_items}/{obj.capacity} items.")
