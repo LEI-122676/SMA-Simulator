@@ -20,7 +20,7 @@ from Simulators.Utilities import read_matrix_file_with_metadata
 class SimulatorMotor(Simulator):
     POPULATION_SIZE = 80
     NUM_GENERATIONS = 30
-    MUTATION_RATE = 0.01
+    MUTATION_RATE = 0.05
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 3
