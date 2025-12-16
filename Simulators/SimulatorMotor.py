@@ -16,10 +16,17 @@ from Worlds.ForagingWorld import ForagingWorld
 from Simulators.Simulator import Simulator
 from Simulators.Utilities import read_matrix_file_with_metadata
 
+from Items.ChickenCoop import ChickenCoop
+from Actions.Direction import Direction
+from Items.Nest import Nest
+from Items.Egg import Egg
+from Items.Stone import Stone
+from Items.Wall import Wall
+
 
 class SimulatorMotor(Simulator):
-    POPULATION_SIZE = 80
-    NUM_GENERATIONS = 50
+    POPULATION_SIZE = 100
+    NUM_GENERATIONS = 500
     MUTATION_RATE = 0.07
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4
@@ -109,8 +116,17 @@ class SimulatorMotor(Simulator):
             print(f"Save file {self.SAVE_FILE} not found. Run training first.")
         except Exception as e:
             print(f"Error loading state: {e}")
-
-    def execute(self):
+            
+    def execute(self, method="evolutionary"):
+        """
+        :param method: The execution method to use: "evolutionary" or "fixed_policy"
+        """
+        if method == "evolutionary":
+            self.evolutionary()
+        if method == "fixed_policy":
+            self.fixed_policy()
+    
+    def evolutionary(self):
         """
         The 'Black Box' method.
         Runs the full Evolutionary Algorithm process.
@@ -203,6 +219,157 @@ class SimulatorMotor(Simulator):
 
         self._shut_down()
 
+    def fixed_policy(self):
+        """
+        Runs a fixed policy where agents use hardcoded behavior:
+        - CoopWorld: Move towards the Farol (lighthouse)
+        - ForagingWorld: Alternate between moving towards eggs and nests
+        """
+        print("--- FIXED POLICY MODE ---")
+        self.world.initialize_map(self.map_file_path)
+        
+        episode_running = True
+        time_limit = self.TIME_LIMIT
+        
+        while episode_running and self.running:
+            if not self.config_headless:
+                print(self.world.show_world())
+                print("\n")
+            
+            agents = self.world.agents[:]
+            random.shuffle(agents)
+            
+            for agent in agents:
+                action = None
+                if isinstance(self.world, CoopWorld):
+                    # Move towards the Farol
+                    chickenCoop = self.world.chicken_coop
+                    if chickenCoop.position is not None:
+                        action = ChickenCoop.get_action(chickenCoop.position, agent.position)
+                else:
+                    # Política fixa para Foraging usando sensores (Sensor.get_observation):
+                    # - inventario vazio        -> procura Egg
+                    # - inventario nao vazio    -> procura Nest
+                    # Se nada relevante é visível em nenhum raio, anda aleatoriamente.
+                    try:
+                        # dar uma distancia relativamente alta, uma vez que só vê em 8 direcções
+                        agent.sensor.max_range = self.world.width + self.world.height
+                        observation = self.world.observation_for(agent)
+                        wanted_types = (Nest,) if agent.inventory else (Egg,)
+
+                        seen = []  # (dir_name, dist)
+                        for dir_name, (dist, obj_type) in observation.rays.items():
+                            if obj_type is None:
+                                continue
+                            if obj_type in wanted_types:
+                                seen.append((dir_name, dist))
+
+                        if not seen:
+                            action = Action.random_action()
+                        else:
+                            # Choose closest visible target
+                            seen.sort(key=lambda t: t[1])
+                            dir_name = seen[0][0]
+
+                            # Map observation direction name -> Direction enum -> vector
+                            dir_vec = None
+                            for d in Direction:
+                                if d.name.replace('_', '').upper() == dir_name.replace('_', '').upper():
+                                    dir_vec = d.value
+                                    break
+
+                            if dir_vec is None:
+                                action = Action.random_action()
+                            else:
+                                dx, dy = dir_vec
+
+                                # Collapse diagonals to a cardinal move.
+                                if dx != 0 and dy != 0:
+                                    if random.random() < 0.5:
+                                        dy = 0
+                                    else:
+                                        dx = 0
+
+                                action_by_vec = {a.value: a for a in Action}
+                                action = action_by_vec.get((dx, dy), Action.random_action())
+                    except Exception as e:
+                        print(f"Sensor Logic Error: {e}")
+                        action = Action.random_action()
+                # Execute the chosen Action via the world's act() method
+                if action is not None:
+                    try:
+                        self.world.act(action, agent)
+                    except Exception:
+                        try:
+                            dx, dy = action.value
+                            agent.position = (agent.position[0] + dx, agent.position[1] + dy)
+                        except Exception:
+                            pass
+                    try:
+                        agent.step_index += 1
+                    except Exception:
+                        pass
+                    try:
+                        agent.behavior.add(agent.position)
+                        agent.path.append(agent.position)
+                    except Exception:
+                        pass
+                    try:
+                        agent.update_goal_vector()
+                    except Exception:
+                        pass
+            
+            if self.world.is_over():
+                episode_running = False
+            
+            time_limit -= 1
+            if time_limit <= 0:
+                episode_running = False
+            
+            if not self.config_headless:
+                time.sleep(self.TIME_PER_STEP_VISUAL)
+        
+        print("--- Fixed Policy Complete ---")
+        # Record fixed-policy results so visualizers can consume them
+        try:
+            if len(self.world.agents) > 0:
+                # collect each agent's path as a pseudo-generation of best paths
+                collected_paths = [list(agent.path) for agent in self.world.agents]
+                self.best_paths_per_gen = collected_paths
+
+                # average fitness across agents for this single pseudo-generation
+                avg_fitness = sum(getattr(agent, 'reward', 0) for agent in self.world.agents) / len(self.world.agents)
+                self.avg_fitness_per_gen = [avg_fitness]
+
+                # store behaviors (sets of visited positions) per agent
+                self.best_behaviors = [set(tuple(p) for p in agent.path) for agent in self.world.agents]
+
+                # set current generation to 0 for clarity
+                self.current_generation = 0
+
+                # update best_result_global with a simple aggregate summary
+                self.best_result_global = {
+                    'combined': avg_fitness,
+                    'fitness': sum(getattr(agent, 'reward', 0) for agent in self.world.agents),
+                    'final_positions': [tuple(agent.position) for agent in self.world.agents],
+                    'genotype': None
+                }
+
+            # persist state to pickle so visualize/replay_gui can find it
+            self._save_state()
+        except Exception as e:
+            print(f"[Warning] failed to record fixed_policy paths to state: {e}")
+
+    def _get_direction(self, from_pos, to_pos):
+        """Calculate direction from one position to another."""
+        dx = to_pos[0] - from_pos[0]
+        dy = to_pos[1] - from_pos[1]
+        
+        if abs(dx) > abs(dy):
+            return (1, 0) if dx > 0 else (-1, 0)
+        else:
+            return (0, 1) if dy > 0 else (0, -1)
+        
     def _run_single_episode(self, genotype, headless=True):
         """
         Runs one episode.
