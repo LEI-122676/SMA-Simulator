@@ -26,7 +26,7 @@ from Items.Wall import Wall
 
 class SimulatorMotor(Simulator):
     POPULATION_SIZE = 100
-    NUM_GENERATIONS = 500
+    NUM_GENERATIONS = 50
     MUTATION_RATE = 0.07
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4
@@ -96,7 +96,13 @@ class SimulatorMotor(Simulator):
 
         return SimulatorMotor(world, matrix_file, headless, single_run)
 
-    def test(self):
+    def test(self, map_file=None):
+        """
+        Loads the best genome from the save file and replays it.
+        Args:
+            map_file (str, optional): Overrides the map to test on.
+                                      If None, uses the map from the save file.
+        """
         print("--- TESTING MODE: Loading Best Genome ---")
         try:
             with open(self.SAVE_FILE, "rb") as f:
@@ -108,6 +114,13 @@ class SimulatorMotor(Simulator):
                 return
 
             print(f"Loaded Genome. Best Training Score: {best_result['combined']:.2f}")
+
+            # Determine which map to use
+            target_map = map_file if map_file else state.get("map", self.map_file_path)
+
+            # Update the simulator's map path so initialization works correctly
+            self.map_file_path = target_map
+            print(f"Testing on Map: {self.map_file_path}")
 
             # Use visual replay
             self._run_single_episode(best_result["genotype"], headless=False)
