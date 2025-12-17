@@ -4,7 +4,7 @@ from visualization.visualize import visualize_graphs
 
 def main():
 
-    MODE = "TRAIN"       # "TRAIN" or "TEST" or "DUMB"
+    MODE = "DUMB"       # "TRAIN" or "TEST" or "DUMB"
 
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"

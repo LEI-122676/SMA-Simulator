@@ -23,7 +23,7 @@ class ExplorerAgent(Agent):
 
         # Neural Network (The Brain)
         self.nn = nn
-        self.coop_vector = None  # Vector to goal (dx, dy)
+        self.goal_vector = None  # Vector to goal (dx, dy)
 
         self.sensor = None
         self.observation = None
