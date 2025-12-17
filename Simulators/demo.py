@@ -3,13 +3,9 @@ from visualization.visualize import visualize_graphs
 
 
 def main():
-    headless = True     # True == no graphics
-    single_run = False  # True --> Debug 1 episode
 
-    # 1. Choose if you want to TRAIN or TEST
-    MODE = "TEST"  # "TRAIN" or "TEST"
+    MODE = "TRAIN"       # "TRAIN" or "TEST" or "DUMB"
 
-    # 2. Select Map
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"
     farol_level1 = "Levels/farol_level1.txt"
@@ -22,22 +18,27 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-    # --- CONFIGURATION ---
-    training_map = foraging_level3
-    testing_map = foraging_level3
+    training_map = foraging_level2
+    testing_map = foraging_level2
 
-    if MODE == "TRAIN":
-        print(f"--- MODE: TRAIN on {training_map} ---")
-        simulator = SimulatorMotor.create(training_map, headless=headless, single_run=single_run)
-        simulator.execute()
+    if MODE == "DUMB":
+        print(f"--- MODE: DUMB (Heuristic) on {testing_map} ---")
+        # We use 'single_run=True' so it just plays one episode
+        # The SimulatorMotor.fixed_policy() method handles the legacy logic
+        simulator = SimulatorMotor.create(testing_map, headless=False, single_run=True)
+        simulator.execute(method="fixed_policy")
+
+    elif MODE == "TRAIN":
+        print(f"--- MODE: TRAIN (Neuroevolution) on {training_map} ---")
+        simulator = SimulatorMotor.create(training_map, headless=False, single_run=False)
+        simulator.execute(method="evolutionary")
         visualize_graphs(simulator, outdir="results")
 
     elif MODE == "TEST":
-        print(f"--- MODE: TEST on {testing_map} ---")
+        print(f"--- MODE: TEST (Best Neural Network) on {testing_map} ---")
         # Note: We initialize with testing_map to ensure dimensions match if visual replay is needed
         simulator = SimulatorMotor.create(testing_map, headless=False, single_run=True)
         simulator.test(map_file=testing_map)
-
 
 
 if __name__ == "__main__":
