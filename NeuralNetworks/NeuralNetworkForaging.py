@@ -56,9 +56,9 @@ class NeuralNetworkForaging(NeuralNetwork):
         # 3. Vector to Nearest Relevant Target (2 inputs)
         target = None
         if has_item:
-            target = self._get_nearest(agent, agent.world.nests)
+            target = self._get_nearest(agent, agent.world.nests)                # Sets compass to the closest nest
         else:
-            available_eggs = [e for e in agent.world.eggs if not e.picked_up]
+            available_eggs = [e for e in agent.world.eggs if not e.picked_up]   # Sets compass to the closest egg
             target = self._get_nearest(agent, available_eggs)
 
         if target:
@@ -84,7 +84,7 @@ class NeuralNetworkForaging(NeuralNetwork):
 # --- FACTORY FUNCTION ---
 def create_foraging_network():
     hidden_architecture = (6,)
-    hidden_fn = lambda x: np.maximum(0, x)
+    hidden_fn = lambda x: np.maximum(0, x)      # ReLU activation
     output_fn = lambda x: np.tanh(x)
 
     return NeuralNetworkForaging(hidden_architecture, hidden_fn, output_fn)

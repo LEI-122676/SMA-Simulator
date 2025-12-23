@@ -1,14 +1,10 @@
 from Simulators.SimulatorMotor import SimulatorMotor
 from visualization.visualize import visualize_graphs
 
+
 def main():
-<<<<<<< Updated upstream
-    headless = False          # True == no graphics
-    single_run = False        # True --> Debug 1 episode
-=======
 
     MODE = "TRAIN"       # "TRAIN" or "TEST" or "DUMB"
->>>>>>> Stashed changes
 
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"
@@ -22,12 +18,6 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-<<<<<<< Updated upstream
-    simulator_farol = SimulatorMotor.create(foraging_level3, headless=headless, single_run=single_run)
-    simulator_farol.execute(method="fixed_policy")
-    #simulator_farol.test()
-    visualize_graphs(simulator_farol, outdir="results")
-=======
     training_map = farol_level4
     testing_map = farol_level1
 
@@ -49,8 +39,6 @@ def main():
         # Note: We initialize with testing_map to ensure dimensions match if visual replay is needed
         simulator = SimulatorMotor.create(testing_map, headless=False, single_run=True)
         simulator.test(map_file=testing_map)
-
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     main()
