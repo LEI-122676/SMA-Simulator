@@ -4,7 +4,7 @@ from visualization.visualize import visualize_graphs
 
 def main():
 
-    MODE = "DUMB"       # "TRAIN" or "TEST" or "DUMB"
+    MODE = "TRAIN"       # "TRAIN" or "TEST" or "DUMB"
 
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"
@@ -18,8 +18,8 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-    training_map = foraging_level2
-    testing_map = foraging_level2
+    training_map = farol_level4
+    testing_map = farol_level1
 
     if MODE == "DUMB":
         print(f"--- MODE: DUMB (Heuristic) on {testing_map} ---")
@@ -39,7 +39,6 @@ def main():
         # Note: We initialize with testing_map to ensure dimensions match if visual replay is needed
         simulator = SimulatorMotor.create(testing_map, headless=False, single_run=True)
         simulator.test(map_file=testing_map)
-
 
 if __name__ == "__main__":
     main()
