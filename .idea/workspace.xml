@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="train and test maps">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramas.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagramas.puml" afterDir="false" />
+    <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="kkk">
+      <change beforePath="$PROJECT_DIR$/Actions/Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Actions/Direction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Actions/Direction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,22 +81,22 @@
     }
   ]
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator&quot;,
-    &quot;accountId&quot;: &quot;188ddc38-3192-42bf-b822-fe1a337b3988&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LEI-122676/SMA-Simulator",
+    "accountId": "188ddc38-3192-42bf-b822-fe1a337b3988"
   },
-  &quot;recentNewPullRequestHead&quot;: {
-    &quot;server&quot;: {
-      &quot;useHttp&quot;: false,
-      &quot;host&quot;: &quot;github.com&quot;,
-      &quot;port&quot;: null,
-      &quot;suffix&quot;: null
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
     },
-    &quot;owner&quot;: &quot;LEI-122676&quot;,
-    &quot;repository&quot;: &quot;SMA-Simulator&quot;
+    "owner": "LEI-122676",
+    "repository": "SMA-Simulator"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -110,25 +111,20 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ReplayGUI.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Sensor.executor&quot;: &quot;Run&quot;,
     &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
     &quot;Python.demo.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.replay_gui.executor&quot;: &quot;Run&quot;,
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visualize.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hell&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/newli/PycharmProjects/SMA-Simulator/Levels&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Colors&quot;
+    &quot;git-widget-placeholder&quot;: &quot;#127 on hell&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/catarinafigueiredo/Desktop&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\newli\PycharmProjects\SMA-Simulator\Levels" />
       <recent name="$PROJECT_DIR$/../../../../../.." />
       <recent name="$PROJECT_DIR$/Levels" />
       <recent name="$PROJECT_DIR$" />
@@ -141,29 +137,7 @@
       <recent name="$PROJECT_DIR$/Items" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
-    <configuration name="ReplayGUI" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SMA-Simulator" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/visualization" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/visualization/replay_gui.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SMA-Simulator" />
       <option name="ENV_FILES" value="" />
@@ -186,16 +160,12 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.ReplayGUI" />
-      <item itemvalue="Python.demo" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.demo" />
-        <item itemvalue="Python.ReplayGUI" />
         <item itemvalue="Python.demo" />
-        <item itemvalue="Python.ReplayGUI" />
+        <item itemvalue="Python.demo" />
+        <item itemvalue="Python.demo" />
         <item itemvalue="Python.demo" />
       </list>
     </recent_temporary>
@@ -203,7 +173,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+        <option value="bundled-python-sdk-a101402ee41c-968fe969f28a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.28238.29" />
       </set>
     </attachedChunks>
   </component>
@@ -214,6 +184,46 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761237330068</updated>
+    </task>
+    <task id="LOCAL-00002" summary="base classes added">
+      <option name="closed" value="true" />
+      <created>1761239253454</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761239253454</updated>
+    </task>
+    <task id="LOCAL-00003" summary="base classes added">
+      <option name="closed" value="true" />
+      <created>1761239266315</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1761239266315</updated>
+    </task>
+    <task id="LOCAL-00004" summary="removed a class">
+      <option name="closed" value="true" />
+      <created>1761240076457</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1761240076457</updated>
+    </task>
+    <task id="LOCAL-00005" summary="some Sensor logic">
+      <option name="closed" value="true" />
+      <created>1761342442027</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761342442027</updated>
+    </task>
+    <task id="LOCAL-00006" summary="some Sensor logic">
+      <option name="closed" value="true" />
+      <created>1761342636361</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761342636361</updated>
     </task>
     <task id="LOCAL-00007" summary="added Stone, no Lizard">
       <option name="closed" value="true" />
@@ -559,55 +569,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765195444915</updated>
     </task>
-    <task id="LOCAL-00050" summary="Running again">
+    <task id="LOCAL-00050" summary="kkk">
       <option name="closed" value="true" />
-      <created>1765290586307</created>
+      <created>1765287198915</created>
       <option name="number" value="00050" />
       <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1765290586307</updated>
+      <updated>1765287198915</updated>
     </task>
-    <task id="LOCAL-00051" summary="Running again">
-      <option name="closed" value="true" />
-      <created>1765291683345</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1765291683345</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Added NN files">
-      <option name="closed" value="true" />
-      <created>1765656073918</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1765656073918</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Runs with bad NNs">
-      <option name="closed" value="true" />
-      <created>1765663654408</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1765663654408</updated>
-    </task>
-    <task id="LOCAL-00054" summary="100%">
-      <option name="closed" value="true" />
-      <created>1765825649765</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1765825649765</updated>
-    </task>
-    <task id="LOCAL-00055" summary="train and test maps">
-      <option name="closed" value="true" />
-      <created>1765963494641</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1765963494642</updated>
-    </task>
-    <option name="localTasksCounter" value="56" />
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -668,6 +638,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="pickables have value" />
+    <MESSAGE value="Completed act() in World" />
+    <MESSAGE value="-numChickens" />
+    <MESSAGE value="Modified Nest capacity" />
     <MESSAGE value="-import problems" />
     <MESSAGE value="-problems" />
     <MESSAGE value="update" />
@@ -688,12 +662,8 @@
     <MESSAGE value="Simplified single_run logic in Motor" />
     <MESSAGE value="Fix XML encoding in workspace.xml for PropertiesComponent" />
     <MESSAGE value="Runs again :D (no NN yet)" />
-    <MESSAGE value="Running again" />
-    <MESSAGE value="Added NN files" />
-    <MESSAGE value="Runs with bad NNs" />
-    <MESSAGE value="100%" />
-    <MESSAGE value="train and test maps" />
-    <option name="LAST_COMMIT_MESSAGE" value="train and test maps" />
+    <MESSAGE value="kkk" />
+    <option name="LAST_COMMIT_MESSAGE" value="kkk" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
