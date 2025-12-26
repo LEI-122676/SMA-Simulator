@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b2d978a5-766a-435b-bf0a-1265139b4014" name="Changes" comment="train and test maps">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/ExplorerAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/ExplorerAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulators/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Simulators/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagramas.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagramas.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evolution_state.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/evolution_state.pkl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,8 +82,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator.git&quot;,
-    &quot;accountId&quot;: &quot;483e790a-ab28-475c-a48b-fe1d48db6132&quot;
+    &quot;url&quot;: &quot;https://github.com/LEI-122676/SMA-Simulator&quot;,
+    &quot;accountId&quot;: &quot;188ddc38-3192-42bf-b822-fe1a337b3988&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -107,26 +106,26 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.ExplorerAgent.executor": "Run",
-    "Python.ReplayGUI.executor": "Run",
-    "Python.Sensor.executor": "Run",
-    "Python.SimulatorMotor.executor": "Run",
-    "Python.demo.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.replay_gui.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.visualize.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/newli/PycharmProjects/SMA-Simulator/Levels",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.ExplorerAgent.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ReplayGUI.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Sensor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SimulatorMotor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.replay_gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visualize.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hell&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/newli/PycharmProjects/SMA-Simulator/Levels&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Colors&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\newli\PycharmProjects\SMA-Simulator\Levels" />
@@ -204,7 +203,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0978a7220b69-9867c7d4c0a4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.28294.336" />
+        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
       </set>
     </attachedChunks>
   </component>
