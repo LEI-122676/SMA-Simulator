@@ -23,15 +23,15 @@ from Items.Egg import Egg
 
 
 class SimulatorMotor(Simulator):
-    POPULATION_SIZE = 80
-    NUM_GENERATIONS = 50
+    POPULATION_SIZE = 100
+    NUM_GENERATIONS = 40
     MUTATION_RATE = 0.05
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4
     N_ARCHIVE_ADD = 1
     ELITISM_COUNT = 2
 
-    P = 0.8
+    P = 0.7
 
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0

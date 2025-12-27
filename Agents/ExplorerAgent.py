@@ -145,11 +145,11 @@ class ExplorerAgent(Agent):
         if len(self.path) > 0:
             if self.position == self.path[-1]:
                 # Agent did not move (likely hit a wall)
-                self.evaluateCurrentState(-4.0)
+                self.evaluateCurrentState(-3.0)
 
             elif len(self.path) > 1 and self.position == self.path[-2]:
                 # Agent returned to the previous position (oscillating back and forth)
-                self.evaluateCurrentState(-2.0)
+                self.evaluateCurrentState(-1.0)
 
         # Update state after move
         self.update_found_nest()

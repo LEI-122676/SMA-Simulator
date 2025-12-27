@@ -18,8 +18,8 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-    training_map = farol_level3
-    testing_map = farol_level3
+    training_map = foraging_level3
+    testing_map = foraging_level3
 
     if MODE == "DUMB":
         print(f"--- MODE: DUMB (Heuristic) on {testing_map} ---")
@@ -30,7 +30,7 @@ def main():
 
     elif MODE == "TRAIN":
         print(f"--- MODE: TRAIN (Neuroevolution) on {training_map} ---")
-        simulator = SimulatorMotor.create(training_map, headless=False, single_run=False)
+        simulator = SimulatorMotor.create(training_map, headless=True, single_run=False)
         simulator.execute(method="evolutionary")
         visualize_graphs(simulator, outdir="results")
 

@@ -147,7 +147,7 @@ class World(Environment):
 
         distance = math.sqrt(agent.goal_vector[0]**2 + agent.goal_vector[1]**2)
         if distance == 0:
-            return 0.0
+            return 1.0
 
         # Normalize distance to a reward between 0 and 1
         max_distance = math.sqrt(self.width**2 + self.height**2)
