@@ -151,6 +151,9 @@ class ExplorerAgent(Agent):
                 # Agent returned to the previous position (oscillating back and forth)
                 self.evaluateCurrentState(-2.0)
 
+        # Time penalty to discourage dithering/waiting
+        self.evaluateCurrentState(-0.1)
+
         # Update state after move
         self.update_found_nest()
         self.behavior.add(self.position)

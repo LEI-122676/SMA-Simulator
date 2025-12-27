@@ -4,7 +4,7 @@ from visualization.visualize import visualize_graphs
 
 def main():
 
-    MODE = "TRAIN"       # "TRAIN" or "TEST" or "DUMB"
+    MODE = "DUMB"       # "TRAIN" or "TEST" or "DUMB"
 
     simple_farol = "Levels/simple_farol.txt"
     simple_foraging = "Levels/simple_foraging.txt"
@@ -18,8 +18,8 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-    training_map = farol_level3
-    testing_map = farol_level3
+    training_map = foraging_level3
+    testing_map = foraging_level3
 
     if MODE == "DUMB":
         print(f"--- MODE: DUMB (Heuristic) on {testing_map} ---")

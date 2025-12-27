@@ -43,7 +43,8 @@ class World(Environment):
         x, y = future_pos
         obj = self.map[y][x]
         
-        reward += self.calculate_closeness_reward(agent) * self.FACTOR
+        #reward += self.calculate_closeness_reward(agent) * self.FACTOR
+        reward += self.calculate_progress_reward(agent) * self.FACTOR     # Only reward if reaching new best distance
 
         # Interaction with pickable objects
         if isinstance(obj, Pickable) and not obj.picked_up:  # Only happens on foraging world
@@ -140,14 +141,15 @@ class World(Environment):
         """
         pass
 
-    def calculate_closeness_reward(self, agent: ExplorerAgent) -> float:
-        """ Returns a small reward based on how close the agent is to the goal """
+    """
+        def calculate_closeness_reward(self, agent: ExplorerAgent) -> float:
+        # Returns a small reward based on how close the agent is to the goal
         if not agent.goal_vector:           # Foraging
             return 0.0
 
         distance = math.sqrt(agent.goal_vector[0]**2 + agent.goal_vector[1]**2)
         if distance == 0:
-            return 1.0
+            return 0.0
 
         # Normalize distance to a reward between 0 and 1
         max_distance = math.sqrt(self.width**2 + self.height**2)
@@ -156,5 +158,30 @@ class World(Environment):
         # Invert so closer means higher reward
         reward = 1.0 - normalized_distance
         return reward
+    """
 
+    def calculate_progress_reward(self, agent: ExplorerAgent) -> float:  # MODIFIED: Added progress reward method
+        """
+        Returns reward only if the agent is closer to the goal than it has ever been.
+        Discourages standing still or moving back and forth.
+        """
+        if not agent.goal_vector:
+            return 0.0
 
+        # Calculate raw distance
+        current_dist = math.sqrt(agent.goal_vector[0] ** 2 + agent.goal_vector[1] ** 2)
+
+        # If new best distance achieved
+        if current_dist < agent.min_dist_reached:
+            # Improvement magnitude
+            improvement = agent.min_dist_reached - current_dist
+
+            # Cap extreme jumps (e.g. initial step) to avoid outlier rewards
+            reward = min(improvement, 2.0)
+
+            # Update record
+            agent.min_dist_reached = current_dist
+
+            return reward
+
+        return 0.0
