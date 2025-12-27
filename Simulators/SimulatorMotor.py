@@ -31,7 +31,7 @@ class SimulatorMotor(Simulator):
     N_ARCHIVE_ADD = 1
     ELITISM_COUNT = 2
 
-    P = 0.7
+    P = 0.75
 
     TIME_LIMIT = 200
     TIME_PER_STEP_HEADLESS = 0.0
