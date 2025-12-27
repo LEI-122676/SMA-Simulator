@@ -24,7 +24,7 @@ from Items.Egg import Egg
 
 class SimulatorMotor(Simulator):
     POPULATION_SIZE = 100
-    NUM_GENERATIONS = 40
+    NUM_GENERATIONS = 50
     MUTATION_RATE = 0.05
     MUTATION_SIGMA = 0.5
     TOURNAMENT_SIZE = 4

@@ -18,8 +18,8 @@ def main():
     foraging_level3 = "Levels/foraging_level3.txt"
     foraging_level4 = "Levels/foraging_level4.txt"
 
-    training_map = foraging_level3
-    testing_map = foraging_level3
+    training_map = foraging_level4
+    testing_map = foraging_level4
 
     if MODE == "DUMB":
         print(f"--- MODE: DUMB (Heuristic) on {testing_map} ---")
