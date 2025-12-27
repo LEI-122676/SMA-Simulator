@@ -33,6 +33,6 @@ class Agent(ABC):
     def execute(self):
         pass
 
-    @abstractmethod
-    def communicate(self, message: str, from_agent: Agent):
-        pass
+    #@abstractmethod
+    #def communicate(self, message: str, from_agent: Agent):
+        #pass

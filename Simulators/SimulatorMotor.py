@@ -20,8 +20,6 @@ from Items.ChickenCoop import ChickenCoop
 from Actions.Direction import Direction
 from Items.Nest import Nest
 from Items.Egg import Egg
-from Items.Stone import Stone
-from Items.Wall import Wall
 
 
 class SimulatorMotor(Simulator):

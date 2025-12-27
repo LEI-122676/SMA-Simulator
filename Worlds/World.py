@@ -128,11 +128,6 @@ class World(Environment):
             
         return "\n".join(map_representation)
 
-    def broadcast(self, message, from_agent):
-        for agent in self.agents:
-            if agent != from_agent:
-                agent.communicate(message)
-
     @abstractmethod
     def initialize_map(self, file_name):
         pass

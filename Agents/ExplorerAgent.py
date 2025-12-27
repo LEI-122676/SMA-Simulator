@@ -23,7 +23,7 @@ class ExplorerAgent(Agent):
 
         # Neural Network (The Brain)
         self.nn = nn
-        self.coop_vector = None  # Vector to goal (dx, dy)
+        self.goal_vector = None  # Vector to goal (dx, dy) NOT NORMALIZED
 
         self.sensor = None
         self.observation = None
@@ -128,23 +128,6 @@ class ExplorerAgent(Agent):
         if self.sensor:
             self.goal_vector = self.sensor.get_goal_vector(self.position)
 
-    def communicate(self, item: Item, from_agent: Agent):
-        message = {
-            'item_name': item.name,
-            'item_id': item.id,
-            'item_position': item.position,
-            'sender': from_agent,
-        }
-        self.communications.append(message)
-
-    def communicate_nest_positions(self, agents: list):
-        return self.found_nests
-
-    def broadcast_info(self, item: Item, agents: list):
-        for agent in agents:
-            if agent != self:
-                agent.communicate(item, self)
-
     def execute(self):
         # Gets observation
         observation = self.world.observation_for(self)
@@ -157,6 +140,16 @@ class ExplorerAgent(Agent):
         self.world.act(action_to_take, self)
 
         self.step_index += 1
+
+        # Punish agent if he is stuck or oscillating based on movement history
+        if len(self.path) > 0:
+            if self.position == self.path[-1]:
+                # Agent did not move (likely hit a wall)
+                self.evaluateCurrentState(-2.0)
+
+            elif len(self.path) > 1 and self.position == self.path[-2]:
+                # Agent returned to the previous position (oscillating back and forth)
+                self.evaluateCurrentState(-1.0)
 
         # Update state after move
         self.update_found_nest()
