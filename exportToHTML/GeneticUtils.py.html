@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>GeneticUtils.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #5f826b; font-style: italic;}
+.s4 { color: #2aacb8;}
+.s5 { color: #6aab73;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GeneticUtils.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">random</span>
+
+
+<span class="s0">def </span><span class="s1">jaccard_distance</span><span class="s2">(</span><span class="s1">set1</span><span class="s2">, </span><span class="s1">set2</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Calculates the Jaccard distance between two sets. 
+    Distance = 1 - (Intersection / Union) 
+    &quot;&quot;&quot;</span>
+    <span class="s1">intersection </span><span class="s2">= </span><span class="s1">len</span><span class="s2">(</span><span class="s1">set1 </span><span class="s2">&amp; </span><span class="s1">set2</span><span class="s2">)</span>
+    <span class="s1">union </span><span class="s2">= </span><span class="s1">len</span><span class="s2">(</span><span class="s1">set1 </span><span class="s2">| </span><span class="s1">set2</span><span class="s2">)</span>
+    <span class="s0">return </span><span class="s4">1 </span><span class="s2">- </span><span class="s1">intersection </span><span class="s2">/ </span><span class="s1">union </span><span class="s0">if </span><span class="s1">union </span><span class="s2">!= </span><span class="s4">0 </span><span class="s0">else </span><span class="s4">0</span>
+
+
+<span class="s0">def </span><span class="s1">compute_novelty</span><span class="s2">(</span><span class="s1">current_behavior</span><span class="s2">, </span><span class="s1">archive</span><span class="s2">, </span><span class="s1">k</span><span class="s2">=</span><span class="s4">5</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Calculates novelty based on Jaccard distance to the k-nearest neighbors in the archive. 
+    &quot;&quot;&quot;</span>
+    <span class="s0">if not </span><span class="s1">archive</span><span class="s2">:</span>
+        <span class="s0">return </span><span class="s4">1.0</span>
+
+    <span class="s1">distances </span><span class="s2">= [</span><span class="s1">jaccard_distance</span><span class="s2">(</span><span class="s1">current_behavior</span><span class="s2">, </span><span class="s1">b</span><span class="s2">) </span><span class="s0">for </span><span class="s1">b </span><span class="s0">in </span><span class="s1">archive</span><span class="s2">]</span>
+    <span class="s1">distances</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">()</span>
+    <span class="s0">return </span><span class="s1">sum</span><span class="s2">(</span><span class="s1">distances</span><span class="s2">[:</span><span class="s1">k</span><span class="s2">]) / </span><span class="s1">k </span><span class="s0">if </span><span class="s1">len</span><span class="s2">(</span><span class="s1">distances</span><span class="s2">) &gt;= </span><span class="s1">k </span><span class="s0">else </span><span class="s1">sum</span><span class="s2">(</span><span class="s1">distances</span><span class="s2">) / </span><span class="s1">len</span><span class="s2">(</span><span class="s1">distances</span><span class="s2">)</span>
+
+
+<span class="s0">def </span><span class="s1">tournament_selection_dict</span><span class="s2">(</span><span class="s1">evaluated_results</span><span class="s2">, </span><span class="s1">tournament_size</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Selects the best individual from a random sample of the population. 
+    &quot;&quot;&quot;</span>
+    <span class="s1">candidates </span><span class="s2">= </span><span class="s1">random</span><span class="s2">.</span><span class="s1">sample</span><span class="s2">(</span><span class="s1">evaluated_results</span><span class="s2">, </span><span class="s1">tournament_size</span><span class="s2">)</span>
+    <span class="s1">best_candidate </span><span class="s2">= </span><span class="s1">max</span><span class="s2">(</span><span class="s1">candidates</span><span class="s2">, </span><span class="s1">key</span><span class="s2">=</span><span class="s0">lambda </span><span class="s1">x</span><span class="s2">: </span><span class="s1">x</span><span class="s2">[</span><span class="s5">&quot;combined&quot;</span><span class="s2">])</span>
+    <span class="s0">return </span><span class="s1">best_candidate</span>
+
+
+<span class="s0">def </span><span class="s1">crossover_one_point</span><span class="s2">(</span><span class="s1">parent1_genes</span><span class="s2">, </span><span class="s1">parent2_genes</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Performs one-point crossover between two genotypes. 
+    &quot;&quot;&quot;</span>
+    <span class="s0">if </span><span class="s1">len</span><span class="s2">(</span><span class="s1">parent1_genes</span><span class="s2">) != </span><span class="s1">len</span><span class="s2">(</span><span class="s1">parent2_genes</span><span class="s2">):</span>
+        <span class="s6"># Fallback if lengths differ (shouldn't happen in fixed topology)</span>
+        <span class="s0">return </span><span class="s1">list</span><span class="s2">(</span><span class="s1">parent1_genes</span><span class="s2">), </span><span class="s1">list</span><span class="s2">(</span><span class="s1">parent2_genes</span><span class="s2">)</span>
+
+    <span class="s1">length </span><span class="s2">= </span><span class="s1">len</span><span class="s2">(</span><span class="s1">parent1_genes</span><span class="s2">)</span>
+    <span class="s0">if </span><span class="s1">length </span><span class="s2">&lt; </span><span class="s4">2</span><span class="s2">:</span>
+        <span class="s0">return </span><span class="s1">list</span><span class="s2">(</span><span class="s1">parent1_genes</span><span class="s2">), </span><span class="s1">list</span><span class="s2">(</span><span class="s1">parent2_genes</span><span class="s2">)</span>
+
+    <span class="s1">cx_point </span><span class="s2">= </span><span class="s1">random</span><span class="s2">.</span><span class="s1">randint</span><span class="s2">(</span><span class="s4">1</span><span class="s2">, </span><span class="s1">length </span><span class="s2">- </span><span class="s4">1</span><span class="s2">)</span>
+
+    <span class="s1">child1 </span><span class="s2">= </span><span class="s1">parent1_genes</span><span class="s2">[:</span><span class="s1">cx_point</span><span class="s2">] + </span><span class="s1">parent2_genes</span><span class="s2">[</span><span class="s1">cx_point</span><span class="s2">:]</span>
+    <span class="s1">child2 </span><span class="s2">= </span><span class="s1">parent2_genes</span><span class="s2">[:</span><span class="s1">cx_point</span><span class="s2">] + </span><span class="s1">parent1_genes</span><span class="s2">[</span><span class="s1">cx_point</span><span class="s2">:]</span>
+
+    <span class="s0">return </span><span class="s1">child1</span><span class="s2">, </span><span class="s1">child2</span>
+
+
+<span class="s0">def </span><span class="s1">mutate_weights_gaussian</span><span class="s2">(</span><span class="s1">genotype</span><span class="s2">, </span><span class="s1">mutation_rate</span><span class="s2">, </span><span class="s1">sigma</span><span class="s2">=</span><span class="s4">0.1</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Mutates a list of floats (weights) by adding Gaussian noise. 
+    Used for Neuroevolution. 
+    &quot;&quot;&quot;</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">genotype</span><span class="s2">)):</span>
+        <span class="s0">if </span><span class="s1">random</span><span class="s2">.</span><span class="s1">random</span><span class="s2">() &lt; </span><span class="s1">mutation_rate</span><span class="s2">:</span>
+            <span class="s6"># Add noise</span>
+            <span class="s1">genotype</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] += </span><span class="s1">random</span><span class="s2">.</span><span class="s1">gauss</span><span class="s2">(</span><span class="s4">0</span><span class="s2">, </span><span class="s1">sigma</span><span class="s2">)</span>
+            <span class="s6"># Clamp weights to keep them stable (optional, but good practice)</span>
+            <span class="s1">genotype</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">max</span><span class="s2">(-</span><span class="s4">2.0</span><span class="s2">, </span><span class="s1">min</span><span class="s2">(</span><span class="s4">2.0</span><span class="s2">, </span><span class="s1">genotype</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]))</span>
+
+
+<span class="s0">def </span><span class="s1">mutate_random_reset</span><span class="s2">(</span><span class="s1">genotype</span><span class="s2">, </span><span class="s1">action_space</span><span class="s2">, </span><span class="s1">mutation_rate</span><span class="s2">):</span>
+    <span class="s3">&quot;&quot;&quot; 
+    Legacy mutation for Discrete Actions. 
+    &quot;&quot;&quot;</span>
+    <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range</span><span class="s2">(</span><span class="s1">len</span><span class="s2">(</span><span class="s1">genotype</span><span class="s2">)):</span>
+        <span class="s0">if </span><span class="s1">random</span><span class="s2">.</span><span class="s1">random</span><span class="s2">() &lt; </span><span class="s1">mutation_rate</span><span class="s2">:</span>
+            <span class="s1">genotype</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">random</span><span class="s2">.</span><span class="s1">choice</span><span class="s2">(</span><span class="s1">action_space</span><span class="s2">)</span></pre>
+</body>
+</html>
