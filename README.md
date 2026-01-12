@@ -1,5 +1,10 @@
 # SMA-Simulator
 
+## Grupo AA1
+- Catarina Figueiredo, 122706
+- Pedro Torrado, 106584
+- Tiago Candeias, 122676
+
 Simulador de agentes (SMA) em Python com suporte a ambientes de forrageamento e cooperação, redes neurais simples e visualizações.
 
 ## Visão geral
@@ -50,7 +55,7 @@ O ficheiro `requirements.txt` já está incluído na raiz do repositório com as
 - `visualization/` — scripts para gerar gráficos e replay GUI.
 - `Levels/` — exemplos de mapas (text files) usados pelo simulador.
 
-## Executar o demo
+## Executar o projeto
 
 O arquivo de entrada principal é `Simulators/demo.py`. Ele possui 3 modos de execução:
 
@@ -60,22 +65,20 @@ O arquivo de entrada principal é `Simulators/demo.py`. Ele possui 3 modos de ex
 
 Exemplo para executar o demo em PowerShell:
 
-```powershell
-# ativar o ambiente como acima, então:
-python -m Simulators.demo
-
-# Ou editar a variável MODE dentro de Simulators/demo.py e executar:
-python Simulators\demo.py
+```powershell/terminal
+# A partir da raíz do projeto, abra um terminal e execute:
+$ python -m Simulators.demo
 ```
 
-Por padrão o `demo.py` usa `headless=False` (mostra visualização durante a execução) e grava gráficos de análise em `results/` quando no modo `TRAIN`.
+Deve mudar a variável "MODE" no início de `demo.py` para um dos 3 modos de execução referidos acima.
 
 ### Executar com parâmetros (visualize runner)
 
 Você também pode usar o script `visualization/visualize.py` para rodar o simulador com argumentos CLI e salvar gráficos:
 
-```powershell
-python visualization\visualize.py --map Levels/simple_foraging.txt --pop 40 --gens 20 --outdir results
+```powershell/terminal
+# Exemplo (executar no mapa 3 de foraging com 40 gerações de 80 indivíduos):
+$ python -m visualization.visualize --map Levels/foraging_level3.txt --pop 80 --gens 40 --outdir results
 ```
 
 Parâmetros úteis:
@@ -90,22 +93,10 @@ Parâmetros úteis:
 - `visualization/visualize.py` gera gráficos (heatmap de visitas, caminhos representativos, fitness por geração) e salva PNGs.
 - `visualization/replay_gui.py` é uma pequena GUI baseada em `tkinter` + `matplotlib` para abrir replays/arquivos; execute-a diretamente para carregar resultados.
 
-## Testes
-
-Não há uma suíte de testes automatizada incluída no repositório (ex.: pytest). Para testar manualmente:
-
-1. Execute o demo em modo `DUMB` para validar que o simulador roda e que não há erros óbvios.
-2. Execute com `MODE = "TRAIN"` por poucas gerações (ex.: `NUM_GENERATIONS` menor) e verifique a criação de imagens em `results/`.
-
-Se desejar, posso adicionar uma pequena suíte de testes (pytest) com um teste rápido de importação e execução mínima do motor.
-
-## Sugestões e notas de desenvolvimento
-
-- Para reproduzir resultados mais previsíveis, fixe a seed de `random` e `numpy.random` antes dos treinos.
-- Parâmetros importantes do motor (população, número de gerações, tamanho da rede) estão em `Simulators/SimulatorMotor.py` e podem ser ajustados antes da execução.
-- Para execução em servidores sem GUI, passe `--headless` a `visualize.py` ou utilize `SimulatorMotor.create(..., headless=True)`.
+```powershell/terminal
+# Para abrir a GUI (apenas após treinos, .pkl é necessário):
+$ python -m visualization.replay_gui
+```
 
 
 ---
-
-*README gerado com auxílio de ferramentas automatizadas.*
