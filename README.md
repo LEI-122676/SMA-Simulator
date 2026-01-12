@@ -29,18 +29,20 @@ O objetivo deste README é explicar como instalar dependências, executar o demo
 
 Observação: `tkinter` faz parte da biblioteca padrão do Python em muitas distribuições; no Windows normalmente já está disponível. Se o seu ambiente Python foi construído sem `tkinter`, instale a versão do Python que inclua suporte a Tk.
 
-## Instalação (Windows PowerShell)
+---
+
+## Instalação
 
 1. Crie um ambiente virtual e ative-o:
 
-```powershell
+```terminal
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
 2. Instale as dependências:
 
-```powershell
+```terminal
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -63,20 +65,20 @@ O arquivo de entrada principal é `Simulators/demo.py`. Ele possui 3 modos de ex
 - `TRAIN` — treina com um algoritmo evolucionário (várias gerações) e salva resultados em `results/`.
 - `TEST` — testa a rede treinada num mapa (execução única).
 
-Exemplo para executar o demo em PowerShell:
+Exemplo para executar o demo num Terminal:
 
-```powershell/terminal
+```terminal
 # A partir da raíz do projeto, abra um terminal e execute:
 $ python -m Simulators.demo
 ```
 
 Deve mudar a variável "MODE" no início de `demo.py` para um dos 3 modos de execução referidos acima.
 
-### Executar com parâmetros (visualize runner)
+### Executar com parâmetros (visualizar o runner)
 
 Você também pode usar o script `visualization/visualize.py` para rodar o simulador com argumentos CLI e salvar gráficos:
 
-```powershell/terminal
+```terminal
 # Exemplo (executar no mapa 3 de foraging com 40 gerações de 80 indivíduos):
 $ python -m visualization.visualize --map Levels/foraging_level3.txt --pop 80 --gens 40 --outdir results
 ```
@@ -90,13 +92,8 @@ Parâmetros úteis:
 
 ## Visualização gráfica e replay GUI
 
-- `visualization/visualize.py` gera gráficos (heatmap de visitas, caminhos representativos, fitness por geração) e salva PNGs.
-- `visualization/replay_gui.py` é uma pequena GUI baseada em `tkinter` + `matplotlib` para abrir replays/arquivos; execute-a diretamente para carregar resultados.
-
-```powershell/terminal
+```terminal
 # Para abrir a GUI (apenas após treinos, .pkl é necessário):
 $ python -m visualization.replay_gui
 ```
-
-
 ---
