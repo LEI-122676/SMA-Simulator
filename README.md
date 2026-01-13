@@ -69,7 +69,7 @@ Exemplo para executar o demo num Terminal:
 
 ```terminal
 # A partir da raíz do projeto, abra um terminal e execute:
-$ python -m Simulators.demo
+python -m Simulators.demo
 ```
 
 Deve mudar a variável "MODE" no início de `demo.py` para um dos 3 modos de execução referidos acima.
@@ -80,7 +80,7 @@ Você também pode usar o script `visualization/visualize.py` para rodar o simul
 
 ```terminal
 # Exemplo (executar no mapa 3 de foraging com 40 gerações de 80 indivíduos):
-$ python -m visualization.visualize --map Levels/foraging_level3.txt --pop 80 --gens 40 --outdir results
+python -m visualization.visualize --map Levels/foraging_level3.txt --pop 80 --gens 40 --outdir results
 ```
 
 Parâmetros úteis:
