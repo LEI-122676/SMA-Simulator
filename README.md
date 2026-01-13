@@ -26,6 +26,8 @@ O objetivo deste README é explicar como instalar dependências, executar o demo
   - numpy
   - matplotlib
   - seaborn
+  - pandas
+  - pillow
 
 Observação: `tkinter` faz parte da biblioteca padrão do Python em muitas distribuições; no Windows normalmente já está disponível. Se o seu ambiente Python foi construído sem `tkinter`, instale a versão do Python que inclua suporte a Tk.
 
@@ -37,7 +39,6 @@ Observação: `tkinter` faz parte da biblioteca padrão do Python em muitas dist
 
 ```terminal
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
 ```
 
 2. Instale as dependências:
@@ -94,6 +95,6 @@ Parâmetros úteis:
 
 ```terminal
 # Para abrir a GUI (apenas após treinos, .pkl é necessário):
-$ python -m visualization.replay_gui
+python -m visualization.replay_gui
 ```
 ---
