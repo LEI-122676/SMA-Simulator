@@ -3,49 +3,49 @@
 !pragma layout smetana
 !define JAVA_STYLE
 
-abstract class Simulator {
-  + {abstract} create(file_name_args: String): Simulator
-  + {abstract} execute(): void
+'''''ACTIONS''''''''''''''''''
+
+enum Action {
+  MOVE_NORTH = (0, 1)
+  MOVE_SOUTH = (0, -1)
+  MOVE_WEST = (-1, 0)
+  MOVE_EAST = (1, 0)
+  ---
+  + random_action(): Action
+  + get_all_actions(): List[Actions]
 }
 
-class SimulatorMotor {
-  # POPULATION_SIZE = 80
-  # NUM_GENERATIONS = 50
-  # MUTATION_RATE = 0.05
-  # MUTATION_SIGMA = 0.5
-  # TOURNAMENT_SIZE = 4
-  # N_ARCHIVE_ADD = 1
-  # ELITISM_COUNT = 2
-  # P = 0.8
-  # TIME_LIMIT = 200
-  # TIME_PER_STEP_HEADLESS = 0.0
-  # TIME_PER_STEP_VISUAL = 0.05
-  # SAVE_FILE = "evolution_state.pkl"
-  ---
-  - world: World
-  - map_file_path: String
-  - running: bool
-  - config_headless: bool
-  - single_run: bool
-  - population: List[List[float]]
-  - archive: List[List[Tuple[int, int]]]
-  - best_result_global: Dict
-  - current_generation: int
-  - best_paths_per_gen: List[List[Tuple[int, int]]]
-  - avg_fitness_per_gen: List[float]
-  - best_behaviors: List[Set[Tuple[int, int]]]
-  ---
-  + __init__(world: World, map_file_path: String, headless: bool, single_run: bool)
-  + test(map_file: String): void
-  + evolutionary(): void
-  + fixed_policy(): void
-  + get_direction(from_pos: Tuple[int, int], to_pos: Tuple[int, int]): Tuple[int, int]
-  + _run_single_episode(genotype: List[float], headless: bool): Dict
-  + _shut_down(): void
-  + _replay_best_strategy(genotype: List[float]): void
-  + _save_state(): void
-  + get_history(): Dict
+enum Direction {
+  NORTH = (0, -1)
+  SOUTH = (0, 1)
+  WEST  = (-1, 0)
+  EAST  = (1, 0)
+  NORTH_EAST = (1, -1)
+  NORTH_WEST = (-1, -1)
+  SOUTH_EAST = (1, 1)
+  SOUTH_WEST = (-1, 1)
 }
+
+class Observation {
+  - rays: Dict[String, Tuple[int, Class]]
+  + __init__(): void
+  + add_ray(direction_name: String, distance: int, obj_type: Class): void
+}
+
+class Sensor {
+  - world_map: World
+  - height: int
+  - width: int
+  - max_range: int
+  - coop_position: Tuple[int, int]
+  + __init__(world_map: List[List[Object]], max_range: int = 10): void
+  + get_observation(explorer_position: Tuple[int, int]): Observation
+  + _cast_ray(start_pos: Tuple[int, int], step_vector: Tuple[int, int]): Tuple[int, Object]
+  + _get_coop_position(): Tuple[int, int]
+  + get_goal_vector(explorer_position: Tuple[int, int]): Tuple[int, int]
+}
+
+'''''AGENTS''''''''''''''''''
 
 abstract class Agent {
   + {abstract} create(fileNameArgs: String): Agent
@@ -54,7 +54,9 @@ abstract class Agent {
   + {abstract} evaluateCurrentState(reward: float)
   + {abstract} install(sensor: Sensor, world: World): void
   + {abstract} execute(): void
-  + {abstract} communicate(message: String, from_agent: Agent): void
+}
+
+class Chicken {
 }
 
 class ExplorerAgent {
@@ -65,7 +67,7 @@ class ExplorerAgent {
   - nn: NeuralNetwork
   - goal_vector: Tuple[int, int]
   - sensor: Sensor
-  - observation: set
+  - observation: Observation
   - step_index: int
   - inventory: List[Pickable]
   - communications: List[Dict]
@@ -79,85 +81,20 @@ class ExplorerAgent {
   + _dumb_action(): Action
   + get_nn_inputs(): List[float]
   + update_goal_vector(): void
-  + communicate_nest_positions(agents: List[Agent]): List[Tuple[int, int]]
-  + broadcast_info(item: Item, agents: List[Agent]): void
   + storeItem(item: Pickable, x: int, y: int): void
   + discardItem(item: Pickable): void
   + is_in_CoopWorld(): bool
   + update_found_nest(): void
 }
 
-class Chicken {
+'''''ITEMS''''''''''''''''''
+
+class ChickenCoop {
+  + __init__(x: int, y: int): void
+  + get_action(target_position: Tuple[int, int], explorer_position: Tuple[int, int]): Action
 }
 
-enum Action {
-  MOVE_NORTH = (0, 1)
-  MOVE_SOUTH = (0, -1)
-  MOVE_WEST = (-1, 0)
-  MOVE_EAST = (1, 0)
-  ---
-  + random_action(): Action
-  + get_all_actions(): List[Actions]
-}
-
-enum Direction {
-  NORTH = (0, 1)
-  SOUTH = (0, -1)
-  WEST  = (1, 0)
-  EAST  = (-1, 0)
-  NORTH_EAST = (-1, 1)
-  NORTH_WEST = (1, 1)
-  SOUTH_EAST = (-1, -1)
-  SOUTH_WEST = (1, -1)
-}
-
-abstract class Environment {
-  + {abstract} observation_for(explorer: ExplorerAgent): Observation
-  + {abstract} act(action: Action, agent: Agent): void
-}
-
-abstract class World {
-  # FACTOR = 3
-  ---
-  - width: int
-  - height: int
-  - solved: boolean
-  - map: List[List[Object]]
-  - agents: List[Agent]
-  ---
-  + __init__(width: int = 30, height: int = 30): void
-  + reset(): void
-  + is_valid_action(action_to_validate: Action, explorer: ExplorerAgent): Tuple[int, int]
-  + add_agent(agent: ExplorerAgent, position: Tuple[int, int]): void
-  + show_world(): String
-  + broadcast(message: Item, from_agent: Agent): void
-  + calculate_closeness_reward(agent: ExplorerAgent): float
-  + {abstract} initialize_map(file_name: String): void
-  + {abstract} is_over(): bool
-}
-
-class ForagingWorld {
-  - stones: List[Stone]
-  - nests: List[Nest]
-  - eggs: List[Egg]
-  + __init__(width: int, height: int): void
-  + read_foraging_file(filename: String): void
-  + is_solved(): bool
-}
-
-class CoopWorld {
-  - chicken_coop: ChickenCoop
-  + __init__(width: int, height: int): void
-  + read_coop_file(filename: String): void
-}
-
-class Observation {
-  - rays: Dict[String, Tuple[int, Class]]
-  + __init__(): void
-  + add_ray(direction_name: String, distance: int, obj_type: Class): void
-}
-
-class Wall {
+class Egg {
   + __init__(id: int, x: int, y: int): void
 }
 
@@ -169,14 +106,6 @@ abstract class Item {
   + __str__(): String
 }
 
-class Pickable {
-  - picked_up: boolean
-  - value: int
-  + __init__(name: String, id: int, x: int, y: int, value: int)
-  + pickUp(): void
-  + drop(): void
-}
-
 class Nest {
   - capacity: int
   - num_of_items: int
@@ -185,30 +114,23 @@ class Nest {
   + put(item: Item): boolean
 }
 
-class Egg {
-  + __init__(id: int, x: int, y: int): void
-}
-
-class ChickenCoop {
-  + __init__(x: int, y: int): void
-  + get_action(target_position: Tuple[int, int], explorer_position: Tuple[int, int]): Action
+class Pickable {
+  - picked_up: boolean
+  - value: int
+  + __init__(name: String, id: int, x: int, y: int, value: int)
+  + pickUp(): void
+  + drop(): void
 }
 
 class Stone {
   + __init__(id: int, x: int, y: int): void
 }
 
-class Sensor {
-  - world_map: World
-  - height: int
-  - width: int
-  - max_range: int
-  - coop_position: Tuple[int, int]
-  + __init__(world_map: List[List[Object]], max_range: int = 10): void
-  + get_observation(explorer_position: Tuple[int, int]): Observation
-  + _cast_ray(start_pos: Tuple[int, int], step_vector: Tuple[int, int]): Tuple[int, Object]
-  + _get_coop_position(): Tuple[int, int]
+class Wall {
+  + __init__(id: int, x: int, y: int): void
 }
+
+'''''NEURAL NETWORK''''''''''''''''''
 
 abstract class NeuralNetwork {
   - input_size: int
@@ -241,6 +163,93 @@ class NeuralNetworkForaging {
   + __init__(hidden_architecture: Tuple[int], hidden_activation: Function, output_activation: Function): void
   + _get_nearest(agent: Agent, objects: List[Item]): Item
   + create_foraging_network(): NeuralNetworkForaging
+}
+
+'''''SIMULATOR''''''''''''''''''
+
+abstract class Simulator {
+  + {abstract} create(file_name_args: String): Simulator
+  + {abstract} execute(): void
+}
+
+class SimulatorMotor {
+  # POPULATION_SIZE = 100
+  # NUM_GENERATIONS = 50
+  # MUTATION_RATE = 0.05
+  # MUTATION_SIGMA = 0.5
+  # TOURNAMENT_SIZE = 4
+  # N_ARCHIVE_ADD = 1
+  # ELITISM_COUNT = 2
+  # P = 0.75
+  # TIME_LIMIT = 200
+  # TIME_PER_STEP_HEADLESS = 0.0
+  # TIME_PER_STEP_VISUAL = 0.05
+  # SAVE_FILE = "evolution_state.pkl"
+  ---
+  - world: World
+  - map_file_path: String
+  - running: bool
+  - config_headless: bool
+  - single_run: bool
+  - population: List[List[float]]
+  - archive: List[List[Tuple[int, int]]]
+  - best_result_global: Dict
+  - current_generation: int
+  - best_paths_per_gen: List[List[Tuple[int, int]]]
+  - avg_fitness_per_gen: List[float]
+  - best_behaviors: List[Set[Tuple[int, int]]]
+  ---
+  + __init__(world: World, map_file_path: String, headless: bool, single_run: bool)
+  + test(map_file: String): void
+  + evolutionary(): void
+  + fixed_policy(): void
+  + _get_direction(from_pos: Tuple[int, int], to_pos: Tuple[int, int]): Tuple[int, int]
+  + _run_single_episode(genotype: List[float], headless: bool): Dict
+  + _shut_down(): void
+  + _replay_best_strategy(genotype: List[float]): void
+  + _save_state(): void
+  + get_history(): Dict
+}
+
+'''''WORLDS''''''''''''''''''
+
+class CoopWorld {
+  - chicken_coop: ChickenCoop
+  + __init__(width: int, height: int): void
+  + read_coop_file(filename: String): void
+}
+
+abstract class Environment {
+  + {abstract} observation_for(explorer: ExplorerAgent): Observation
+  + {abstract} act(action: Action, agent: Agent): void
+}
+
+abstract class World {
+  # FACTOR = 3
+  ---
+  - width: int
+  - height: int
+  - solved: boolean
+  - map: List[List[Object]]
+  - agents: List[Agent]
+  ---
+  + __init__(width: int = 30, height: int = 30): void
+  + reset(): void
+  + is_valid_action(action_to_validate: Action, explorer: ExplorerAgent): Tuple[int, int]
+  + add_agent(agent: ExplorerAgent, position: Tuple[int, int]): void
+  + show_world(): String
+  + calculate_closeness_reward(agent: ExplorerAgent): float
+  + {abstract} initialize_map(file_name: String): void
+  + {abstract} is_over(): bool
+}
+
+class ForagingWorld {
+  - stones: List[Stone]
+  - nests: List[Nest]
+  - eggs: List[Egg]
+  + __init__(width: int, height: int): void
+  + read_foraging_file(filename: String): void
+  + is_solved(): bool
 }
 
 Simulator <|-- SimulatorMotor
